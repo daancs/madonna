@@ -1,11 +1,12 @@
 import os
 
 from flask import Flask
-from . import db
+from routes import routes_blueprint
 
 
 def create_app(test_config=None):
     # create and configure the app
+    app.register_blueprint(routes)
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
         SECRET_KEY='dev',
@@ -28,8 +29,5 @@ def create_app(test_config=None):
     cur = db.get_db()
 
     # a simple page that says hello
-    @app.route('/')
-    def hello():
-        return 'Hello, World!'
 
     return app
