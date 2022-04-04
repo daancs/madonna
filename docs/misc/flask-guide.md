@@ -61,4 +61,4 @@
     ```
 4. Starta flask genom att köra `flask run` i terminalen
 
-5. För att se sidan, öppna en webbläsare och skriv in `localhost:5000` i sökfältet
+5. För att se sidan, öppna http://localhost:5000 i en webbläsare
