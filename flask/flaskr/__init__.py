@@ -30,5 +30,8 @@ def create_app(test_config=None):
     cur = db.get_db()
 
     # a simple page that says hello
+    @app.route('/')
+    def hello():
+        return 'Hello, World!'
 
     return app
