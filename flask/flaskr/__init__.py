@@ -2,12 +2,14 @@ import os
 
 from flask import Flask
 from . import db
+
 # from routes import routes_blueprint
 
 
 def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
+    #db.init_app(app)
     app.config.from_mapping(
         SECRET_KEY='dev',
         DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite'),
@@ -27,11 +29,11 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    cur = db.get_db()
+    #cur = db.get_db()
 
     # a simple page that says hello
     @app.route('/')
     def hello():
-        return 'Hello, World!'
+        return 'Hej, Clara!'
 
     return app
