@@ -1,15 +1,16 @@
 import os
-#from flask import psycopg2
-import sqlite3 
 import click
+import psycopg2
 from flask import current_app, g
 from flask.cli import with_appcontext
 
 def init_db():
-    db = get_db()
+    conn = get_db()
+    cur = conn.cursor()
 
     with current_app.open_resource('../db/schema.sql') as f:
-        db.executescript(f.read().decode('utf8'))
+        cur.execute(f.read())
+        conn.commit()
 
 @click.command('init-db')
 @with_appcontext
@@ -24,11 +25,21 @@ def init_app(app):
 
 def get_db():
     if 'db' not in g:
-        g.db = sqlite3.connect(
+        g.db = psycopg2.connect(
+            host="localhost",
+            database="madonna",
+            #user=os.environ['DB_USERNAME'],
+            #password=os.environ['DB_PASSWORD'])
+            user="postgres",
+            password="Simonsson01")
+        '''
+            user=os.environ['DB_USERNAME'],
+            password=os.environ['DB_PASSWORD']
             current_app.config['DATABASE'],
+            #Oklart vad man ska skriva för att detecta types i psycopg2
             detect_types=sqlite3.PARSE_DECLTYPES
-        )
-        g.db.row_factory = sqlite3.Row
+        '''
+        #g.db.row_factory = psycopg2.Row
 
     return g.db
 

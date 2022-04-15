@@ -1,4 +1,6 @@
 import functools
+from psycopg2._psycopg import IntegrityError
+import psycopg2.extras
 
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
@@ -13,7 +15,8 @@ def register():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        db = get_db()
+        conn = get_db()
+        cur = conn.cursor()
         error = None
 
         if not username:
@@ -23,12 +26,12 @@ def register():
 
         if error is None:
             try:
-                db.execute(
-                    "INSERT INTO user (username, password) VALUES (?, ?)",
+                cur.execute(
+                    "INSERT INTO users (username, password) VALUES (%s, %s)",
                     (username, generate_password_hash(password)),
                 )
-                db.commit()
-            except db.IntegrityError:
+                conn.commit()
+            except conn.IntegrityError:
                 error = f"User {username} is already registered."
             else:
                 return redirect(url_for("auth.login"))
@@ -42,11 +45,13 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        db = get_db()
         error = None
-        user = db.execute(
-            'SELECT * FROM user WHERE username = ?', (username,)
-        ).fetchone()
+
+        conn = get_db()
+        cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+        query = "SELECT * FROM users Where username = %s"
+        cur.execute(query, (username,))
+        user = cur.fetchone()
 
         if user is None:
             error = 'Incorrect username.'
@@ -69,9 +74,12 @@ def load_logged_in_user():
     if user_id is None:
         g.user = None
     else:
-        g.user = get_db().execute(
-            'SELECT * FROM user WHERE id = ?', (user_id,)
-        ).fetchone()
+        conn = get_db()
+        cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+        cur.execute(
+            'SELECT * FROM users WHERE id = %s', (user_id,)
+        )
+        g.user = cur.fetchone()
 
 @bp.route('/logout')
 def logout():
