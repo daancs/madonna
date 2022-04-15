@@ -1,13 +1,12 @@
 import os
 import click
 import psycopg2
-from flask import g
+from flask import current_app, g
 from flask.cli import with_appcontext
 
 def init_app(app):
     app.teardown_appcontext(close_db)
     get_db()
-
 
 def init_db():
     conn = get_db()
@@ -37,10 +36,25 @@ def close_db(e=None):
 @click.command('init-db')
 @with_appcontext
 def init_db_command():
-    """Clear the existing data and create new tables."""
+    clear_db()
     init_db()
     click.echo('Initialized the database.')
+
+def clear_db():
+    conn = get_db()
+    cur = conn.cursor()
+    try:
+        print("Attempting to clear database")        
+        cur.execute("DROP SCHEMA public CASCADE")
+        cur.execute("CREATE SCHEMA public")
+        cur.execute("GRANT ALL ON SCHEMA public TO postgres")
+        conn.commit()
+        print("Database cleared")
+    except:
+        print("Error: unable to drop schema, something failed")
+        conn.rollback() 
 
 def init_app(app):
     app.teardown_appcontext(close_db)
     app.cli.add_command(init_db_command)
+

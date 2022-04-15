@@ -27,7 +27,7 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-     cur = db.get_db()
+    cur = db.get_db()
 
     # a simple page that says hello
     @app.route('/')
