@@ -29,6 +29,9 @@ def create_app(test_config=None):
     from . import db
     db.init_app(app)
 
+    from . import guiQuery
+    app.register_blueprint(guiQuery.bp)
+
     # a simple page that says hello
     @app.route('/')
     def hello():
