@@ -31,7 +31,7 @@ def get_db():
             #user=os.environ['DB_USERNAME'],
             #password=os.environ['DB_PASSWORD'])
             user="postgres",
-            password="Simonsson01")
+            password="postgres")
         '''
             user=os.environ['DB_USERNAME'],
             password=os.environ['DB_PASSWORD']

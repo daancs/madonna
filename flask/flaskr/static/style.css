@@ -1,23 +1,31 @@
 html {
-    font-family: sans-serif;
-    background: #eee;
-    padding: 1rem;
+    font-family: kansei-optei;
+    /* background: rgb(109, 158, 117); */
+    /* padding: 1rem; */
   }
   
   body {
-    max-width: 960px;
+    max-width: 1850px;
     margin: 0 auto;
-    background: white;
+    background-color: rgb(164, 204, 171);
+  
   }
   
   h1, h2, h3, h4, h5, h6 {
     font-family: serif;
-    color: #377ba8;
-    margin: 1rem 0;
+    color: #000000;
+    margin: 1rem 10;
   }
   
   a {
-    color: #377ba8;
+    color: #000000;
+    text-decoration: none;
+  }
+
+  div.navitems > a {
+    margin-left: 50px;
+    font-size: 20px;
+
   }
   
   hr {
@@ -49,9 +57,21 @@ html {
     padding: 0;
   }
   
-  nav ul li a, nav ul li span, header .action {
+  nav ul li a, nav ul li span, header.action {
     display: block;
     padding: 0.5rem;
+  }
+
+  div.imagediv {
+    width: 250px;
+  }
+
+  img.image {
+    width: inherit;
+  }
+
+  a.navbar-brand {
+    width: inherit;
   }
   
   .content {
@@ -68,6 +88,28 @@ html {
     flex: auto;
     margin: 1rem 0 0.25rem 0;
   }
+ 
+  .topnav {
+    margin-bottom: 100px;
+    /* padding: 10px; */
+    background-color: #ffffff;
+    justify-content: space-between;
+    display: flex;
+    padding: 10px;
+    padding-right: 300px;
+    
+  
+  } 
+
+  div.navitems {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+
+
+  }
+
   
   .flash {
     margin: 1em 0;

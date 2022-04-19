@@ -30,15 +30,15 @@ def get_post(id, check_author=True):
 
 @bp.route('/')
 def index():
-    conn = get_db()
-    cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
-    cur.execute(
-        """SELECT posts.id, title, body, created, author_id, username
-         FROM posts JOIN users  ON posts.author_id = users.id
-         ORDER BY created DESC"""
-    )
-    posts = cur.fetchall()
-    return render_template('blog/index.html', posts=posts)
+    # conn = get_db()
+    # cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+    # cur.execute(
+    #     """SELECT posts.id, title, body, created, author_id, username
+    #      FROM posts JOIN users  ON posts.author_id = users.id
+    #      ORDER BY created DESC"""
+    # )
+    # posts = cur.fetchall()
+    return render_template('bases/base.html')
 
 @bp.route('/create', methods=('GET', 'POST'))
 @login_required
