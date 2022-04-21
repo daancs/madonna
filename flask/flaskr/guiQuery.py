@@ -1,3 +1,5 @@
+
+
 from flask import Blueprint, flash, g, redirect, render_template, request, url_for
 import psycopg2, psycopg2.extras
 
@@ -7,6 +9,11 @@ bp = Blueprint('search', __name__, url_prefix='/search')
 
 @bp.route('/', methods=['GET', 'POST'])
 def index():
+    """
+    This function renders the query page. 
+    If it is a POST request it parses the query and tries to run it in postgresql.
+    Otherwise it just renders the page.
+    """
     result = None
     g.isResString = False
     if request.method == 'POST':
@@ -20,8 +27,11 @@ def index():
 
 
 def runQuery(query):
+    """
+    This function runs the query in postgresql.
+    """
     database = db.get_db()
-    cur = database.cursor(cursor_factory=psycopg2.extras.DictCursor)
+    cur = database.cursor(cursor_factory=psycopg2.extras.DictCursor) # needed for select queries
     cur.execute(query)
     database.commit()
     res = cur.fetchall()

@@ -15,6 +15,9 @@ def init_db():
 
 
 def clear_db():
+    """
+    This function tries to clear the database and it if fails it rollbacks so that no data is lost.
+    """
     conn = get_db()
     cur = conn.cursor()
     try:
