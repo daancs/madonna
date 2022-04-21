@@ -25,8 +25,4 @@ def runQuery(query):
     cur.execute(query)
     database.commit()
     res = cur.fetchall()
-    first = res[0]
-    print(first.items())
-    print(type(first))
-    print(res[0]['id'])
     return res
