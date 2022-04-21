@@ -1,7 +1,6 @@
 import os
 
 from flask import Flask
-from . import db
 # from routes import routes_blueprint
 
 
@@ -27,7 +26,11 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-     cur = db.get_db()
+    from . import db
+    db.init_app(app)
+
+    from . import guiQuery
+    app.register_blueprint(guiQuery.bp)
 
     # a simple page that says hello
     @app.route('/')
