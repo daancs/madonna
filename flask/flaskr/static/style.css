@@ -5,7 +5,7 @@ html {
   }
   
   body {
-    max-width: 1850px;
+    /* max-width: 1850px; */
     margin: 0 auto;
     background-color: rgb(164, 204, 171);
   
@@ -24,7 +24,7 @@ html {
 
   div.navitems > a {
     margin-left: 50px;
-    font-size: 20px;
+    font-size: 1.2rem;
 
   }
   
@@ -90,7 +90,7 @@ html {
   }
  
   .topnav {
-    margin-bottom: 100px;
+    margin-bottom: 4rem;
     /* padding: 10px; */
     background-color: #ffffff;
     justify-content: space-between;

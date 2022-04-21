@@ -3,6 +3,7 @@
 
 <head>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="icon" href="{{ url_for('static', filename='vgreg.jpg') }}">
   <!--link rel="stylesheet" href="C:\Users\julia\OneDrive\Dokument\Chalmers\Kurser\Agile\madonna\flask\flaskr\static\style.css">-->
 </head>
 
@@ -20,7 +21,7 @@
       <a href="{{ url_for('blog.studies') }}">Studier</a>
     </div>
   </div>
-
+  
   <section class="content">
     <header>
       {% block header %}{% endblock %}
