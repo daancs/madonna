@@ -15,15 +15,21 @@
        </a>
    </div>
     <div class="navitems">
-      <a class="active" href="#home">Hem</a>
-      <a href="#search">Sök</a>
-      <a href="#studies">Studier</a>
+      <a class="active" href="{{ url_for('blog.home') }}">Hem</a>
+      <a href="{{ url_for('blog.search') }}">Sök</a>
+      <a href="{{ url_for('blog.studies') }}">Studier</a>
     </div>
   </div>
-  
-  <h1>Hej</h1>
-  <p>Här skriver du din kod</p>
 
+  <section class="content">
+    <header>
+      {% block header %}{% endblock %}
+    </header>
+    <p>
+      {% block content %}{% endblock %}
+    </p>
+  </section>
+  
 </body>
 
 </html>

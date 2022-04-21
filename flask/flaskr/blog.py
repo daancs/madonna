@@ -1,5 +1,5 @@
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, url_for
+    Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
 from werkzeug.exceptions import abort
 
@@ -28,8 +28,12 @@ def get_post(id, check_author=True):
     
     return post
 
-@bp.route('/')
+@bp.route('/', methods=('GET', 'POST'))
 def index():
+    if request.method == 'POST':
+        session.clear()
+        session['user_id'] = "tjo"
+        return render_template('home/start.html')
     # conn = get_db()
     # cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
     # cur.execute(
@@ -38,7 +42,22 @@ def index():
     #      ORDER BY created DESC"""
     # )
     # posts = cur.fetchall()
-    return render_template('bases/base.html')
+    return render_template('login.html')
+
+@bp.route('/home')
+@login_required
+def home():
+    return render_template('home/start.html')
+
+@bp.route('/search')
+@login_required
+def search():
+    return render_template('blog/update.html')
+
+@bp.route('/studies')
+@login_required
+def studies():
+    return render_template('blog/create.html')
 
 @bp.route('/create', methods=('GET', 'POST'))
 @login_required

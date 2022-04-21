@@ -73,6 +73,7 @@ def load_logged_in_user():
 
     if user_id is None:
         g.user = None
+    '''
     else:
         conn = get_db()
         cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
@@ -80,6 +81,7 @@ def load_logged_in_user():
             'SELECT * FROM users WHERE id = %s', (user_id,)
         )
         g.user = cur.fetchone()
+    '''
 
 @bp.route('/logout')
 def logout():
@@ -90,7 +92,7 @@ def login_required(view):
     @functools.wraps(view)
     def wrapped_view(**kwargs):
         if g.user is None:
-            return redirect(url_for('auth.login'))
+            return redirect(url_for('blog.index'))
 
         return view(**kwargs)
 
