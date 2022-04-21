@@ -3,6 +3,7 @@
 
 <head>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="icon" href="{{ url_for('static', filename='vgreg.jpg') }}">
   <!--link rel="stylesheet" href="C:\Users\julia\OneDrive\Dokument\Chalmers\Kurser\Agile\madonna\flask\flaskr\static\style.css">-->
 </head>
 
@@ -21,8 +22,7 @@
     </div>
   </div>
   
-  <h1>Hej</h1>
-  <p>Här skriver du din kod</p>
+ {% block content %} {% endblock %}
 
 </body>
 
