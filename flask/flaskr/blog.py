@@ -71,10 +71,12 @@ def login():
 def home():
     return render_template('home/start.html')
 
+'''
 @bp.route('/search')
 @login_required
 def search():
     return render_template('search/search.html')
+'''
 
 @bp.route('/studies')
 @login_required

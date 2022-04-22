@@ -1,0 +1,11 @@
+Patients(_idnr_, name, age, weight, bmi, nicotine, deceased, address, city, zipcode)
+
+Cases(_caseId_, patient, reviewedBy, reviewDate, closed, parameter1, parameter2)
+    patient -> Patients.idnr
+
+Andra ideer på tables:
+
+Treatments(_treatmentId_, _caseId_, parameter1, parameter2)
+    UNIQUE(treatmentId, caseId)
+    caseId -> Cases.caseId
+
