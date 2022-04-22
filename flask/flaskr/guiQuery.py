@@ -23,7 +23,7 @@ def index():
         except:
             result = "Error: unable to fetch data"
             g.isResString = True
-    return render_template('/search/index.html', result=result)
+    return render_template('/search/search.html', result=result)
 
 
 def runQuery(query):

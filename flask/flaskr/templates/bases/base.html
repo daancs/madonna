@@ -1,0 +1,42 @@
+<!doctype html>
+<title>Sökbar databas för Sahlgrenska</title>
+
+<head>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="icon" href="{{ url_for('static', filename='vgreg.jpg') }}">
+  <!--link rel="stylesheet" href="C:\Users\julia\OneDrive\Dokument\Chalmers\Kurser\Agile\madonna\flask\flaskr\static\style.css">-->
+</head>
+
+<body>
+
+  <div class="topnav">
+    <div class="imagediv">
+       <a class="navbar-brand" href="{{ url_for('blog.img') }}">
+          <img class="image" src="static\vg.jpg">
+       </a>
+   </div>
+    <div class="navitems">
+      <a href="{{ url_for('blog.home') }}">Hem</a>
+      <a href="{{ url_for('search.index') }}">Sök</a>
+      <a href="{{ url_for('blog.studies') }}">Studier</a>
+    </div>
+  
+    <div class="user">
+      {% if g.user %}
+        <p>Inloggad användare: <span style="color:blue">{{ g.user }}</span></p>
+      {% endif %}
+    </div>
+  </div>
+  
+  <section class="content">
+    <header>
+      {% block header %}{% endblock %}
+    </header>
+    <p>
+      {% block content %}{% endblock %}
+    </p>
+  </section>
+  
+</body>
+
+</html>
