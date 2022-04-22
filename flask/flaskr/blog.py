@@ -30,10 +30,32 @@ def get_post(id, check_author=True):
 
 @bp.route('/', methods=('GET', 'POST'))
 def index():
+    session.clear()
+
+    return redirect(url_for('blog.login'))
+    # conn = get_db()
+    # cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+    # cur.execute(
+    #     """SELECT posts.id, title, body, created, author_id, username
+    #      FROM posts JOIN users  ON posts.author_id = users.id
+    #      ORDER BY created DESC"""
+    # )
+    # posts = cur.fetchall()
+
+@bp.route('/img', methods=('GET', 'POST'))
+def img():
+    if g.user is None:
+        return redirect(url_for('blog.login'))
+    else:
+        return redirect(url_for('blog.home'))
+
+@bp.route('/login', methods=('GET', 'POST'))
+def login():
     if request.method == 'POST':
         session.clear()
         session['user_id'] = "tjo"
-        return render_template('home/start.html')
+        return redirect(url_for('blog.home'))
+        #return render_template('home/start.html')
     # conn = get_db()
     # cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
     # cur.execute(
@@ -52,12 +74,12 @@ def home():
 @bp.route('/search')
 @login_required
 def search():
-    return render_template('blog/update.html')
+    return render_template('search/search.html')
 
 @bp.route('/studies')
 @login_required
 def studies():
-    return render_template('blog/create.html')
+    return render_template('study/studies.html')
 
 @bp.route('/create', methods=('GET', 'POST'))
 @login_required

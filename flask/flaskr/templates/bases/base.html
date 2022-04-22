@@ -11,14 +11,20 @@
 
   <div class="topnav">
     <div class="imagediv">
-       <a class="navbar-brand" href="/">
+       <a class="navbar-brand" href="{{ url_for('blog.img') }}">
           <img class="image" src="static\vg.jpg">
        </a>
    </div>
     <div class="navitems">
-      <a class="active" href="{{ url_for('blog.home') }}">Hem</a>
+      <a href="{{ url_for('blog.home') }}">Hem</a>
       <a href="{{ url_for('blog.search') }}">Sök</a>
       <a href="{{ url_for('blog.studies') }}">Studier</a>
+    </div>
+  
+    <div class="user">
+      {% if g.user %}
+        <p>Inloggad användare: <span style="color:blue">{{ g.user }}</span></p>
+      {% endif %}
     </div>
   </div>
   
