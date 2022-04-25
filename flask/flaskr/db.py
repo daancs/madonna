@@ -8,10 +8,10 @@ from flask.cli import with_appcontext
 def init_db():
     conn = get_db()
     cur = conn.cursor()
-    # execute all init .sql files here such as tables etc when schema is done 
-    #sqlfile = open('flaskr/schema.sql', 'r')
-    #cur.execute(sqlfile.read())
-    #conn.commit()
+    # execute all init .sql files here such as tables etc when schema is done
+    sqlfile = open('db/schema.sql', 'r')
+    cur.execute(sqlfile.read())
+    conn.commit()
 
 
 def clear_db():
@@ -21,7 +21,7 @@ def clear_db():
     conn = get_db()
     cur = conn.cursor()
     try:
-        print("Attempting to clear database")        
+        print("Attempting to clear database")
         cur.execute("DROP SCHEMA public CASCADE")
         cur.execute("CREATE SCHEMA public")
         cur.execute("GRANT ALL ON SCHEMA public TO postgres")
@@ -29,7 +29,7 @@ def clear_db():
         print("Database cleared")
     except:
         print("Error: unable to drop schema, something failed")
-        conn.rollback() 
+        conn.rollback()
 
 def get_db():
     if 'db' not in g:
