@@ -1,0 +1,22 @@
+{% extends 'bases/base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Sök{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <form action="" method="post">
+    <input type="text" name="query" id="query" required>
+    <input type="submit" value="Submit">
+  </form>
+
+  {%if g.isResString %}
+    <span>{{ result }}</span>
+  {% elif result %}
+    {%for res in result %}
+        <div class="resbox">
+            <span>{{ res }}</span>
+        </div>
+    {% endfor %}
+  {% endif %}
+{% endblock %}
