@@ -44,8 +44,25 @@ def register():
 @bp.route('/login', methods=('GET', 'POST'))
 def login():
     if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        error = None
+        try:
+            conn = get_db()
+            cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+            cur.execute("SELECT * FROM users WHERE username = %s", (username,))
+            user = cur.fetchone()
+            print(user)
+            if user is None:
+                error = 'Incorrect username.'
+            elif not check_password_hash(user['password'], password):
+                error = 'Incorrect password.'
+        except:
+            error = 'Error: unable to fetch data'
+            flash(error)
+        
         session.clear()
-        session['user_id'] = "tjo"
+        session['user'] = username
         return redirect(url_for('nav.home'))
     return render_template('login.html')
 
@@ -79,12 +96,12 @@ def login():
 '''
 @bp.before_app_request
 def load_logged_in_user():
-    user_id = session.get('user_id')
+    user = session.get('user')
 
-    if user_id is None:
+    if user is None:
         g.user = None
         
-    g.user = user_id
+    g.user = user
     '''
     else:
         conn = get_db()
@@ -104,7 +121,7 @@ def login_required(view):
     @functools.wraps(view)
     def wrapped_view(**kwargs):
         if g.user is None:
-            return redirect(url_for('nav.login'))
+            return redirect(url_for('auth.login'))
 
         return view(**kwargs)
 
