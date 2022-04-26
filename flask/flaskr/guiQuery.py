@@ -3,11 +3,14 @@
 from flask import Blueprint, flash, g, redirect, render_template, request, url_for
 import psycopg2, psycopg2.extras
 
+from flaskr.auth import login_required
+
 from . import db
 
 bp = Blueprint('search', __name__, url_prefix='/search')
 
 @bp.route('/', methods=['GET', 'POST'])
+@login_required
 def index():
     """
     This function renders the query page. 

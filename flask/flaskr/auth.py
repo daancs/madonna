@@ -40,6 +40,15 @@ def register():
 
     return render_template('auth/register.html')
 
+
+@bp.route('/login', methods=('GET', 'POST'))
+def login():
+    if request.method == 'POST':
+        session.clear()
+        session['user_id'] = "tjo"
+        return redirect(url_for('nav.home'))
+    return render_template('login.html')
+
 '''
 @bp.route('/login', methods=('GET', 'POST'))
 def login():
@@ -95,7 +104,7 @@ def login_required(view):
     @functools.wraps(view)
     def wrapped_view(**kwargs):
         if g.user is None:
-            return redirect(url_for('blog.login'))
+            return redirect(url_for('nav.login'))
 
         return view(**kwargs)
 
