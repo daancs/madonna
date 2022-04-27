@@ -14,6 +14,7 @@ CREATE TABLE Patients (
     idnr CHAR(13),
     name TEXT NOT NULL,
     age INT NOT NULL,
+    gender TEXT NOT NULL,
     weight INT NOT NULL,
     bmi REAL NOT NULL,
     nicotine TEXT NOT NULL,
@@ -41,8 +42,8 @@ CREATE TABLE Treatments (
     PRIMARY KEY (treatmentId,caseId)
 );
 
-INSERT INTO Patients (key_id,idnr,name,age,weight,bmi,nicotine,adress,city,zipcode) VALUES ('0001','20000901-1234', 'Foo Bar', '69', '420', '21.2', 'Nej', 'Hubbenvägen 1','Göteborg','41280');
-INSERT INTO Patients (key_id,idnr,name,age,weight,bmi,nicotine,adress,city,zipcode) VALUES ('0002','19940418-6234', 'Por Tals', '35', '098', '21.59', 'Ja, lmao', 'Kemivägen 1','Göteborg','43331');
+INSERT INTO Patients (key_id,idnr,name,age,gender,weight,bmi,nicotine,adress,city,zipcode) VALUES ('0001','20000901-1234', 'Foo Bar', '69', 'Male' ,'420', '21.2', 'Nej', 'Hubbenvägen 1','Göteborg','41280');
+INSERT INTO Patients (key_id,idnr,name,age,gender,weight,bmi,nicotine,adress,city,zipcode) VALUES ('0002','19940418-6234', 'Por Tals', '35','Female' ,'098', '21.59', 'Ja, lmao', 'Kemivägen 1','Göteborg','43331');
 
 INSERT INTO Cases (patient,reviewedBy,reviewDate,closed) VALUES ('0001','Kingen','2022-04-19','TRUE');
 INSERT INTO Cases (caseId,patient,reviewedBy,reviewDate,closed) VALUES ('a789ea53-08b6-4108-a1d5-e992c2413654','0002','skrr','2022-09-23 12:30','FALSE');
