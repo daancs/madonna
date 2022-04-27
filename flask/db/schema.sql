@@ -1,19 +1,51 @@
-DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS posts;
+--Clean everything
+DROP SCHEMA public CASCADE;
+CREATE SCHEMA public;
+GRANT ALL ON SCHEMA public TO postgres;
 
-CREATE TABLE users (
-    id SERIAL PRIMARY KEY,
+CREATE TABLE Users (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     username TEXT UNIQUE NOT NULL,
     password TEXT NOT NULL
 );
 
-CREATE TABLE posts (
-    id SERIAL PRIMARY KEY,
-    author_id INTEGER NOT NULL,
-    created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    title TEXT NOT NULL,
-    body TEXT NOT NULL,
-    FOREIGN KEY (author_id) REFERENCES users (id)
+CREATE TABLE Patients (
+    key_id CHAR(4) PRIMARY KEY,
+    idnr CHAR(13),
+    name TEXT NOT NULL,
+    age INT NOT NULL,
+    weight INT NOT NULL,
+    bmi REAL NOT NULL,
+    nicotine TEXT NOT NULL,
+    deceased BOOL NOT NULL DEFAULT FALSE,
+    adress TEXT NOT NULL,
+    city TEXT NOT NULL,
+    zipcode NUMERIC(5) NOT NULL
 );
 
+CREATE TABLE Cases (
+    caseId UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    patient CHAR(13) NOT NULL,
+    reviewedBy TEXT NOT NULL,
+    reviewDate TIMESTAMP NOT NULL,
+    closed BOOL NOT NULL,
+    FOREIGN KEY (patient) REFERENCES Patients (idnr)
+);
+
+CREATE TABLE Treatments (
+    treatmentId UUID DEFAULT gen_random_uuid(),
+    caseId UUID NOT NULL,
+    parameter1 TEXT NOT NULL,
+    parameter2 TEXT NOT NULL,
+    FOREIGN KEY (caseId) REFERENCES Cases (caseId),
+    PRIMARY KEY (treatmentId,caseId)
+);
+
+INSERT INTO Patients (idnr,name,age,weight,bmi,nicotine,adress,city,zipcode) VALUES ('20000901-1234', 'Foo Bar', '69', '420', '21.2', 'Nej', 'Hubbenvägen 1','Göteborg','41280');
+INSERT INTO Patients (idnr,name,age,weight,bmi,nicotine,adress,city,zipcode) VALUES ('19940418-6234', 'Por Tals', '35', '098', '21.59', 'Ja, lmao', 'Kemivägen 1','Göteborg','43331');
+
+INSERT INTO Cases (patient,reviewedBy,reviewDate,closed) VALUES ('20000901-1234','Kingen','2022-04-19','TRUE');
+INSERT INTO Cases (caseId,patient,reviewedBy,reviewDate,closed) VALUES ('a789ea53-08b6-4108-a1d5-e992c2413654','19940418-6234','skrr','2022-09-23 12:30','FALSE');
+
+INSERT INTO Treatments (caseId,parameter1,parameter2) VALUES ('a789ea53-08b6-4108-a1d5-e992c2413654','TESTING','HELLO WORLD!');
 
