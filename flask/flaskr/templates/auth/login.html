@@ -1,15 +1,16 @@
 {% extends 'bases/base.html' %}
 
 {% block header %}
-  <h1>{% block title %}Log In{% endblock %}</h1>
+  <h1>{% block title %}Logga in{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
-  <form method="post">
-    <label for="username">Username</label>
-    <input name="username" id="username" required>
-    <label for="password">Password</label>
-    <input type="password" name="password" id="password" required>
-    <input type="submit" value="Log In">
-  </form>
+  <div class="loginwrapper">
+    <img src="{{ url_for('static', filename='vg.jpg')}}" alt="a welcoming picture" class="loginimg">
+    <form method="post" class="loginform">
+      <input type="text" name="username" placeholder="Användarnamn">
+      <input type="password" name="password" placeholder="Lösenord">
+      <input type="submit" value="Log In" class="loginsubmit">
+    </form>
+  </div>
 {% endblock %}

@@ -10,36 +10,6 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from flaskr.db import get_db
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
-@bp.route('/register', methods=('GET', 'POST'))
-def register():
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-        conn = get_db()
-        cur = conn.cursor()
-        error = None
-
-        if not username:
-            error = 'Username is required.'
-        elif not password:
-            error = 'Password is required.'
-
-        if error is None:
-            try:
-                cur.execute(
-                    "INSERT INTO users (username, password) VALUES (%s, %s)",
-                    (username, generate_password_hash(password)),
-                )
-                conn.commit()
-            except conn.IntegrityError:
-                error = f"User {username} is already registered."
-            else:
-                return redirect(url_for("auth.login"))
-
-        flash(error)
-
-    return render_template('auth/register.html')
-
 
 @bp.route('/login', methods=('GET', 'POST'))
 def login():
@@ -64,7 +34,7 @@ def login():
         session.clear()
         session['user'] = username
         return redirect(url_for('nav.home'))
-    return render_template('login.html')
+    return render_template('auth/login.html')
 
 '''
 @bp.route('/login', methods=('GET', 'POST'))
@@ -100,17 +70,10 @@ def load_logged_in_user():
 
     if user is None:
         g.user = None
+        return
         
     g.user = user
-    '''
-    else:
-        conn = get_db()
-        cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
-        cur.execute(
-            'SELECT * FROM users WHERE id = %s', (user_id,)
-        )
-        g.user = cur.fetchone()
-    '''
+
 
 @bp.route('/logout')
 def logout():
