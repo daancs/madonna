@@ -5,9 +5,9 @@ from flaskr.auth import login_required
 
 from . import db
 
-bp = Blueprint('search', __name__, url_prefix='/search')
+bp = Blueprint('search', __name__)
 
-@bp.route('/', methods=['GET', 'POST'])
+@bp.route('/search', methods=['GET', 'POST'])
 @login_required
 def index():
     """
