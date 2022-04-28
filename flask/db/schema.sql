@@ -24,9 +24,16 @@ CREATE TABLE Patients (
     zipcode NUMERIC(5) NOT NULL
 );
 
+CREATE TABLE MedicalHistory (
+    key_id CHAR(4) NOT NULL REFERENCES Patients (key_id),
+    complication STRING NOT NULL,
+    PRIMARY KEY(key_id, complication)
+);
+
 CREATE TABLE Cases (
     caseId UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     patient CHAR(4) NOT NULL,
+    complication STRING NOT NULL,
     reviewedBy TEXT NOT NULL,
     reviewDate TIMESTAMP NOT NULL,
     closed BOOL NOT NULL,
@@ -36,17 +43,35 @@ CREATE TABLE Cases (
 CREATE TABLE Treatments (
     treatmentId UUID DEFAULT gen_random_uuid(),
     caseId UUID NOT NULL,
-    parameter1 TEXT NOT NULL,
-    parameter2 TEXT NOT NULL,
+    cytostatics TEXT NOT NULL,
+    operationDate TIMESTAMP NOT NULL,
+    doctor TEXT NOT NULL,
+    assistent TEXT NOT NULL,
+    medication TEXT NOT NULL,
     FOREIGN KEY (caseId) REFERENCES Cases (caseId),
     PRIMARY KEY (treatmentId,caseId)
 );
 
-INSERT INTO Patients (key_id,idnr,name,age,gender,weight,bmi,nicotine,adress,city,zipcode) VALUES ('0001','20000901-1234', 'Foo Bar', '69', 'Male' ,'420', '21.2', 'Nej', 'Hubbenvägen 1','Göteborg','41280');
-INSERT INTO Patients (key_id,idnr,name,age,gender,weight,bmi,nicotine,adress,city,zipcode) VALUES ('0002','19940418-6234', 'Por Tals', '35','Female' ,'098', '21.59', 'Ja, lmao', 'Kemivägen 1','Göteborg','43331');
+INSERT INTO Patients (key_id,idnr,name,age,gender,weight,bmi,nicotine,adress,city,zipcode) VALUES 
+('0001','20000901-1234', 'Foo Bar', '69', 'Male' ,'420', '21.2', 'Nej', 'Hubbenvägen 1','Göteborg','41280'),
+('0002','19940418-6234', 'Por Tals', '35','Female' ,'098', '21.59', 'Ja, lmao', 'Kemivägen 1','Göteborg','43331'),
+('0003','19760123-8932', 'Rop Slat', '21', 'Male' , '98', '23.12', 'Nej', 'Föreningsgatan 12','Sävedalen','43370'),
+('0004','19120313-3891', 'Zlatan Zlatansson', '110', 'Male', '123', '35,00', 'Ja', 'Bondgatan 123','Götebort','41170'),
+('0005','20120124-1876', 'Anna Annasson', '11', 'Female', '24' '20,22', 'Ja', 'Bondgatan 321','Göteborg','41123');
 
-INSERT INTO Cases (patient,reviewedBy,reviewDate,closed) VALUES ('0001','Kingen','2022-04-19','TRUE');
-INSERT INTO Cases (caseId,patient,reviewedBy,reviewDate,closed) VALUES ('a789ea53-08b6-4108-a1d5-e992c2413654','0002','skrr','2022-09-23 12:30','FALSE');
+INSERT INTO MedicalHistory (key_id,complication) VALUES
+('0001', 'Diabetes'),
+('0001', 'Neurologisk sjukdom'),
+('0002', 'Hjärtsjukdom'),
+('0003', 'Ämnesomsättningssjukdom'),
+('0005', 'Leversjukdom');
 
-INSERT INTO Treatments (caseId,parameter1,parameter2) VALUES ('a789ea53-08b6-4108-a1d5-e992c2413654','TESTING','HELLO WORLD!');
+INSERT INTO Cases (caseId,patient,complication,reviewedBy,reviewDate,closed) VALUES 
+('a789ea53-08b6-4108-a1d5-e992c2413654','0002', 'Cancer höger bröst','skrr','2022-09-23 12:30','FALSE'),
+('27411ee6-c60b-11ec-9d64-0242ac120002', '0001', 'Cancer vänster bröst', 'Kingen', '2022-04-19','TRUE'),
+('46717392-c60b-11ec-9d64-0242ac120002','0005', 'Bröstcancer', 'Zlatan' ,'2022-01-01', 'FALSE'),
+('53db099e-c60b-11ec-9d64-0242ac120002','0003','Cancer', 'Doktor' ,'2020-06-13', 'FALSE');
 
+INSERT INTO Treatments (caseId,cytostatics,operationDate, doctor, assistent, medication) VALUES 
+('a789ea53-08b6-4108-a1d5-e992c2413654', 'Ja','2013-12-01', 'Gustavsson', 'Kingen', 'Adjuvant hormonterapi'),
+('27411ee6-c60b-11ec-9d64-0242ac120002', 'Okänt','2014-11-19', 'Zlatan', 'Gästläkare', 'Adjuvant hormonterapi');
