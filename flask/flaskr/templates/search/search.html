@@ -5,10 +5,32 @@
 {% endblock %}
 
 {% block content %}
-  <form action="" method="post">
-    <input type="text" name="query" id="query" required>
-    <input type="submit" value="Submit">
-  </form>
+    <div class=searchForm>
+        <form action="" method="post">
+            <label for="idnr">key_id:</label>
+            <input type="text" name="key_id" id="idnr">
+
+            <label for="gender">Kön:</label>
+            <input type="text" name="gender" id="gender">
+
+            <label for="name">Namn:</label>
+            <input type="text" name="name" id="name">
+
+            <label for="weight">Vikt:</label>
+            <input type="text" name="weight" id="weight">
+
+            <label for="age">Ålder:</label>
+            <input type="text" name="age" id="age">
+
+            <label for="idnr">Rökare:</label>
+            <label for="nicotineTrue">Ja:</label>
+            <input type="radio" name="nicotine" id="nicotineTrue" value="TRUE">
+            <label for="nicotineFalse">Nej:</label>
+            <input type="radio" name="nicotine" id="nicotineFalse" value="FALSE">
+
+            <input type="submit" value="Submit">
+        </form>
+    </div>
 
   {%if g.isResString %}
     <span>{{ result }}</span>

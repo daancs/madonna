@@ -1,5 +1,3 @@
-
-
 from flask import Blueprint, flash, g, redirect, render_template, request, url_for
 import psycopg2, psycopg2.extras
 
@@ -13,22 +11,34 @@ bp = Blueprint('search', __name__, url_prefix='/search')
 @login_required
 def index():
     """
-    This function renders the query page. 
+    This function renders the query page.
     If it is a POST request it parses the query and tries to run it in postgresql.
     Otherwise it just renders the page.
     """
     result = None
     g.isResString = False
+
     if request.method == 'POST':
-        query = request.form['query']
-        try:
-            result = runQuery(query)
-        except:
-            result = "Error: unable to fetch data"
-            g.isResString = True
+        print(request.form['key_id'])
+        request.form['key_id']
+        conn = db.get_db()
+        cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+
+        cur.execute(
+            """SELECT *
+            FROM patients
+            WHERE key_id = %s""",
+            (request.form['key_id'],)
+        )
+
+        result = cur.fetchone()
+        print(result)
+            # result = "Error: unable to fetch data"
+            # g.isResString = True
     return render_template('/search/search.html', result=result)
 
 
+# Unused for now
 def runQuery(query):
     """
     This function runs the query in postgresql.
