@@ -19,24 +19,23 @@ def index():
     g.isResString = False
 
     if request.method == 'POST':
-        print(request.form['key_id'])
         id = request.form['key_id']
         gender = request.form['gender']
         name = request.form['name']
         weight = request.form['weight']
         age = request.form['age']
+        try: 
+            nicotine = request.form['nicotine']
+        except:
+            nicotine = False
+    
 
-        query = buildQuery(id, gender, name, weight, age)
+        query = buildQuery(id, gender, name, weight, age, nicotine)
 
         conn = db.get_db()
         cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
 
-        cur.execute(
-            """SELECT *
-            FROM patients
-            WHERE key_id = %s""",
-            (request.form['key_id'],)
-        )
+        cur.execute(query)
 
         result = cur.fetchone()
         print(result)
@@ -44,17 +43,50 @@ def index():
             # g.isResString = True
     return render_template('/search/search.html', result=result)
 
-def buildQuery(id, gender, name, weight, age):
+def buildQuery(id, gender, name, weight, age, nicotine):
     query = """SELECT * FROM patients"""
 
     if not (len(id) == 0 and len(gender) == 0 and len(name) == 0 and len(weight) == 0 and len(age) == 0):
         query += " WHERE"
         if not len(id) == 0:
-            query += " key_id = " + id
+            query += " key_id = '" + id + "'"
         if not len(gender) == 0:
-            if "key_id" not in query:
-                query += " "
+            if not "key_id" in query:
+                query += " gender = '" + gender + "'"
+            else:
+                query += " AND gender = '" + gender + "'"
+        if not len(name) == 0:
+            if not ("key_id" in query or "gender" in query):
+                query += " name = '" + name + "'"
+            else:
+                 query += " AND name = '" + name + "'"
+        if not len(weight) == 0:
+            if not ("key_id" in query or "gender" in query or "name" in query):
+                query += " weight = '" + weight + "'"
+            else:
+                 query += " AND weight = '" + weight + "'"
+        if not len(age) == 0:
+            if not ("key_id" in query or "gender" in query or "name" in query or "weight" in query):
+                query += " age = '" + age + "'"
+            else:
+                 query += " AND age = '" + age + "'"
 
+    if not nicotine:
+        if "WHERE" not in query:
+            query += " WHERE"
+        if not ("key_id" in query or "gender" in query or "name" in query or "weight" in query or "age" in query):
+            query += " nicotine = 'Nej'"
+        else:
+            query += " AND nicotine = 'Nej'"
+    else:
+        if "WHERE" not in query:
+            query += " WHERE"
+        if not ("key_id" in query or "gender" in query or "name" in query or "weight" in query or "age" in query):
+            query += " nicotine = 'Ja'"
+        else:
+            query += " AND nicotine = 'Ja'"
+
+    print(query)
     return query + ";"
 
 # Unused for now
