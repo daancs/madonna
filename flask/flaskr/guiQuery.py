@@ -20,7 +20,14 @@ def index():
 
     if request.method == 'POST':
         print(request.form['key_id'])
-        request.form['key_id']
+        id = request.form['key_id']
+        gender = request.form['gender']
+        name = request.form['name']
+        weight = request.form['weight']
+        age = request.form['age']
+
+        query = buildQuery(id, gender, name, weight, age)
+
         conn = db.get_db()
         cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
 
@@ -37,6 +44,18 @@ def index():
             # g.isResString = True
     return render_template('/search/search.html', result=result)
 
+def buildQuery(id, gender, name, weight, age):
+    query = """SELECT * FROM patients"""
+
+    if not (len(id) == 0 and len(gender) == 0 and len(name) == 0 and len(weight) == 0 and len(age) == 0):
+        query += " WHERE"
+        if not len(id) == 0:
+            query += " key_id = " + id
+        if not len(gender) == 0:
+            if "key_id" not in query:
+                query += " "
+
+    return query + ";"
 
 # Unused for now
 def runQuery(query):
