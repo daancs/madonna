@@ -23,7 +23,7 @@
   
     <div class="user">
       {% if g.user %}
-        <p>Inloggad användare: <span style="color:blue">{{ g.user }}</span></p>
+        <p>Inloggad användare: <span style="color:blue">{{ g.user[1] }}</span></p>
       {% endif %}
     </div>
   </div>

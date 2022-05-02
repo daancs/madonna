@@ -32,7 +32,7 @@ def login():
             flash(error)
         
         session.clear()
-        session['user'] = username
+        session['user'] = user
         return redirect(url_for('nav.home'))
     return render_template('auth/login.html')
 
