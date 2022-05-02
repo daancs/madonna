@@ -11,14 +11,14 @@
 
   <div class="topnav">
     <div class="imagediv">
-       <a class="navbar-brand" href="{{ url_for('blog.img') }}">
-          <img class="image" src="static\vg.jpg">
+       <a class="navbar-brand" href="{{ url_for('nav.home') }}">
+          <img class="image" src="{{url_for('static', filename='vg.jpg')}}">
        </a>
    </div>
     <div class="navitems">
-      <a href="{{ url_for('blog.home') }}">Hem</a>
+      <a href="{{ url_for('nav.home') }}">Hem</a>
       <a href="{{ url_for('search.index') }}">Sök</a>
-      <a href="{{ url_for('blog.studies') }}">Studier</a>
+      <a href="{{ url_for('nav.studies') }}">Studier</a>
     </div>
   
     <div class="user">

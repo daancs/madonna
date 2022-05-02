@@ -10,35 +10,31 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from flaskr.db import get_db
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
-@bp.route('/register', methods=('GET', 'POST'))
-def register():
+
+@bp.route('/login', methods=('GET', 'POST'))
+def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        conn = get_db()
-        cur = conn.cursor()
         error = None
-
-        if not username:
-            error = 'Username is required.'
-        elif not password:
-            error = 'Password is required.'
-
-        if error is None:
-            try:
-                cur.execute(
-                    "INSERT INTO users (username, password) VALUES (%s, %s)",
-                    (username, generate_password_hash(password)),
-                )
-                conn.commit()
-            except conn.IntegrityError:
-                error = f"User {username} is already registered."
-            else:
-                return redirect(url_for("auth.login"))
-
-        flash(error)
-
-    return render_template('auth/register.html')
+        try:
+            conn = get_db()
+            cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+            cur.execute("SELECT * FROM users WHERE username = %s", (username,))
+            user = cur.fetchone()
+            print(user)
+            if user is None:
+                error = 'Incorrect username.'
+            elif not check_password_hash(user['password'], password):
+                error = 'Incorrect password.'
+        except:
+            error = 'Error: unable to fetch data'
+            flash(error)
+        
+        session.clear()
+        session['user'] = username
+        return redirect(url_for('nav.home'))
+    return render_template('auth/login.html')
 
 '''
 @bp.route('/login', methods=('GET', 'POST'))
@@ -70,21 +66,14 @@ def login():
 '''
 @bp.before_app_request
 def load_logged_in_user():
-    user_id = session.get('user_id')
+    user = session.get('user')
 
-    if user_id is None:
+    if user is None:
         g.user = None
+        return
         
-    g.user = user_id
-    '''
-    else:
-        conn = get_db()
-        cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
-        cur.execute(
-            'SELECT * FROM users WHERE id = %s', (user_id,)
-        )
-        g.user = cur.fetchone()
-    '''
+    g.user = user
+
 
 @bp.route('/logout')
 def logout():
@@ -95,7 +84,7 @@ def login_required(view):
     @functools.wraps(view)
     def wrapped_view(**kwargs):
         if g.user is None:
-            return redirect(url_for('blog.login'))
+            return redirect(url_for('auth.login'))
 
         return view(**kwargs)
 

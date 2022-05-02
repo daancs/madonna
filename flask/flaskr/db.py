@@ -4,6 +4,7 @@ import psycopg2
 from flask import current_app, g
 from flask.cli import with_appcontext
 
+from werkzeug.security import generate_password_hash
 
 def init_db():
     conn = get_db()
@@ -59,4 +60,20 @@ def init_db_command():
 def init_app(app):
     app.teardown_appcontext(close_db)
     app.cli.add_command(init_db_command)
+    app.cli.add_command(registerAccount)
 
+
+@click.command('register')
+@with_appcontext
+@click.argument('username')
+@click.argument('password')
+def registerAccount(username, password):
+    conn = get_db()
+    cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+
+    cur.execute("INSERT INTO users (username, password) VALUES (%s, %s)", (username, generate_password_hash(password))) # här skriver man sina inloggningsuppg om man vill skapa en ny. kanske fixa ett bättre sätt???
+    conn.commit()
+    click.echo("Account created")
+
+
+#############  DEN KOMMENTERADE KODEN OVAN GÖR ATT MAN KAN GÖRA EN ANVÄNDARE FÖR APPLIKATIONEN ########################
