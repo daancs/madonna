@@ -15,13 +15,6 @@ def index():
 
     return redirect(url_for('auth.login'))
 
-@bp.route('/home')
-@login_required
-def home():
-    if g.user is None:
-        return redirect(url_for('auth.login'))
-    else:
-        return render_template('home/start.html')
 
 '''
 @bp.route('/search')
