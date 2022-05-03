@@ -76,3 +76,12 @@ INSERT INTO Cases (caseId,patient,complication,reviewedBy,reviewDate,closed) VAL
 INSERT INTO Treatments (caseId,cytostatics,operationDate, doctor, assistent, medication) VALUES
 ('a789ea53-08b6-4108-a1d5-e992c2413654', 'Ja','2013-12-01', 'Gustavsson', 'Kingen', 'Adjuvant hormonterapi'),
 ('27411ee6-c60b-11ec-9d64-0242ac120002', 'Okänt','2014-11-19', 'Zlatan', 'Gästläkare', 'Adjuvant hormonterapi');
+
+
+CREATE TABLE SearchHistory (
+    id SERIAL PRIMARY KEY,
+    time TIMESTAMP DEFAULT CURRENT_TIMESTAMP(1),
+    who TEXT NOT NULL,
+    query TEXT NOT NULL,
+    result JSON
+);

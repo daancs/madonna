@@ -49,6 +49,13 @@ def close_db(e=None):
     if db is not None:
         db.close()
 
+
+def addToHistory(user, query):
+    conn = get_db()
+    cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+    cur.execute("INSERT INTO SearchHistory (who, query) VALUES (%s,%s)",(user,query))
+    conn.commit()
+
 @click.command('init-db')
 @with_appcontext
 def init_db_command():

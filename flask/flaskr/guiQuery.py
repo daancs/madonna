@@ -4,6 +4,7 @@ import psycopg2, psycopg2.extras
 from flaskr.auth import login_required
 
 from . import db
+# from . import queryLogger
 
 bp = Blueprint('search', __name__)
 
@@ -24,13 +25,15 @@ def index():
         name = request.form['name']
         weight = request.form['weight']
         age = request.form['age']
-        try: 
+        try:
             nicotine = request.form['nicotine']
         except:
             nicotine = False
-    
+
 
         query = buildQuery(id, gender, name, weight, age, nicotine)
+
+        db.addToHistory(g.user[1],query)
 
         conn = db.get_db()
         cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
