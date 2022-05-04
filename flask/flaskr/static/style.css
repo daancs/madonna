@@ -378,11 +378,12 @@ input:focus {
 div.searchHistory {
     background-color: lightgray;
     height: 20em;
+    padding: 1em;
 }
 
 .box{
   width: 80%;
-  height: 80%;            
+  height: 80%;
   position: absolute;
   top: 0;
   left: 0;
