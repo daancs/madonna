@@ -12,9 +12,8 @@ bp = Blueprint('nav', __name__)
 @bp.route('/', methods=('GET', 'POST'))
 def index():
     session.clear()
-
-    return redirect(url_for('auth.login'))
-
+    return redirect(url_for('nav.home'))
+    #return redirect(url_for('auth.login'))
 
 '''
 @bp.route('/search')
@@ -24,7 +23,7 @@ def search():
 '''
 
 @bp.route('/studies')
-@login_required
+#@login_required
 def studies():
     return render_template('study/studies.html')
 

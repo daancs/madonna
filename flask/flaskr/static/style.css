@@ -13,7 +13,6 @@ html {
     /* max-width: 1850px; */
     margin: 0 auto;
     background-color: rgb(164, 204, 171);
-
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -379,4 +378,28 @@ input:focus {
 div.searchHistory {
     background-color: lightgray;
     height: 20em;
+}
+
+.box{
+  width: 80%;
+  height: 80%;            
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: white;
+}
+
+.stack-top{
+  z-index: 9;
+  margin-left: 10%;
+  margin-top: 5%;
+}
+
+.shadow{
+  opacity: 80%;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 100;
+  background-color: darkgrey;
 }

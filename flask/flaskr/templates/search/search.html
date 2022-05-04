@@ -1,10 +1,11 @@
 {% extends 'bases/base.html' %}
 
-{% block header %}
-  <h1>{% block title %}Sök{% endblock %}</h1>
-{% endblock %}
-
 {% block content %}
+<h1>{% block title %}Sök{% endblock %}</h1>
+
+
+<button type="submit" style="color:black"><a href="{{ url_for('patient.patient') }}">Patienter</a></button>
+
     <div class=searchForm>
         <form action="" method="post">
             <label for="idnr">key_id:</label>
@@ -39,4 +40,5 @@
         </div>
     {% endfor %}
   {% endif %}
+  
 {% endblock %}

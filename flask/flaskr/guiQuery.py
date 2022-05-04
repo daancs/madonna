@@ -9,7 +9,7 @@ from . import db
 bp = Blueprint('search', __name__)
 
 @bp.route('/search', methods=['GET', 'POST'])
-@login_required
+#@login_required
 def index():
     """
     This function renders the query page.

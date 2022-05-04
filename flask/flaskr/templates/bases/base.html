@@ -8,7 +8,6 @@
 </head>
 
 <body>
-
   <div class="topnav">
     <div class="imagediv">
        <a class="navbar-brand" href="{{ url_for('home.home') }}">
@@ -29,14 +28,8 @@
   </div>
 
   <section class="content">
-    <header>
-      {% block header %}{% endblock %}
-    </header>
-    <p>
       {% block content %}{% endblock %}
-    </p>
   </section>
-
 </body>
 
 </html>
