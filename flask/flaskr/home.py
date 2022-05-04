@@ -11,7 +11,7 @@ bp = Blueprint('home', __name__)
 @bp.route('/home')
 @login_required
 def home():
-    if g.user is None:
-        return redirect(url_for('auth.login'))
-    else:
+    # if g.user is None:
+        # return redirect(url_for('auth.login'))
+    # else:
         return render_template('home/home.html')
