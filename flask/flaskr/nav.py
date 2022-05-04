@@ -25,7 +25,7 @@ def home():
 
 '''
 @bp.route('/search')
-@login_required
+##@login_required
 def search():
     return render_template('search/search.html')
 '''
