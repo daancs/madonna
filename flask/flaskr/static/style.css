@@ -376,3 +376,19 @@ input:focus {
   width:  auto; 
   margin:  20px; 
 }
+
+.resbox {
+  display: flex;
+  background: #FAFAFA;
+  border-radius: 4px;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+
+
+.resbox > div {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
+}
