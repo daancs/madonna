@@ -1,29 +1,48 @@
 {% extends 'bases/base.html' %}
 
 {% block content %}
+<<<<<<< HEAD
 <h1>{% block title %}Sök{% endblock %}</h1>
     <div class=searchForm>
         <form action="" method="post">
             <label for="idnr">key_id:</label>
             <input type="text" name="key_id" id="idnr">
+=======
+    <div class="searchForm">
+        <form action="" method="post" class="formsearch">
+            <div class="idnrbox">
+              <label for="idnr">key_id:</label>
+              <input type="text" name="key_id" id="idnr">
+            </div>
+>>>>>>> 9a59fc55087e17fc21a5f801b334bd7b9656acc7
 
-            <label for="gender">Kön:</label>
-            <input type="text" name="gender" id="gender">
+            <div class="genderbox">
+              <label for="gender">Kön:</label>
+              <input type="text" name="gender" id="gender">
+            </div>
 
-            <label for="name">Namn:</label>
-            <input type="text" name="name" id="name">
+            <div class="namebox">
+              <label for="name">Namn:</label>
+              <input type="text" name="name" id="name">
+            </div>
 
-            <label for="weight">Vikt:</label>
-            <input type="text" name="weight" id="weight">
+            <div class="weightbox">
+              <label for="weight">Vikt:</label>
+              <input type="text" name="weight" id="weight">
+            </div>
 
-            <label for="age">Ålder:</label>
-            <input type="text" name="age" id="age">
+            <div class="agebox">
+              <label for="age">Ålder:</label>
+              <input type="text" name="age" id="age">
+            </div>
 
-            <label for="idnr">Rökare:</label>
-            <label for="nicotineTrue">Ja:</label>
-            <input type="checkbox" name="nicotine" id="nicotineTrue">
+            <div class="nicobox">
+              <label for="idnr">Rökare:</label>
+              <label for="nicotineTrue">Ja:</label>
+              <input type="checkbox" name="nicotine" id="nicotineTrue">
+            </div>
 
-            <input type="submit" value="Submit">
+            <input type="submit" value="Submit" class="prominentdonebtn">
         </form>
     </div>
 
