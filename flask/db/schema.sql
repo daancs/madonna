@@ -53,19 +53,18 @@ CREATE TABLE Treatments (
     PRIMARY KEY (treatmentId,caseId)
 );
 
-<<<<<<< HEAD
-=======
 CREATE TABLE Studies(
-    studyID UUID DEFAULT gen_random_uuid(),
+    studyID INTEGER,
     patient CHAR(4) NOT NULL,
     studyNumber INT NOT NULL,
     PRIMARY KEY(patient, studyID)
 );
 
+
 CREATE TABLE Study1 (
-    studyID UUID NOT NULL,
+    studyID INTEGER,
     patient CHAR(4) REFERENCES Patients(key_id),
-    progress ENUM (1, 2, 3, 4, 5) DEFAULT 1,
+    progress INTEGER DEFAULT 1,
     do_you_smoke BOOL NOT NULL DEFAULT 'TRUE',
     is_your_house_red BOOL NOT NULL DEFAULT 'TRUE',
     is_your_dog_gay BOOL NOT NULL DEFAULT 'TRUE',
@@ -74,16 +73,15 @@ CREATE TABLE Study1 (
 );
 
 CREATE TABLE Study2 (
-    studyID UUID NOT NULL,
+    studyID INTEGER,
     patient CHAR(4) REFERENCES Patients(key_id),
-    progress ENUM (1, 2, 3, 4, 5) DEFAULT 1,
-    how_tall_are_you TEXT NOT DEFAULT 'Not answered',
+    progress INTEGER DEFAULT 1,
+    how_tall_are_you TEXT DEFAULT 'Not answered',
     how_much_do_you_make TEXT DEFAULT 'Not answered',
     is_your_cat_gay BOOL NOT NULL DEFAULT 'TRUE',
     FOREIGN  KEY (patient, studyID) REFERENCES Studies(patient, studyID),
     PRIMARY KEY (patient, studyID)
 );
->>>>>>> fa483ab1940be9efbe851cd848623943cc576ae5
 
 INSERT INTO Patients (key_id,idnr,name,age,gender,weight,bmi,nicotine,adress,city,zipcode) VALUES
 ('0001','20000901-1234', 'Foo Bar', '69', 'Male' ,'420', '21.2', 'Nej', 'Hubbenvägen 1','Göteborg','41280'),
@@ -92,7 +90,7 @@ INSERT INTO Patients (key_id,idnr,name,age,gender,weight,bmi,nicotine,adress,cit
 ('0004','19120313-3891', 'Zlatan Zlatansson', '110', 'Male', '123', '35.00', 'Ja', 'Bondgatan 123','Götebort','41170'),
 ('0005','20120124-1876', 'Anna Annasson', '11', 'Female', '24', '20.22', 'Ja', 'Bondgatan 321','Göteborg','41123'),
 ('0006','13370101-1876', 'Carl Carlsson', '13', 'Male', '100', '45', 'Ja', 'Vasagatan 1','Göteborg','41236'),
-('0007','20010603-1934', 'Zlatan Persson', '35', 'Male', '100', '19', 'Nej', 'Chalmersgatan 2','Götebort','431 36'),
+('0007','20010603-1934', 'Zlatan Persson', '35', 'Male', '100', '19', 'Nej', 'Chalmersgatan 2','Götebort','43136'),
 ('0008','19951412-3895', 'Sven-Gunnar Lanngren', '10', 'Male', '79', '23', 'Nej', 'Vikenviken 16','Billdal','43652'),
 ('0009','17690815-1337', 'Napoleone Buonaparte', '51', 'Male', '77', '27.3', 'Ja', 'rue Saint-Charles 20000','Ajaccio','42411'),
 ('0010','19711010-0007', 'James Bond', '40', 'Male', '80', '22', 'Ja', 'Bondgatan 0','London','00700'),
@@ -120,32 +118,33 @@ INSERT INTO Treatments (caseId,cytostatics,operationDate, doctor, assistent, med
 ('a789ea53-08b6-4108-a1d5-e992c2413654', 'Ja','2013-12-01', 'Gustavsson', 'Kingen', 'Adjuvant hormonterapi'),
 ('27411ee6-c60b-11ec-9d64-0242ac120002', 'Okänt','2014-11-19', 'Zlatan', 'Gästläkare', 'Adjuvant hormonterapi');
 
-INSERT INTO Studies(patient, studyNumber) VALUES
-('0001','1'),
-('0002','1'),
-('0003','2'),
-('0004','1'),
-('0005','2'),
-('0008','1'),
-('0009','2'),
-('0010','1'),
-('0012','2'),
-('0015','1');
+INSERT INTO Studies(studyID, patient, studyNumber) VALUES
+(1, '0001','1'),
+(1, '0002','1'),
+(2, '0003','2'),
+(1, '0004','1'),
+(2, '0005','2'),
+(1, '0008','1'),
+(2, '0009','2'),
+(1, '0010','1'),
+(2, '0012','2'),
+(1, '0015','1');
 
-INSERT INTO Study1(patient, progress, do_you_smoke, is_your_house_red, is_your_dog_gay) VALUES
-('0001', '5', 'TRUE', 'FALSE', 'TRUE'),
-('0002', '5', 'TRUE', 'TRUE', 'TRUE'),
-('0004', '5', 'TRUE', 'FALSE', 'TRUE'),
-('0008', '5', 'TRUE', 'TRUE', 'TRUE');
+INSERT INTO Study1(studyID, patient, progress, do_you_smoke, is_your_house_red, is_your_dog_gay) VALUES
+(1, '0001', '5', 'TRUE', 'FALSE', 'TRUE'),
+(1, '0002', '5', 'TRUE', 'TRUE', 'TRUE'),
+(1, '0004', '5', 'TRUE', 'FALSE', 'TRUE'),
+(1, '0008', '5', 'TRUE', 'TRUE', 'TRUE');
 
-INSERT INTO Study1(patient, progress, is_your_house_red, is_your_dog_gay) VALUES
-('0010', '4', 'TRUE', 'TRUE'),
-('0015', '4', 'FALSE', 'TRUE');
 
-INSERT INTO Study2(patient, progress, how_tall_are_you, how_much_do_you_make, is_your_cat_gay) VALUES
-('0003','5','165','100000','TRUE');
+INSERT INTO Study1(studyID, patient, progress, is_your_house_red, is_your_dog_gay) VALUES
+(1, '0010', '4', 'TRUE', 'TRUE'),
+(1, '0015', '4', 'FALSE', 'TRUE');
 
-INSERT INTO Study2(patient, progress, how_much_do_you_make, is_your_cat_gay) VALUES
-('0005','3','89561','TRUE'),
-('0009','3','3142','TRUE'),
-('0012','3','9998612','TRUE');
+INSERT INTO Study2(studyID, patient, progress, how_tall_are_you, how_much_do_you_make, is_your_cat_gay) VALUES
+(2, '0003','5','165','100000','TRUE');
+
+INSERT INTO Study2(studyID, patient, progress, how_much_do_you_make, is_your_cat_gay) VALUES
+(2, '0005','3','89561','TRUE'),
+(2, '0009','3','3142','TRUE'),
+(2, '0012','3','9998612','TRUE');
