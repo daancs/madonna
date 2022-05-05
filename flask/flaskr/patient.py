@@ -10,3 +10,6 @@ bp = Blueprint('patient', __name__)
 @bp.route('/patient')
 def patient():
     return render_template('patient/patientview.html')
+
+def exit():
+    return redirect(url_for('guiQuery.index'))
