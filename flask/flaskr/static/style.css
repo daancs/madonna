@@ -411,3 +411,18 @@ input:focus {
   right: 0px;
   margin: 2%;
 }
+.resbox {
+  display: flex;
+  background: #FAFAFA;
+  border-radius: 4px;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+
+
+.resbox > div {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
+}
