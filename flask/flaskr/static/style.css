@@ -387,10 +387,18 @@ input:focus {
   max-width: 60%;
   padding-bottom: 50px;
   font-size: x-large;
+  font-weight: bolder;
 }
 
-a.grid-items-a {
+a.grid-items-a1 {
+  font-size: medium;
+  font-weight: bold;
+
+}
+
+a.grid-items-a2 {
   font-size: small;
+  font-weight: lighter;
 
 }
 
