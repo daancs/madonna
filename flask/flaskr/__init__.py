@@ -6,6 +6,7 @@ from . import nav
 from . import home
 from . import db
 from . import guiQuery
+from . import studies
 from . import patient
 
 # from routes import routes_blueprint
@@ -20,6 +21,7 @@ def create_app(test_config=None):
     app.register_blueprint(guiQuery.bp)
     app.register_blueprint(home.bp)
 
+    app.register_blueprint(studies.bp)
     app.register_blueprint(patient.bp)
 
     app.add_url_rule('/', endpoint='index')

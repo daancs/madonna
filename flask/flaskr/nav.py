@@ -17,7 +17,7 @@ def index():
 
 '''
 @bp.route('/search')
-@login_required
+##@login_required
 def search():
     return render_template('search/search.html')
 '''
@@ -26,4 +26,10 @@ def search():
 @login_required
 def studies():
     return render_template('study/studies.html')
+
+# @bp.route('/studies')
+# @login_required
+# def studies():
+#     return render_template('study/studies.html')
+
 
