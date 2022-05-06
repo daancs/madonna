@@ -321,9 +321,8 @@ input {
   transition:  all .3s linear; 
   color:  #000; 
   font-weight:  400; 
-  -webkit-appearance:  none;   
-  
 }
+
 input:focus {
   border-bottom:  solid 1px var(--primary-color); 
   outline: 0; 
@@ -375,4 +374,44 @@ input:focus {
   height:  40px; 
   width:  auto; 
   margin:  20px; 
+}
+
+.resbox {
+  display: flex;
+  background: #FAFAFA;
+  border-radius: 4px;
+  align-items: center;
+  justify-content: space-evenly;
+  margin: 0.5rem 0;
+}
+
+
+
+.resbox > div {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
+}
+
+.formsearch {
+  display: flex;
+  flex-direction: row !important; 
+  flex-wrap: wrap;
+  width: 90vw;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.prominentdonebtn {
+  background: #5c95ff;
+}
+
+.prominentdonebtn:hover {
+  background: #78a7ff;
+}
+.formsearch > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem;
 }
