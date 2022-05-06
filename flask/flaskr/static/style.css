@@ -410,6 +410,11 @@ input:focus {
   right: 0px;
   margin: 2%;
 }
+
+.patient-info{
+  display: flex;
+}
+
 .resbox {
   display: flex;
   background: #FAFAFA;
