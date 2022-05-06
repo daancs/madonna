@@ -94,10 +94,10 @@ INSERT INTO Patients (key_id,idnr,name,age,gender,weight,bmi,nicotine,adress,cit
 ('0009','17690815-1337', 'Napoleone Buonaparte', '51', 'Male', '77', '27.3', 'Ja', 'rue Saint-Charles 20000','Ajaccio','42411'),
 ('0010','19711010-0007', 'James Bond', '40', 'Male', '80', '22', 'Ja', 'Bondgatan 0','London','00700'),
 ('0011','19170702-3434', 'To Andersson', '50', 'Female', '45', '19', 'Nej', 'Daseborg','Götebort','41270'),
-('0012','19120313-3891', 'Zlatan Zlatansson', '110', 'Male', '123', '35.00', 'Ja', 'Bondgatan 123','Götebort','41170'),
-('0013','19120313-3891', 'Zlatan Zlatansson', '110', 'Male', '123', '35.00', 'Ja', 'Bondgatan 123','Götebort','41170'),
-('0014','19120313-3891', 'Zlatan Zlatansson', '110', 'Male', '123', '35.00', 'Ja', 'Bondgatan 123','Götebort','41170'),
-('0015','19120313-3891', 'Zlatan Zlatansson', '110', 'Male', '123', '35.00', 'Ja', 'Bondgatan 123','Götebort','41170');
+('0012','18950103-5454', 'Snobben Snobbsson', '111', 'Femle', '40', '16', 'Nej', 'Verum 1','Göteborg','41236'),
+('0013','19240503-6767', 'Asterix Gallsson', '74', 'Female', '90', '35.00', 'Ja', 'Winden 3','Götebort','42436'),
+('0014','19781212-6789', 'Super Mario', '45', 'Male', '78', '21', 'Nej', 'Japangatan 1','Tokyo','42136'),
+('0015','19831111-1234', 'Kalle Anka', '12', 'Female', '120', '33', 'Nej', 'Kalle ankas allé 1','Ankebort','41211');
 
 
 INSERT INTO MedicalHistory (key_id,complication) VALUES
