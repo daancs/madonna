@@ -38,7 +38,7 @@ def get_db():
                 host="localhost",
                 database="madonna",
                 user="postgres",
-                password="postgres"
+                password=os.environ['DB_PASSWORD']
         )
 
     return g.db
