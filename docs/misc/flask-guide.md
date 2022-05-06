@@ -40,24 +40,27 @@
 
     Linux/macOS: `source venv/bin/activate`
 
-3. Kör följande kommandon för att "berätta" vart flask ska köras
+3. Kör följande kommandon för att "berätta" vart flask ska köras och sätta lösenordet för databasen
 
     Linux/macOS:
     ```
     export FLASK_APP=flaskr
     export FLASK_ENV=development
+    export DB_PASSWORD=*Ditt Lösenord*
     ```
 
     Windows PowerShell:
     ```
     $env:FLASK_APP = "flaskr"
     $env:FLASK_ENV = "development"
+    $env:DB_PASSWORD = *Ditt Lösenord*
     ```
 
     Windows CMD:
     ```
     set FLASK_APP = "flaskr"
     set FLASK_ENV = "development"
+    set DB_PASSWORD = *Ditt Lösenord*
     ```
 4. Starta flask genom att köra `flask run` i terminalen
 
