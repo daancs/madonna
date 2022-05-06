@@ -4,6 +4,7 @@ from flask import Flask
 from . import auth
 from . import nav
 from . import studies
+from . import patient
 
 # from routes import routes_blueprint
 
@@ -15,6 +16,7 @@ def create_app(test_config=None):
     app.register_blueprint(auth.bp)
     app.register_blueprint(nav.bp)
     app.register_blueprint(studies.bp)
+    app.register_blueprint(patient.bp)
     app.add_url_rule('/', endpoint='index')
     app.config.from_mapping(
         SECRET_KEY='dev',

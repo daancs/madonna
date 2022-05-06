@@ -1,32 +1,40 @@
 {% extends 'bases/base.html' %}
 
-{% block header %}
-  <h1>{% block title %}Sök{% endblock %}</h1>
-{% endblock %}
-
 {% block content %}
-    <div class=searchForm>
-        <form action="" method="post">
-            <label for="idnr">key_id:</label>
-            <input type="text" name="key_id" id="idnr">
+    <div class="searchForm">
+        <form action="" method="post" class="formsearch">
+            <div class="idnrbox">
+              <label for="idnr">key_id:</label>
+              <input type="text" name="key_id" id="idnr">
+            </div>
 
-            <label for="gender">Kön:</label>
-            <input type="text" name="gender" id="gender">
+            <div class="genderbox">
+              <label for="gender">Kön:</label>
+              <input type="text" name="gender" id="gender">
+            </div>
 
-            <label for="name">Namn:</label>
-            <input type="text" name="name" id="name">
+            <div class="namebox">
+              <label for="name">Namn:</label>
+              <input type="text" name="name" id="name">
+            </div>
 
-            <label for="weight">Vikt:</label>
-            <input type="text" name="weight" id="weight">
+            <div class="weightbox">
+              <label for="weight">Vikt:</label>
+              <input type="text" name="weight" id="weight">
+            </div>
 
-            <label for="age">Ålder:</label>
-            <input type="text" name="age" id="age">
+            <div class="agebox">
+              <label for="age">Ålder:</label>
+              <input type="text" name="age" id="age">
+            </div>
 
-            <label for="idnr">Rökare:</label>
-            <label for="nicotineTrue">Ja:</label>
-            <input type="checkbox" name="nicotine" id="nicotineTrue">
+            <div class="nicobox">
+              <label for="idnr">Rökare:</label>
+              <label for="nicotineTrue">Ja:</label>
+              <input type="checkbox" name="nicotine" id="nicotineTrue">
+            </div>
 
-            <input type="submit" value="Submit">
+            <input type="submit" value="Submit" class="prominentdonebtn">
         </form>
     </div>
 
@@ -35,8 +43,55 @@
   {% elif result %}
     {%for res in result %}
         <div class="resbox">
-            <span>{{ res }}</span>
+            <div class="keyid">
+                <span>ID: </span>
+                <span>{{ res.key_id }}</span>
+            </div>
+            <div class="scn">
+                <span>Personnummer: </span>
+                <span>{{ res.idnr }}</span>
+            </div>
+            <div class="name">
+                <span>Namn: </span>
+                <span>{{ res.name }}</span>
+            </div>
+            <div class="age">
+                <span>Ålder: </span>
+                <span>{{ res.age }}</span>
+            </div>
+            <div class="gender">
+              <span>Kön: </span>
+              <span>{{ res.gender }}</span>
+            </div>
+            <div class="weight">
+              <span>Vikt: </span>
+              <span>{{ res.weight }}</span>
+            </div>
+            <div class="bmi">
+              <span>BMI: </span>
+              <span>{{ res.bmi }}</span>
+            </div>
+            <div class="nicotine">
+              <span>Rökare: </span>
+              <span>{{ res.nicotine }}</span>
+            </div>
+            <div class="adress">
+              <span>Adress: </span>
+              <span>{{ res.adress }}</span>
+            </div>
+            <div class="city">
+              <span>Stad: </span>
+              <span>{{ res.city }}</span>
+            </div>
+            <div class="zip">
+              <span>Postnummer: </span>
+              <span>{{ res.zipcode }}</span>
+            </div>
+            <div class="moreInfo">
+              <a href="{{ url_for('patient.patient', key_id = res.key_id) }}" class="moreinfoA">More info about patient</a>
+            </div>
         </div>
     {% endfor %}
   {% endif %}
+  
 {% endblock %}

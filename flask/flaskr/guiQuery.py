@@ -8,7 +8,7 @@ from . import db
 bp = Blueprint('search', __name__)
 
 @bp.route('/search', methods=['GET', 'POST'])
-@login_required
+#@login_required
 def index():
     """
     This function renders the query page.
@@ -37,7 +37,7 @@ def index():
 
         cur.execute(query)
 
-        result = cur.fetchone()
+        result = cur.fetchall()
         print(result)
             # result = "Error: unable to fetch data"
             # g.isResString = True
