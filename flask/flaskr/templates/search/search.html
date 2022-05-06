@@ -1,9 +1,5 @@
 {% extends 'bases/base.html' %}
 
-{% block header %}
-  <h1>{% block title %}Sök{% endblock %}</h1>
-{% endblock %}
-
 {% block content %}
     <div class="searchForm">
         <form action="" method="post" class="formsearch">
@@ -92,9 +88,10 @@
               <span>{{ res.zipcode }}</span>
             </div>
             <div class="moreInfo">
-              <a href="patient/{{res.key_id}}" class="moreinfoA">More info about patient</a>
+              <a href="{{ url_for('patient.patient', key_id = res.key_id) }}" class="moreinfoA">More info about patient</a>
             </div>
         </div>
     {% endfor %}
   {% endif %}
+  
 {% endblock %}
