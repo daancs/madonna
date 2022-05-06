@@ -1,4 +1,3 @@
-from turtle import back
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
@@ -22,7 +21,7 @@ def patients():
     cur.execute(query2)
     result2 = cur.fetchall()
     conn.commit()
-   
+
 
     return render_template('study/studies.html', result=result, result2=result2)
 
@@ -31,12 +30,12 @@ def patients():
     query = SELECT * FROM Patients WHERE Patients.key_id = %s INNER JOIN Cases ON Patients.key_id=Cases.patient, (key_id,)
     return query
 def runQuery(query):
-    
+
     This function runs the query in postgresql.
     database = db.get_db()
     cur = database.cursor(cursor_factory=psycopg2.extras.DictCursor) # needed for select queries
     cur.execute(query)
     database.commit()
     res = cur.fetchall()
-    return res 
+    return res
 """

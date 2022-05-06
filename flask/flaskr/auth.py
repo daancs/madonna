@@ -30,10 +30,10 @@ def login():
         except:
             error = 'Error: unable to fetch data'
             flash(error)
-        
+
         session.clear()
         session['user'] = user
-        return redirect(url_for('nav.home'))
+        return redirect(url_for('home.home'))
     return render_template('auth/login.html')
 
 '''
@@ -71,7 +71,7 @@ def load_logged_in_user():
     if user is None:
         g.user = None
         return
-        
+
     g.user = user
 
 

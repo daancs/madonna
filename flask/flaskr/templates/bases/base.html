@@ -11,16 +11,16 @@
   {% block topnav %}
   <div class="topnav">
     <div class="imagediv">
-       <a class="navbar-brand" href="{{ url_for('nav.home') }}">
+       <a class="navbar-brand" href="{{ url_for('home.home') }}">
           <img class="image" src="{{url_for('static', filename='vg.jpg')}}">
        </a>
    </div>
     <div class="navitems">
-      <a href="{{ url_for('nav.home') }}">Hem</a>
+      <a href="{{ url_for('home.home') }}">Hem</a>
       <a href="{{ url_for('search.index') }}">Sök</a>
       <a href="{{ url_for('studies.patients') }}">Studier</a>
     </div>
-  
+
     <div class="user">
       {% if g.user %}
         <p>Inloggad användare: <span style="color:blue">{{ g.user[1] }}</span></p>
@@ -28,7 +28,7 @@
     </div>
   </div>
   {% endblock %}
-  
+
   <section class="content">
       {% block content %}{% endblock %}
   </section>
