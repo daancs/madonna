@@ -358,6 +358,8 @@ input:focus {
   border-radius:  4px; 
   box-shadow:  0px 2px 6px -1px rgba(0,0,0,.12);
 }
+
+/* Behåll */
 .left {
   width:  420px; 
   height:  auto; 
@@ -375,6 +377,33 @@ input:focus {
   margin:  20px; 
 }
 
+/* Behåll grid-related */
+.grid-item {
+  display: grid;
+  align-items: left;
+  background-color: #fff;
+  max-width: 60%;
+  padding-bottom: 50px;
+  font-size: x-large;
+  font-weight: bolder;
+}
+
+a.grid-items-a1 {
+  font-size: medium;
+  font-weight: bold;
+
+}
+
+a.grid-items-a2 {
+  font-size: small;
+  font-weight: lighter;
+
+}
+
+/* Behåll grid-related */
+.grid-container {
+  display: grid;
+  row-gap: 50px;
 
 /* Used in patientview.html */
 .box{
