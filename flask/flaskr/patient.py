@@ -1,4 +1,3 @@
-from turtle import back
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
@@ -27,7 +26,7 @@ def patient(key_id):
     return query
 
 def runQuery(query):
-    
+
     This function runs the query in postgresql.
 
     database = db.get_db()
@@ -35,8 +34,8 @@ def runQuery(query):
     cur.execute(query)
     database.commit()
     res = cur.fetchall()
-    return res 
+    return res
 """
 
 def exit():
-    return redirect(back)
+    return redirect(url_for('guiQuery.index'))
