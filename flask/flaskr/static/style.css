@@ -404,9 +404,10 @@ a.grid-items-a2 {
 .grid-container {
   display: grid;
   row-gap: 50px;
+}
 
 /* Used in patientview.html */
-.box{
+.box {
   width: 70%;
   height: 85%;            
   position: absolute;
