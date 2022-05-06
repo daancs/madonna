@@ -8,6 +8,7 @@
 </head>
 
 <body>
+  {% block topnav %}
   <div class="topnav">
     <div class="imagediv">
        <a class="navbar-brand" href="{{ url_for('home.home') }}">
@@ -26,6 +27,7 @@
       {% endif %}
     </div>
   </div>
+  {% endblock %}
 
   <section class="content">
       {% block content %}{% endblock %}

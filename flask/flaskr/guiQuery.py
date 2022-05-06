@@ -40,7 +40,7 @@ def index():
 
         cur.execute(query)
 
-        result = cur.fetchone()
+        result = cur.fetchall()
         print(result)
             # result = "Error: unable to fetch data"
             # g.isResString = True

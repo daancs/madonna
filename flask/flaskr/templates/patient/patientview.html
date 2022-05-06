@@ -1,11 +1,15 @@
 {% extends 'bases/base.html' %}
 
-
-
-<!-- {% block body %}
-<div class="shadow">
-    <div class="box stack-top"></div>
-</div>
-{% endblock %} -->
+{% block topnav %}
+    <div class="shadow">{{ super() }}</div>
+    <div class="box stack-top">
+        <a class="exit" href="{{ url_for('search.index') }}">
+            <img class="image" src="{{url_for('static', filename='close.png')}}">
+        </a>
+        <div class="patient-info">
+                {{result}}
+        </div>
+    </div>
+{% endblock %}
 
 
