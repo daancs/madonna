@@ -50,6 +50,10 @@ def index():
 def buildQuery(id, gender, name, weight, age, nicotine, study):
     query = ""
 
+    if name:
+        name = "%" + name + "%"
+
+    
     if len(study) == 0:
         query = """SELECT * FROM patients"""
     else:
@@ -60,22 +64,22 @@ def buildQuery(id, gender, name, weight, age, nicotine, study):
         if not len(id) == 0:
             query += " key_id = '" + id + "'"
         if not len(gender) == 0:
-            if not "key_id" in query:
+            if not "WHERE key_id" in query:
                 query += " gender = '" + gender + "'"
             else:
                 query += " AND gender = '" + gender + "'"
         if not len(name) == 0:
-            if not ("key_id" in query or "gender" in query):
-                query += " name = '" + name + "'"
+            if not ("WHERE key_id" in query or "gender" in query):
+                query += " name LIKE '" + name + "'"
             else:
-                 query += " AND name = '" + name + "'"
+                 query += " AND name LIKE '" + name + "'"
         if not len(weight) == 0:
-            if not ("key_id" in query or "gender" in query or "name" in query):
+            if not ("WHERE key_id" in query or "gender" in query or "name" in query):
                 query += " weight = '" + weight + "'"
             else:
                  query += " AND weight = '" + weight + "'"
         if not len(age) == 0:
-            if not ("key_id" in query or "gender" in query or "name" in query or "weight" in query):
+            if not ("WHERE key_id" in query or "gender" in query or "name" in query or "weight" in query):
                 query += " age = '" + age + "'"
             else:
                  query += " AND age = '" + age + "'"
@@ -85,14 +89,20 @@ def buildQuery(id, gender, name, weight, age, nicotine, study):
             else:
                  query += " AND studyNumber = '" + study + "'"
 
-    if not nicotine:
+    if nicotine == 'both':
+        if 'WHERE' not in query:
+            query += " WHERE"
+            query += " nicotine LIKE '%'"
+        else:
+            query += " AND nicotine LIKE '%'"
+    elif nicotine == 'Nej':
         if "WHERE" not in query:
             query += " WHERE"
         if not ("key_id" in query or "gender" in query or "name" in query or "weight" in query or "age" in query):
             query += " nicotine = 'Nej'"
         else:
             query += " AND nicotine = 'Nej'"
-    else:
+    elif nicotine == 'Ja':
         if "WHERE" not in query:
             query += " WHERE"
         if not ("key_id" in query or "gender" in query or "name" in query or "weight" in query or "age" in query):
