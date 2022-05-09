@@ -23,7 +23,11 @@
 
     <div class="user">
       {% if g.user %}
-        <p>Inloggad användare: <span style="color:blue">{{ g.user[1] }}</span></p>
+        <p>Inloggad användare: <span style="color:blue">{{ g.user[1] }}</span>
+            <a href={{url_for('auth.logout')}}>
+                <button class="logoutBtn">Logga ut</button>
+            </a>
+        </p>
       {% endif %}
     </div>
   </div>

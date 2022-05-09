@@ -494,3 +494,14 @@ a.grid-items-a2 {
 .formsearch > div > select {
   margin: 1rem;
 }
+button.logoutBtn {
+    margin-top: 0;
+    margin-left: 10px;
+    padding: 0;
+    background-color: #a4ccab;
+}
+
+button.logoutBtn:hover {
+    cursor: pointer;
+
+}

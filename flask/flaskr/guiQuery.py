@@ -25,13 +25,14 @@ def index():
         name = request.form['name']
         weight = request.form['weight']
         age = request.form['age']
+        study = request.form['study']
         try:
             nicotine = request.form['nicotine']
         except:
             nicotine = False
 
 
-        query = buildQuery(id, gender, name, weight, age, nicotine)
+        query = buildQuery(id, gender, name, weight, age, nicotine, study)
 
         db.addToHistory(g.user[1],query)
 
@@ -46,13 +47,19 @@ def index():
             # g.isResString = True
     return render_template('/search/search.html', result=result)
 
-def buildQuery(id, gender, name, weight, age, nicotine):
-    query = """SELECT * FROM patients"""
+def buildQuery(id, gender, name, weight, age, nicotine, study):
+    query = ""
 
     if name:
         name = "%" + name + "%"
 
-    if not (len(id) == 0 and len(gender) == 0 and len(name) == 0 and len(weight) == 0 and len(age) == 0):
+    
+    if len(study) == 0:
+        query = """SELECT * FROM patients"""
+    else:
+        query ="""SELECT * FROM patients JOIN Studies ON key_id = patient"""
+
+    if not (len(id) == 0 and len(gender) == 0 and len(name) == 0 and len(weight) == 0 and len(age) == 0 and len(study) == 0):
         query += " WHERE"
         if not len(id) == 0:
             query += " key_id = '" + id + "'"
@@ -76,6 +83,11 @@ def buildQuery(id, gender, name, weight, age, nicotine):
                 query += " age = '" + age + "'"
             else:
                  query += " AND age = '" + age + "'"
+        if not len(study) == 0:
+            if not ("WHERE key_id" in query or "gender" in query or "name" in query or "weight" in query or "age" in query):
+                query += " studyNumber = '" + study + "'"
+            else:
+                 query += " AND studyNumber = '" + study + "'"
 
     if nicotine == 'both':
         if 'WHERE' not in query:
