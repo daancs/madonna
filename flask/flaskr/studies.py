@@ -14,8 +14,8 @@ bp = Blueprint('studies', __name__)
 def patients():
     conn = db.get_db()
     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
-    query = "SELECT name FROM Patients RIGHT JOIN Study1 ON patients.key_id=study1.patient"
-    query2 = "SELECT name FROM Patients RIGHT JOIN Study2 ON patients.key_id=study2.patient"
+    query = """SELECT * FROM Patients RIGHT JOIN Study1 ON patients.key_id=study1.patient"""
+    query2 = """SELECT * FROM Patients RIGHT JOIN Study2 ON patients.key_id=study2.patient"""
     cur.execute(query)
     result = cur.fetchall()
     cur.execute(query2)
