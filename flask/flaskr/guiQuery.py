@@ -70,9 +70,9 @@ def buildQuery(id, gender, name, weight, age, nicotine, study):
                 query += " AND gender = '" + gender + "'"
         if not len(name) == 0:
             if not ("WHERE key_id" in query or "gender" in query):
-                query += " name LIKE '" + name + "'"
+                query += " name ILIKE '" + name + "'"
             else:
-                 query += " AND name LIKE '" + name + "'"
+                 query += " AND name ILIKE '" + name + "'"
         if not len(weight) == 0:
             if not ("WHERE key_id" in query or "gender" in query or "name" in query):
                 query += " weight = '" + weight + "'"
