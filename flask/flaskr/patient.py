@@ -20,6 +20,9 @@ def patient(key_id):
     result = cur.fetchall()
     return render_template('patient/patientview.html', result=result[0])
 
+@bp.route('/patient/<key_id>/edit', methods=['GET', 'POST'])
+def editPatient(key_id):
+    return "dab"
 
 """ def buildPatientQuery(key_id):
     query = SELECT * FROM Patients WHERE Patients.key_id = %s INNER JOIN Cases ON Patients.key_id=Cases.patient, (key_id,)
