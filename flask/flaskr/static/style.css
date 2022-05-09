@@ -377,9 +377,19 @@ input:focus {
 }
 
 div.searchHistory {
-    background-color: lightgray;
-    height: 20em;
+    background-color: #ececec;
+    border-radius: 4px;
+    height: auto;
     padding: 1em;
+}
+
+div.historyEntry{
+  display: flex;
+  background: #FAFAFA;
+  border-radius: 4px;
+  align-items: center;
+  justify-content: space-evenly;
+  margin: 0.5rem 0;
 }
 
 /* Behåll grid-related */
