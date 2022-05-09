@@ -22,11 +22,6 @@ def search():
     return render_template('search/search.html')
 '''
 
-@bp.route('/studies')
-@login_required
-def studies():
-    return render_template('study/studies.html')
-
 # @bp.route('/studies')
 # @login_required
 # def studies():
