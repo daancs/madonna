@@ -34,7 +34,7 @@ def index():
 
         query = buildQuery(id, gender, name, weight, age, nicotine, study)
 
-        db.addToHistory(g.user[1],query)
+        db.addToHistory(g.user[1], id, gender, name, weight, age, nicotine, study)
 
         conn = db.get_db()
         cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)

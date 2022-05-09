@@ -50,11 +50,48 @@ def close_db(e=None):
         db.close()
 
 
-def addToHistory(user, query):
+def addToHistory(user, id, gender, name, weight, age, nicotine, study):
+    entry = entryBuilder(user, id, gender, name, weight, age, nicotine, study)
     conn = get_db()
     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
-    cur.execute("INSERT INTO SearchHistory (who, query) VALUES (%s,%s)",(user,query))
+    cur.execute("INSERT INTO SearchHistory(search) VALUES ('" + entry + "')")
     conn.commit()
+
+def entryBuilder(user, id, gender, name, weight, age, nicotine, study):
+    entry = str(user) + " sökte på "
+
+    if (len(id) == 0 and len(gender) == 0 and len(name) == 0 and len(weight) == 0 and len(age) == 0 and len(study) == 0 and nicotine == "both"):
+        entry += "alla patienter"
+        return entry
+
+    entry += " patienter som "
+
+    if len(id) != 0:
+        entry += " har id-nummer " + id
+
+    if len(gender) != 0:
+        entry += " är av könet " + gender
+
+    if len(name) != 0:
+        entry += " heter " + name
+
+    if len(weight) != 0:
+        entry += " väger " + weight + " kg"
+
+    if len(age) != 0:
+        entry += "är " + age + " år gamla"
+
+    if len(study) != 0:
+        entry += " deltar i studie nummer" + study
+
+    if nicotine == "both":
+        entry += " är antingen rökare och ickerökare"
+    if nicotine == " Nej":
+        entry += " inte röker"
+    if nicotine == "Ja":
+        entry += " röker"
+
+    return entry
 
 @click.command('init-db')
 @with_appcontext
