@@ -2,40 +2,42 @@
 <title>Sökbar databas för Sahlgrenska</title>
 
 <head>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-  <link rel="icon" href="{{ url_for('static', filename='vgreg.jpg') }}">
-  <!--link rel="stylesheet" href="C:\Users\julia\OneDrive\Dokument\Chalmers\Kurser\Agile\madonna\flask\flaskr\static\style.css">-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='vgreg.jpg') }}">
 </head>
 
 <body>
-  {% block topnav %}
-  <div class="topnav">
-    <div class="imagediv">
-       <a class="navbar-brand" href="{{ url_for('home.home') }}">
-          <img class="image" src="{{url_for('static', filename='vg.jpg')}}">
-       </a>
-   </div>
-    <div class="navitems">
-      <a href="{{ url_for('home.home') }}">Hem</a>
-      <a href="{{ url_for('search.index') }}">Sök</a>
-      <a href="{{ url_for('studies.patients') }}">Studier</a>
-    </div>
+    {% block topnav %}
+    <div class="topnav">
+        <div class="imagediv">
+            <a class="navbar-brand" href="{{ url_for('home.home') }}">
+                <img class="image" src="{{url_for('static', filename='vg.jpg')}}">
+            </a>
+        </div>
+        <div class="navitems">
+            <a href="{{ url_for('home.home') }}">Hem</a>
+            <a href="{{ url_for('search.index') }}">Sök</a>
+            <a href="{{ url_for('studies.patients') }}">Studier</a>
+        </div>
 
-    <div class="user">
-      {% if g.user %}
-        <p>Inloggad användare: <span style="color:blue">{{ g.user[1] }}</span>
+        <div class="user">
+            {% if g.user %}
+            <p>Inloggad användare: <span style="color:blue">{{ g.user[1] }}</span>
             <a href={{url_for('auth.logout')}}>
                 <button class="logoutBtn">Logga ut</button>
             </a>
-        </p>
-      {% endif %}
+            </p>
+            {% endif %}
+        </div>
     </div>
-  </div>
-  {% endblock %}
+    {% endblock %}
 
-  <section class="content">
-      {% block content %}{% endblock %}
-  </section>
+    <section class="content">
+        {% block content %}{% endblock %}
+    </section>
 </body>
 
 </html>
