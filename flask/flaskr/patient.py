@@ -23,8 +23,8 @@ def patient(key_id):
     for i in column_names:
         print(i)
     '''
-    
-    patient_col_names = ['Key-ID', 'Personnummer', 'Namn', 'Ålder', 'Kön', 'Vikt', 'BMI', 'Nikotin', 'Avliden', 'Adress', 'Stad', 
+
+    patient_col_names = ['Key-ID', 'Personnummer', 'Namn', 'Ålder', 'Kön', 'Vikt', 'BMI', 'Nikotin', 'Avliden', 'Adress', 'Stad',
     'Postnummer']
     cases_col_names = ['Case-ID', 'Patient', 'Komplikation', 'Granskad av', 'Granskningsdatum', 'Studie avslutad']
     conn.commit()

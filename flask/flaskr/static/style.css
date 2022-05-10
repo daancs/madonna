@@ -409,6 +409,7 @@ a.grid-items-a2 {
 
 /* Used in patientview.html */
 .box {
+    padding-bottom: 20px;
   width: 70%;
   position: absolute;
   top: 10%;
@@ -521,7 +522,7 @@ a.grid-items-a2 {
 .formsearch > div > label {
   font-size: 1.5rem;
   font-weight: bold;
-} 
+}
 
 .formsearch > div > select {
   margin: 1rem;
