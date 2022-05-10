@@ -6,8 +6,26 @@
         <a class="exit" href="{{ url_for('search.index') }}">
             <img class="image" src="{{url_for('static', filename='close.png')}}">
         </a>
-        <div class="patient-info">
-                {{result}}
+        <div class="patient-view">
+            <div class="patient-info">
+                <h2>Patientinfo</h2>
+                {% for i in patient_col_names %}
+                    <div class="patient-infobox">
+                        <span class="patient-criteria">{{patient_col_names[loop.index0]}}:</span>
+                        <span class="patient-value"> {{result[loop.index0]}}</span>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="patient-info">
+                <h2>Studier</h2>
+                {% for i in cases_col_names %}
+                    <div class="patient-infobox">
+                        <span class="patient-criteria">{{cases_col_names[loop.index0]}}:</span>
+                        <span class="patient-value"> {{result[12 + loop.index0]}}</span>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
+            
     </div>
 {% endblock %}
