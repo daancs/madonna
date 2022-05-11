@@ -417,6 +417,20 @@ a.grid-items-a2 {
   row-gap: 50px;
 }
 
+.grid-studyView {
+  display: grid;
+  row-gap: 10px;
+}
+
+.rubric-study {
+  display: flex;
+  justify-content: space-between;
+  padding-right: 2%;
+  font-weight: lighter;
+  font-size: smaller;
+
+}
+
 /* Used in patientview.html */
 .box {
   width: 70%;
