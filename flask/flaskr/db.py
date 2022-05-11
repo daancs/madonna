@@ -93,8 +93,8 @@ def entryBuilder(user, id, gender, name, weight, age, nicotine, study):
     if nicotine == "Ja":
         entry += "och röker"
 
-    if entry[-1] == ",":
-        entry = entry[0, len(entry) - 1]
+    if entry[-2] == ",":
+        entry = entry[:-2]
 
     return entry
 
