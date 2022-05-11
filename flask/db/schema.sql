@@ -31,8 +31,8 @@ CREATE TABLE Patients (
 
 --Table of specific patients medical history and compliation
 CREATE TABLE MedicalHistory (
-    key_id CHAR(4) NOT NULL REFERENCES Patients (key_id),
-    complication TEXT NOT NULL,
+    key_id CHAR(4) NOT NULL REFERENCES Patients (key_id), --key_id references Patients.key_id
+    complication TEXT NOT NULL, --complication
     PRIMARY KEY(key_id, complication)
 );
 
@@ -64,8 +64,8 @@ CREATE TABLE Treatments (
 --Table of patient and studies they are included in
 CREATE TABLE Studies(
     studyID INTEGER, --studyID
-    patient CHAR(4) NOT NULL, --patien
-    studyNumber INT NOT NULL,
+    patient CHAR(4) NOT NULL, --patient
+    studyNumber INT NOT NULL, --study
     PRIMARY KEY(patient, studyID)
 );
 
@@ -133,11 +133,11 @@ INSERT INTO Treatments (caseId,cytostatics,operationDate, doctor, assistent, med
 
 --Table of a specific users search history
 CREATE TABLE SearchHistory (
-    id SERIAL PRIMARY KEY,
-    time TIMESTAMP DEFAULT CURRENT_TIMESTAMP(1),
-    who TEXT NOT NULL,
-    query TEXT NOT NULL,
-    result JSON
+    id SERIAL PRIMARY KEY, --id number for specific search
+    time TIMESTAMP DEFAULT CURRENT_TIMESTAMP(1), --time
+    who TEXT NOT NULL, --user
+    query TEXT NOT NULL, --search query
+    result JSON --JSON object 
 );
 
 --Some inserts of example data to the studies table
