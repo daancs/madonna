@@ -9,6 +9,8 @@ CREATE TABLE Users (
     password TEXT NOT NULL
 );
 
+CREATE TYPE progress AS ENUM ('enkät ej utskickad', 'enkät utskickad', 'enkät delvis ifylld', 'enkät ifylld');
+
 CREATE TABLE Patients (
     key_id CHAR(4) PRIMARY KEY,
     idnr CHAR(13),
@@ -64,7 +66,7 @@ CREATE TABLE Studies(
 CREATE TABLE Study1 (
     studyID INTEGER,
     patient CHAR(4) REFERENCES Patients(key_id),
-    progress INTEGER DEFAULT 1,
+    progress progress DEFAULT 'enkät ej utskickad',
     do_you_smoke BOOL NOT NULL DEFAULT 'TRUE',
     is_your_house_red BOOL NOT NULL DEFAULT 'TRUE',
     is_your_dog_gay BOOL NOT NULL DEFAULT 'TRUE',
@@ -75,7 +77,7 @@ CREATE TABLE Study1 (
 CREATE TABLE Study2 (
     studyID INTEGER,
     patient CHAR(4) REFERENCES Patients(key_id),
-    progress INTEGER DEFAULT 1,
+    progress progress DEFAULT 'enkät ej utskickad',
     how_tall_are_you TEXT DEFAULT 'Not answered',
     how_much_do_you_make TEXT DEFAULT 'Not answered',
     is_your_cat_gay BOOL NOT NULL DEFAULT 'TRUE',
@@ -95,7 +97,7 @@ INSERT INTO Patients (key_id,idnr,name,age,gender,weight,bmi,nicotine,adress,cit
 ('0009','17690815-1337', 'Napoleone Buonaparte', '51', 'Male', '77', '27.3', 'Ja', 'rue Saint-Charles 20000','Ajaccio','42411'),
 ('0010','19711010-0007', 'James Bond', '40', 'Male', '80', '22', 'Ja', 'Bondgatan 0','London','00700'),
 ('0011','19170702-3434', 'To Andersson', '50', 'Female', '45', '19', 'Nej', 'Daseborg','Götebort','41270'),
-('0012','18950103-5454', 'Snobben Snobbsson', '111', 'Femle', '40', '16', 'Nej', 'Verum 1','Göteborg','41236'),
+('0012','18950103-5454', 'Snobben Snobbsson', '111', 'Female', '40', '16', 'Nej', 'Verum 1','Göteborg','41236'),
 ('0013','19240503-6767', 'Asterix Gallsson', '74', 'Female', '90', '35.00', 'Ja', 'Winden 3','Götebort','42436'),
 ('0014','19781212-6789', 'Super Mario', '45', 'Male', '78', '21', 'Nej', 'Japangatan 1','Tokyo','42136'),
 ('0015','19831111-1234', 'Kalle Anka', '12', 'Female', '120', '33', 'Nej', 'Kalle ankas allé 1','Ankebort','41211');
@@ -140,20 +142,20 @@ INSERT INTO Studies(studyID, patient, studyNumber) VALUES
 (1, '0015','1');
 
 INSERT INTO Study1(studyID, patient, progress, do_you_smoke, is_your_house_red, is_your_dog_gay) VALUES
-(1, '0001', '5', 'TRUE', 'FALSE', 'TRUE'),
-(1, '0002', '5', 'TRUE', 'TRUE', 'TRUE'),
-(1, '0004', '5', 'TRUE', 'FALSE', 'TRUE'),
-(1, '0008', '5', 'TRUE', 'TRUE', 'TRUE');
+(1, '0001', 'enkät utskickad', 'TRUE', 'FALSE', 'TRUE'),
+(1, '0002', 'enkät delvis ifylld', 'TRUE', 'TRUE', 'TRUE'),
+(1, '0004', 'enkät utskickad', 'TRUE', 'FALSE', 'TRUE'),
+(1, '0008', 'enkät ifylld', 'TRUE', 'TRUE', 'TRUE');
 
 
 INSERT INTO Study1(studyID, patient, progress, is_your_house_red, is_your_dog_gay) VALUES
-(1, '0010', '4', 'TRUE', 'TRUE'),
-(1, '0015', '4', 'FALSE', 'TRUE');
+(1, '0010', 'enkät ej utskickad', 'TRUE', 'TRUE'),
+(1, '0015', 'enkät ej utskickad', 'FALSE', 'TRUE');
 
 INSERT INTO Study2(studyID, patient, progress, how_tall_are_you, how_much_do_you_make, is_your_cat_gay) VALUES
-(2, '0003','5','165','100000','TRUE');
+(2, '0003','enkät ifylld','165','100000','TRUE');
 
 INSERT INTO Study2(studyID, patient, progress, how_much_do_you_make, is_your_cat_gay) VALUES
-(2, '0005','3','89561','TRUE'),
-(2, '0009','3','3142','TRUE'),
-(2, '0012','3','9998612','TRUE');
+(2, '0005','enkät ifylld','89561','TRUE'),
+(2, '0009','enkät ej utskickad','3142','TRUE'),
+(2, '0012','enkät delvis ifylld','9998612','TRUE');

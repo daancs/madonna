@@ -23,8 +23,8 @@ def patient(key_id):
     for i in column_names:
         print(i)
     '''
-    
-    patient_col_names = ['Key-ID', 'Personnummer', 'Namn', 'Ålder', 'Kön', 'Vikt', 'BMI', 'Nikotin', 'Avliden', 'Adress', 'Stad', 
+
+    patient_col_names = ['Key-ID', 'Personnummer', 'Namn', 'Ålder', 'Kön', 'Vikt', 'BMI', 'Nikotin', 'Avliden', 'Adress', 'Stad',
     'Postnummer']
     cases_col_names = ['Case-ID', 'Patient', 'Komplikation', 'Granskad av', 'Granskningsdatum', 'Studie avslutad']
     conn.commit()
@@ -41,6 +41,9 @@ def patient(key_id):
 
     return render_template('patient/patientview.html', patient_inf=patient_inf, cases_inf=cases_inf, patient_col_names=patient_col_names, cases_col_names=cases_col_names)
 
+@bp.route('/patient/<key_id>/edit', methods=['GET', 'POST'])
+def editPatient(key_id):
+    return "dab"
 
 """ def buildPatientQuery(key_id):
     query = SELECT * FROM Patients WHERE Patients.key_id = %s INNER JOIN Cases ON Patients.key_id=Cases.patient, (key_id,)

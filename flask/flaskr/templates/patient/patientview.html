@@ -8,7 +8,10 @@
         </a>
         <div class="patient-view">
             <div class="patient-info">
-                <h2>Patientinfo</h2>
+                <div class="patient-infobox">
+                    <h2>Patientinfo</h2>
+                    <a class="editBtn" href="https://ddg.gg">Redigera: ✏️</a>
+                </div>
                 {% for i in patient_inf %}
                     <div class="patient-infobox">
                         <span class="patient-criteria">{{patient_col_names[loop.index0]}}:</span>
@@ -30,8 +33,6 @@
                 {% endif %}
             </div>
         </div>
-            
+
     </div>
 {% endblock %}
-
-

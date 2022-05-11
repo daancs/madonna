@@ -25,13 +25,14 @@ def index():
         name = request.form['name']
         weight = request.form['weight']
         age = request.form['age']
+        study = request.form['study']
         try:
             nicotine = request.form['nicotine']
         except:
             nicotine = False
 
 
-        query = buildQuery(id, gender, name, weight, age, nicotine)
+        query = buildQuery(id, gender, name, weight, age, nicotine, study)
 
         db.addToHistory(g.user[1],query)
 
@@ -46,42 +47,62 @@ def index():
             # g.isResString = True
     return render_template('/search/search.html', result=result)
 
-def buildQuery(id, gender, name, weight, age, nicotine):
-    query = """SELECT * FROM patients"""
+def buildQuery(id, gender, name, weight, age, nicotine, study):
+    query = ""
 
-    if not (len(id) == 0 and len(gender) == 0 and len(name) == 0 and len(weight) == 0 and len(age) == 0):
+    if name:
+        name = "%" + name + "%"
+
+    
+    if len(study) == 0:
+        query = """SELECT * FROM patients"""
+    else:
+        query ="""SELECT * FROM patients JOIN Studies ON key_id = patient"""
+
+    if not (len(id) == 0 and len(gender) == 0 and len(name) == 0 and len(weight) == 0 and len(age) == 0 and len(study) == 0):
         query += " WHERE"
         if not len(id) == 0:
             query += " key_id = '" + id + "'"
         if not len(gender) == 0:
-            if not "key_id" in query:
+            if not "WHERE key_id" in query:
                 query += " gender = '" + gender + "'"
             else:
                 query += " AND gender = '" + gender + "'"
         if not len(name) == 0:
-            if not ("key_id" in query or "gender" in query):
-                query += " name = '" + name + "'"
+            if not ("WHERE key_id" in query or "gender" in query):
+                query += " name ILIKE '" + name + "'"
             else:
-                 query += " AND name = '" + name + "'"
+                 query += " AND name ILIKE '" + name + "'"
         if not len(weight) == 0:
-            if not ("key_id" in query or "gender" in query or "name" in query):
+            if not ("WHERE key_id" in query or "gender" in query or "name" in query):
                 query += " weight = '" + weight + "'"
             else:
                  query += " AND weight = '" + weight + "'"
         if not len(age) == 0:
-            if not ("key_id" in query or "gender" in query or "name" in query or "weight" in query):
+            if not ("WHERE key_id" in query or "gender" in query or "name" in query or "weight" in query):
                 query += " age = '" + age + "'"
             else:
                  query += " AND age = '" + age + "'"
+        if not len(study) == 0:
+            if not ("WHERE key_id" in query or "gender" in query or "name" in query or "weight" in query or "age" in query):
+                query += " studyNumber = '" + study + "'"
+            else:
+                 query += " AND studyNumber = '" + study + "'"
 
-    if not nicotine:
+    if nicotine == 'both':
+        if 'WHERE' not in query:
+            query += " WHERE"
+            query += " nicotine LIKE '%'"
+        else:
+            query += " AND nicotine LIKE '%'"
+    elif nicotine == 'Nej':
         if "WHERE" not in query:
             query += " WHERE"
         if not ("key_id" in query or "gender" in query or "name" in query or "weight" in query or "age" in query):
             query += " nicotine = 'Nej'"
         else:
             query += " AND nicotine = 'Nej'"
-    else:
+    elif nicotine == 'Ja':
         if "WHERE" not in query:
             query += " WHERE"
         if not ("key_id" in query or "gender" in query or "name" in query or "weight" in query or "age" in query):
