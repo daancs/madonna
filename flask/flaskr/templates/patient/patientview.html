@@ -10,7 +10,7 @@
             <div class="patient-info">
                 <div class="patient-infobox">
                     <h2>Patientinfo</h2>
-                    <a class="editBtn" href="https://ddg.gg">Redigera: ✏️</a>
+                    <a class="editBtn" href="{{url_for('patient.editPatient', key_id=result[0])}}">Redigera: ✏️</a>
                 </div>
                 {% for i in patient_col_names %}
                     <div class="patient-infobox">
