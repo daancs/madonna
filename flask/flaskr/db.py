@@ -3,6 +3,7 @@ import click
 import psycopg2
 from flask import current_app, g
 from flask.cli import with_appcontext
+from datetime import datetime
 
 from werkzeug.security import generate_password_hash
 
@@ -50,11 +51,52 @@ def close_db(e=None):
         db.close()
 
 
-def addToHistory(user, query):
+def addToHistory(user, id, gender, name, weight, age, nicotine, study):
+    entry = entryBuilder(user, id, gender, name, weight, age, nicotine, study)
     conn = get_db()
     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
-    cur.execute("INSERT INTO SearchHistory (who, query) VALUES (%s,%s)",(user,query))
+    cur.execute("INSERT INTO SearchHistory(search) VALUES ('" + entry + "')")
     conn.commit()
+
+def entryBuilder(user, id, gender, name, weight, age, nicotine, study):
+    now = datetime.now()
+    entry = now.strftime("%d/%m/%Y %H:%M:%S") + ": " + str(user) + " sökte på "
+
+    if (len(id) == 0 and gender == "Alla" and len(name) == 0 and len(weight) == 0 and len(age) == 0 and len(study) == 0 and nicotine == "both"):
+        entry += "alla patienter"
+        return entry
+
+    entry += " patienter som "
+
+    if len(id) != 0:
+        entry += " har id-nummer " + id + ", "
+
+    if gender != "Alla":
+        entry += " är av könet " + gender + ", "
+
+    if len(name) != 0:
+        entry += " heter " + name + ", "
+
+    if len(weight) != 0:
+        entry += " väger " + weight + " kg, "
+
+    if len(age) != 0:
+        entry += " är " + age + " år gamla, "
+
+    if len(study) != 0:
+        entry += " deltar i studie nummer " + study + ", "
+
+    #if nicotine == "both":
+    #    entry += "och är antingen rökare och ickerökare"
+    if nicotine == " Nej":
+        entry += "och inte röker"
+    if nicotine == "Ja":
+        entry += "och röker"
+
+    if entry[-2] == ",":
+        entry = entry[:-2]
+
+    return entry
 
 @click.command('init-db')
 @with_appcontext

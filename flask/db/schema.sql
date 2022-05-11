@@ -122,11 +122,7 @@ INSERT INTO Treatments (caseId,cytostatics,operationDate, doctor, assistent, med
 
 
 CREATE TABLE SearchHistory (
-    id SERIAL PRIMARY KEY,
-    time TIMESTAMP DEFAULT CURRENT_TIMESTAMP(1),
-    who TEXT NOT NULL,
-    query TEXT NOT NULL,
-    result JSON
+    search TEXT PRIMARY KEY
 );
 
 INSERT INTO Studies(studyID, patient, studyNumber) VALUES
