@@ -10,7 +10,10 @@
 
             <div class="genderbox">
               <label for="gender">Kön:</label>
-              <input type="text" name="gender" id="gender">
+              <select name="gender" id="gender">
+                <option value="Male">Man</option>
+                <option value="Female">Kvinna</option>
+              </select>
             </div>
 
             <div class="namebox">
@@ -35,8 +38,12 @@
 
             <div class="nicobox">
               <label for="idnr">Rökare:</label>
-              <label for="nicotineTrue">Ja:</label>
-              <input type="checkbox" name="nicotine" id="nicotineTrue">
+              <select name="nicotine" id="nicoSelect">
+                <option value="both">Varken eller</option>
+                <option value="Ja">Ja</option>
+                <option value="Nej">Nej</option>
+
+              </select>
             </div>
 
             <input type="submit" value="Submit" class="prominentdonebtn">
