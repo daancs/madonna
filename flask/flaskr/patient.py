@@ -29,8 +29,17 @@ def patient(key_id):
     cases_col_names = ['Case-ID', 'Patient', 'Komplikation', 'Granskad av', 'Granskningsdatum', 'Studie avslutad']
     conn.commit()
     result = cur.fetchall()
+    result = result[0]
+    patient_inf = []
+    cases_inf = []
+    
+    for i in range(len(result)):
+        if i < len(patient_col_names):
+            patient_inf.append(result[i])
+        else:
+            cases_inf.append(result[i])
 
-    return render_template('patient/patientview.html', result=result[0], patient_col_names=patient_col_names, cases_col_names=cases_col_names)
+    return render_template('patient/patientview.html', patient_inf=patient_inf, cases_inf=cases_inf, patient_col_names=patient_col_names, cases_col_names=cases_col_names)
 
 
 """ def buildPatientQuery(key_id):

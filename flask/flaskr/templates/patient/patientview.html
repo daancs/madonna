@@ -9,21 +9,25 @@
         <div class="patient-view">
             <div class="patient-info">
                 <h2>Patientinfo</h2>
-                {% for i in patient_col_names %}
+                {% for i in patient_inf %}
                     <div class="patient-infobox">
                         <span class="patient-criteria">{{patient_col_names[loop.index0]}}:</span>
-                        <span class="patient-value"> {{result[loop.index0]}}</span>
+                        <span class="patient-value"> {{patient_inf[loop.index0]}}</span>
                     </div>
                 {% endfor %}
             </div>
             <div class="patient-info">
                 <h2>Studier</h2>
-                {% for i in cases_col_names %}
-                    <div class="patient-infobox">
-                        <span class="patient-criteria">{{cases_col_names[loop.index0]}}:</span>
-                        <span class="patient-value"> {{result[12 + loop.index0]}}</span>
-                    </div>
-                {% endfor %}
+                {% if cases_inf[0] != None %}
+                    {% for i in cases_inf %}
+                        <div class="patient-infobox">
+                            <span class="patient-criteria">{{cases_col_names[loop.index0]}}:</span>
+                            <span class="patient-value"> {{cases_inf[loop.index0]}}</span>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="patient-infobox">Patienten ingår ej i någon studie</div>
+                {% endif %}
             </div>
         </div>
             
