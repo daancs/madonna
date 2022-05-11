@@ -107,6 +107,7 @@ def init_app(app):
     app.teardown_appcontext(close_db)
     app.cli.add_command(init_db_command)
     app.cli.add_command(registerAccount)
+    app.cli.add_command(exportTable)
 
 
 @click.command('register')
@@ -123,3 +124,22 @@ def registerAccount(username, password):
 
 
 #############  DEN KOMMENTERADE KODEN OVAN GÖR ATT MAN KAN GÖRA EN ANVÄNDARE FÖR APPLIKATIONEN ########################
+
+@click.command('export')
+@with_appcontext
+@click.argument('table')
+def exportTable(table):
+    conn = get_db()
+    cur = conn.cursor()
+    path = os.path.dirname(__file__)
+    path = path + '\..\export\{}.csv'.format(table)
+    query = "COPY {} TO STDOUT DELIMITER ',' CSV HEADER".format(table)
+    try:
+        f = open(path, 'w')
+        cur.copy_expert(query, f)
+        conn.commit()
+    except:
+        print("Error: unable to export table")
+        conn.rollback()
+        return
+    click.echo("Table exported")

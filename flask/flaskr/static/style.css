@@ -156,10 +156,6 @@ html {
     flex-direction: column;
   }
 
-  .content label {
-    font-weight: bold;
-    margin-bottom: 0.5em;
-  }
 
   .content input, .content textarea {
     margin-bottom: 1em;
@@ -500,6 +496,14 @@ a.grid-items-a2 {
   margin: 2rem;
 }
 
+.formsearch > div > label {
+  font-size: 1.5rem;
+  font-weight: bold;
+} 
+
+.formsearch > div > select {
+  margin: 1rem;
+}
 button.logoutBtn {
     margin-top: 0;
     margin-left: 10px;

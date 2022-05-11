@@ -9,6 +9,8 @@ CREATE TABLE Users (
     password TEXT NOT NULL
 );
 
+CREATE TYPE progress AS ENUM ('enkät ej utskickad', 'enkät utskickad', 'enkät delvis ifylld', 'enkät ifylld');
+
 CREATE TABLE Patients (
     key_id CHAR(4) PRIMARY KEY,
     idnr CHAR(13),
@@ -64,7 +66,7 @@ CREATE TABLE Studies(
 CREATE TABLE Study1 (
     studyID INTEGER,
     patient CHAR(4) REFERENCES Patients(key_id),
-    progress INTEGER DEFAULT 1,
+    progress progress DEFAULT 'enkät ej utskickad',
     do_you_smoke BOOL NOT NULL DEFAULT 'TRUE',
     is_your_house_red BOOL NOT NULL DEFAULT 'TRUE',
     is_your_dog_gay BOOL NOT NULL DEFAULT 'TRUE',
@@ -75,7 +77,7 @@ CREATE TABLE Study1 (
 CREATE TABLE Study2 (
     studyID INTEGER,
     patient CHAR(4) REFERENCES Patients(key_id),
-    progress INTEGER DEFAULT 1,
+    progress progress DEFAULT 'enkät ej utskickad',
     how_tall_are_you TEXT DEFAULT 'Not answered',
     how_much_do_you_make TEXT DEFAULT 'Not answered',
     is_your_cat_gay BOOL NOT NULL DEFAULT 'TRUE',
@@ -136,20 +138,20 @@ INSERT INTO Studies(studyID, patient, studyNumber) VALUES
 (1, '0015','1');
 
 INSERT INTO Study1(studyID, patient, progress, do_you_smoke, is_your_house_red, is_your_dog_gay) VALUES
-(1, '0001', '5', 'TRUE', 'FALSE', 'TRUE'),
-(1, '0002', '5', 'TRUE', 'TRUE', 'TRUE'),
-(1, '0004', '5', 'TRUE', 'FALSE', 'TRUE'),
-(1, '0008', '5', 'TRUE', 'TRUE', 'TRUE');
+(1, '0001', 'enkät utskickad', 'TRUE', 'FALSE', 'TRUE'),
+(1, '0002', 'enkät delvis ifylld', 'TRUE', 'TRUE', 'TRUE'),
+(1, '0004', 'enkät utskickad', 'TRUE', 'FALSE', 'TRUE'),
+(1, '0008', 'enkät ifylld', 'TRUE', 'TRUE', 'TRUE');
 
 
 INSERT INTO Study1(studyID, patient, progress, is_your_house_red, is_your_dog_gay) VALUES
-(1, '0010', '4', 'TRUE', 'TRUE'),
-(1, '0015', '4', 'FALSE', 'TRUE');
+(1, '0010', 'enkät ej utskickad', 'TRUE', 'TRUE'),
+(1, '0015', 'enkät ej utskickad', 'FALSE', 'TRUE');
 
 INSERT INTO Study2(studyID, patient, progress, how_tall_are_you, how_much_do_you_make, is_your_cat_gay) VALUES
-(2, '0003','5','165','100000','TRUE');
+(2, '0003','enkät ifylld','165','100000','TRUE');
 
 INSERT INTO Study2(studyID, patient, progress, how_much_do_you_make, is_your_cat_gay) VALUES
-(2, '0005','3','89561','TRUE'),
-(2, '0009','3','3142','TRUE'),
-(2, '0012','3','9998612','TRUE');
+(2, '0005','enkät ifylld','89561','TRUE'),
+(2, '0009','enkät ej utskickad','3142','TRUE'),
+(2, '0012','enkät delvis ifylld','9998612','TRUE');
