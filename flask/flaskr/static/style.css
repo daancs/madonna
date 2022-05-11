@@ -1,8 +1,10 @@
+/*Selects the root element of the document: <html> in the case of HTML and makes the primary color purple*/
 :root {
   --primary-color: rgb(182,157,230);
 
 }
 
+/*Sets font to kansei-optei*/
 html {
     font-family: kansei-optei;
     /* background: rgb(109, 158, 117); */
