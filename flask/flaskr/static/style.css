@@ -458,6 +458,7 @@ a.grid-items-a2 {
   flex-direction: row;
   width: 100%;
   align-items: center;
+  justify-content: space-evenly;
 }
 .patient-criteria{
   width: 30%;
