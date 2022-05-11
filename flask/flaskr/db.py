@@ -3,6 +3,7 @@ import click
 import psycopg2
 from flask import current_app, g
 from flask.cli import with_appcontext
+from datetime import datetime
 
 from werkzeug.security import generate_password_hash
 
@@ -58,7 +59,8 @@ def addToHistory(user, id, gender, name, weight, age, nicotine, study):
     conn.commit()
 
 def entryBuilder(user, id, gender, name, weight, age, nicotine, study):
-    entry = str(user) + " sökte på "
+    now = datetime.now()
+    entry = now.strftime("%d/%m/%Y %H:%M:%S") + ": " + str(user) + " sökte på "
 
     if (len(id) == 0 and len(gender) == 0 and len(name) == 0 and len(weight) == 0 and len(age) == 0 and len(study) == 0 and nicotine == "both"):
         entry += "alla patienter"
@@ -79,10 +81,10 @@ def entryBuilder(user, id, gender, name, weight, age, nicotine, study):
         entry += " väger " + weight + " kg"
 
     if len(age) != 0:
-        entry += "är " + age + " år gamla"
+        entry += " är " + age + " år gamla"
 
     if len(study) != 0:
-        entry += " deltar i studie nummer" + study
+        entry += " deltar i studie nummer " + study
 
     if nicotine == "both":
         entry += " är antingen rökare och ickerökare"
