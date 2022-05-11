@@ -59,11 +59,11 @@ def buildQuery(id, gender, name, weight, age, nicotine, study):
     else:
         query ="""SELECT * FROM patients JOIN Studies ON key_id = patient"""
 
-    if not (len(id) == 0 and len(gender) == 0 and len(name) == 0 and len(weight) == 0 and len(age) == 0 and len(study) == 0):
+    if not (len(id) == 0 and gender == "Alla" and len(name) == 0 and len(weight) == 0 and len(age) == 0 and len(study) == 0):
         query += " WHERE"
         if not len(id) == 0:
             query += " key_id = '" + id + "'"
-        if not len(gender) == 0:
+        if not gender == "Alla":
             if not "WHERE key_id" in query:
                 query += " gender = '" + gender + "'"
             else:
