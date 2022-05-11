@@ -69,29 +69,32 @@ def entryBuilder(user, id, gender, name, weight, age, nicotine, study):
     entry += " patienter som "
 
     if len(id) != 0:
-        entry += " har id-nummer " + id
+        entry += " har id-nummer " + id + ", "
 
     if len(gender) != 0:
-        entry += " är av könet " + gender
+        entry += " är av könet " + gender + ", "
 
     if len(name) != 0:
-        entry += " heter " + name
+        entry += " heter " + name + ", "
 
     if len(weight) != 0:
-        entry += " väger " + weight + " kg"
+        entry += " väger " + weight + " kg, "
 
     if len(age) != 0:
-        entry += " är " + age + " år gamla"
+        entry += " är " + age + " år gamla, "
 
     if len(study) != 0:
-        entry += " deltar i studie nummer " + study
+        entry += " deltar i studie nummer " + study + ", "
 
-    if nicotine == "both":
-        entry += " är antingen rökare och ickerökare"
+    #if nicotine == "both":
+    #    entry += "och är antingen rökare och ickerökare"
     if nicotine == " Nej":
-        entry += " inte röker"
+        entry += "och inte röker"
     if nicotine == "Ja":
-        entry += " röker"
+        entry += "och röker"
+
+    if entry[-1] == ",":
+        entry = entry[0, len(entry) - 1]
 
     return entry
 
