@@ -97,14 +97,10 @@ html {
 
   .topnav {
     margin-bottom: 4rem;
-    /* padding: 10px; */
     background-color: #ffffff;
     justify-content: space-between;
     display: flex;
-    padding: 10px;
-    padding-right: 300px;
-
-
+    padding: 10px 300px 10px 10px;
   }
 
   div.navitems {
@@ -112,10 +108,7 @@ html {
     text-align: center;
     justify-content: center;
     align-items: center;
-
-
   }
-
 
   .flash {
     margin: 1em 0;
@@ -177,7 +170,7 @@ html {
   }
 
   div.searchForm {
-      width: 40%;
+    width: 40%;
   }
 
 .loginwrapper {
@@ -223,7 +216,6 @@ html {
   height: 1.5rem;
   border-radius: 2px;
   border: 0;
-
 }
 h4 {
   font-size:  24px;
@@ -271,11 +263,9 @@ a.discrete {
     font-size:  14px;
     border-bottom:  solid 1px rgba(#000, .0);
     padding-bottom:  4px;
-    margin-left:  auto;
     font-weight:  300;
     transition:  all .3s ease;
-    margin-top:  40px;
-
+    margin: 40px 0 0 auto;
   }
 a.discrete:hover {
   border-bottom:  solid 1px rgba(#000, .2);
@@ -422,8 +412,7 @@ a.grid-items-a2 {
 /* Used in patientview.html */
 .stack-top{
   z-index: 9;
-  margin-left: 15%;
-  margin-top: 3%;
+  margin: 3% 0 0 15%;
 }
 
 /* Used in patientview.html */
@@ -456,8 +445,6 @@ a.grid-items-a2 {
   justify-content: space-evenly;
   margin: 0.5rem 0;
 }
-
-
 
 .resbox > div {
   display: flex;
@@ -497,13 +484,11 @@ a.grid-items-a2 {
   margin: 1rem;
 }
 button.logoutBtn {
-    margin-top: 0;
-    margin-left: 10px;
-    padding: 0;
-    background-color: #a4ccab;
+  margin: 0 0 0 10px;
+  padding: 0;
+  background-color: #a4ccab;
 }
 
 button.logoutBtn:hover {
     cursor: pointer;
-
 }
