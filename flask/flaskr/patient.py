@@ -49,7 +49,8 @@ def editPatient(key_id):
                     )
 
         conn.commit()
-        return "dab"
+        # return "dab"
+        return redirect(url_for('patient.patient', key_id=key_id))
 
     result = getPatientData(key_id)
     return render_template('patient/editPatient.html', result=result[0], formColNames=formColNames, patientColNames=patientColNames, casesColNames=casesColNames)
