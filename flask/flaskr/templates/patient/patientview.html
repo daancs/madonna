@@ -5,7 +5,11 @@
     <div class="box stack-top">
         <a class="exit" href="{{ url_for('search.index') }}">
             <img class="image" src="{{url_for('static', filename='close.png')}}">
-        </a>
+        </a>    
+            <button  onclick="history.back()">
+            <img width="30" height="30" src="{{url_for('static', filename='back-arrow.png')}}">
+            </button>
+        
         <div class="patient-info">
                 {{result}}
         </div>
