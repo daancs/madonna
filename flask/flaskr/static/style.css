@@ -401,7 +401,7 @@ a.grid-items-a2 {
 
 /* Used in patientview.html */
 .box {
-    padding-bottom: 20px;
+  padding-bottom: 20px;
   width: 70%;
   position: absolute;
   top: 10%;
@@ -412,7 +412,6 @@ a.grid-items-a2 {
 /* Used in patientview.html */
 .stack-top{
   z-index: 9;
-  margin: 3% 0 0 15%;
 }
 
 /* Used in patientview.html */
