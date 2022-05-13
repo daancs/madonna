@@ -452,3 +452,7 @@ a.grid-items-a2 {
     font-size: small;
     font-weight: lighter;
 }
+
+label.editPatientForm {
+    font-size: 16px;
+}
