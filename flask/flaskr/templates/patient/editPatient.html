@@ -12,9 +12,9 @@
                     <h2>Redigera patientinfo</h2>
                 </div>
                 <form method="POST">
-                {% for i in patient_col_names %}
-                    <label class="">{{patient_col_names[loop.index0]}}:</label>
-                    <input type="text" class="patient-value" value="{{result[loop.index0]}}">
+                {% for i in patientColNames %}
+                    <label class="editPatientForm">{{patientColNames[loop.index0]}}:</label>
+                    <input type="text" class="patient-value" name="{{formColNames[loop.index0]}}" value="{{result[loop.index0]}}">
                 {% endfor %}
                 <input type="submit" value="Spara">
                 </form>
