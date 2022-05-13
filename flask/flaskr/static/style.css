@@ -1,543 +1,456 @@
-:root {
-  --primary-color: rgb(182,157,230);
+/*
+    The structure:
+    - Initial stuff for the overall structure
+    - General styling stuff which is used in more than one html-file (forms, inputs, labels, etc.)
+    - Navigation styling
+    - Login
+    - Home
+    - Search
+    - Patient info
+    - Studies
+*/
 
+/*
+    Section: Used for setting up the structure overall
+*/
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
 }
 
-html {
-    font-family: kansei-optei;
-    /* background: rgb(109, 158, 117); */
-    /* padding: 1rem; */
-  }
+/*Selects the root element of the document: <html> in the case of HTML and makes the primary color purple*/
+:root { --primary-color: rgb(182, 157, 230); }
 
-  body {
+/*Sets font to kansei-optei*/
+html { font-family: kansei-optei; }
+
+body {
     /* max-width: 1850px; */
     margin: 0 auto;
     background-color: rgb(164, 204, 171);
-  }
-
-  h1, h2, h3, h4, h5, h6 {
-    font-family: serif;
     color: #000000;
-    margin: 1rem 10;
-  }
+}
 
-  a {
+h1, h2, h3, h4, h5, h6, p {
+    margin: 1rem 10;
+    font-family: serif;
+}
+
+h4 {
+    font-size: 24px;
+    font-weight: 600;
+    opacity: .85;
+}
+
+a {
     color: #000000;
     text-decoration: none;
-  }
+}
 
-  div.navitems > a {
+input[type=submit] { min-width: 10em; }
+
+/*
+Section: Styling forms
+Used in: login.html, search.html
+(also used in create.html, update.html but these are not used in this current project)
+*/
+form {
+    padding: 40px 30px;
+    background: #fefefe;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-bottom: 20px;
+}
+
+form>h4 {
+    margin-bottom: 20px;
+    color: rgba(#000, .5);
+}
+
+form>h4>span {
+    color: rgba(#000, 1);
+    font-weight: 700;
+}
+
+form>p {
+    line-height: 155%;
+    margin-bottom: 5px;
+    font-size: 14px;
+    opacity: .65;
+    font-weight: 400;
+    max-width: 200px;
+    margin-bottom: 40px;
+}
+
+/*
+Section: All clickable buttons
+Used in: login.html, base.html
+*/
+button {
+    width: auto;
+    min-width: 100px;
+    border-radius: 24px;
+    text-align: center;
+    padding: 15px 40px;
+    margin: 5px 0 0 auto;
+    background-color: var(--primary-color) saturate(30%);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    box-shadow: 0px 2px 6px -1px rgba(0, 0, 0, .13);
+    border: none;
+    transition: all .3s ease;
+    outline: 0;
+}
+
+button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 2px 6px -1px rgba(var(--primary-color), .65);
+    cursor: pointer;
+}
+
+button:hover:active {
+    transform: scale(.99);
+}
+
+/*
+Section: The text presented before a field that could be filled in (with inputs)
+Used in: login.html, search.html
+(also used in create.html, update.html)
+*/
+label {
+    font-size: 12.5px;
+    opacity: .8;
+    font-weight: 400;
+}
+
+/* All floating-label used in login.html only */
+.floating-label {
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.floating-label>input:not(:placeholder-shown) {
+    padding: 28px 0px 12px 0px;
+}
+
+.floating-label>label {
+    position: absolute;
+    top: calc(50% - 15px);
+    left: 0;
+    opacity: 0;
+    transition: all .3s ease;
+}
+
+.floating-label>input:not(:placeholder-shown)+label {
+    transform: translateY(-10px);
+    opacity: .7;
+}
+
+/*
+Section: All fields where the user fill in with text
+Used in: login.html, search.html
+(also used in create.html, update.html)
+*/
+input {
+    font-size: 16px;
+    padding: 20px 0px;
+    height: 56px;
+    border: none;
+    border-bottom: solid 1px rgba(0, 0, 0, .1);
+    background: #fff;
+    min-width: 280px;
+    box-sizing: border-box;
+    transition: all .3s linear;
+    color: #000;
+    font-weight: 400;
+}
+
+input:focus {
+    border-bottom: solid 1px var(--primary-color);
+    outline: 0;
+    box-shadow: 0 2px 6px -8px rgba(var(--primary-color), .45);
+}
+
+/*
+Section: Navigation bar at top of page
+Used in: base.html
+*/
+div.navitems>a {
     margin-left: 50px;
     font-size: 1.2rem;
-
-  }
-
-  hr {
-    border: none;
-    border-top: 1px solid lightgray;
-  }
-
-  nav {
-    background: lightgray;
-    display: flex;
-    align-items: center;
-    padding: 0 0.5rem;
-  }
-
-  nav h1 {
-    flex: auto;
-    margin: 0;
-  }
-
-  nav h1 a {
-    text-decoration: none;
-    padding: 0.25rem 0.5rem;
-  }
-
-  nav ul  {
-    display: flex;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  nav ul li a, nav ul li span, header.action {
-    display: block;
-    padding: 0.5rem;
-  }
-
-  div.imagediv {
-    width: 250px;
-  }
-
-  img.image {
-    width: inherit;
-  }
-
-  a.navbar-brand {
-    width: inherit;
-  }
-
-  .content {
-    padding: 0 1rem 1rem;
-  }
-
-  .content > header {
-    border-bottom: 1px solid lightgray;
-    display: flex;
-    align-items: flex-end;
-  }
-
-  .content > header h1 {
-    flex: auto;
-    margin: 1rem 0 0.25rem 0;
-  }
-
-  .topnav {
+}
+a.navbar-brand {
+    width: inherit; 
+}
+.topnav {
     margin-bottom: 4rem;
-    /* padding: 10px; */
     background-color: #ffffff;
     justify-content: space-between;
     display: flex;
-    padding: 10px;
-    padding-right: 300px;
-
-
-  }
-
-  div.navitems {
+    padding: 10px 300px 10px 10px;
+}
+div.navitems {
     display: flex;
     text-align: center;
     justify-content: center;
     align-items: center;
-
-
-  }
-
-
-  .flash {
-    margin: 1em 0;
-    padding: 1em;
-    background: #cae6f6;
-    border: 1px solid #377ba8;
-  }
-
-  .post > header {
-    display: flex;
-    align-items: flex-end;
-    font-size: 0.85em;
-  }
-
-  .post > header > div:first-of-type {
-    flex: auto;
-  }
-
-  .post > header h1 {
-    font-size: 1.5em;
-    margin-bottom: 0;
-  }
-
-  .post .about {
-    color: slategray;
-    font-style: italic;
-  }
-
-  .post .body {
-    white-space: pre-line;
-  }
-
-  .content:last-child {
-    margin-bottom: 0;
-  }
-
-  .content form {
-    margin: 1em 0;
-    display: flex;
-    flex-direction: column;
-  }
-
-
-  .content input, .content textarea {
-    margin-bottom: 1em;
-  }
-
-  .content textarea {
-    min-height: 12em;
-    resize: vertical;
-  }
-
-  input.danger {
-    color: #cc2f2e;
-  }
-
-  input[type=submit] {
-    min-width: 10em;
-  }
-
-  div.searchForm {
-      width: 40%;
-  }
-
-.loginwrapper {
-  margin: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  height: 20%;
-  width: 90%;
-  max-width: 600px;
-  border-radius: 5px;
-  background-color: #ffffff;
-
 }
 
-.loginform {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
+/*
+Section: Image in navigation bar
+Used in: base.html
+*/
+div.imagediv {
+    width: 250px;
+}
+img.image {
+    width: inherit;
 }
 
-
-.loginimg {
-  width: 90%;
-  max-width: 400px;
-}
-
-.loginsubmit {
-  align-self: flex-end;
-  margin: 2rem;
-  background: #0034CC;
-  border: 0.1px solid #000000;
-  box-sizing: border-box;
-  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 5px;
-  height: 2.5rem;
-  color: #fff;
-  font-weight: 700;
-}
-
-.logininput {
-  height: 1.5rem;
-  border-radius: 2px;
-  border: 0;
-
-}
-h4 {
-  font-size:  24px;
-  font-weight:  600;
-  color:  #000;
-  opacity:  .85;
-}
-label {
-  font-size:  12.5px;
-  color:  #000;
-  opacity:  .8;
-  font-weight:  400;
-}
-form {
-  padding:  40px 30px;
-  background:  #fefefe;
-  display:  flex;
-  flex-direction:  column;
-  align-items:  flex-start;
-  padding-bottom:  20px;
-}
-
-form > h4 {
-  margin-bottom:  20px;
-  color:  rgba(#000, .5);
-}
-
-form > h4 > span {
-  color:  rgba(#000, 1);
-  font-weight:  700;
-}
-form > p {
-    line-height:  155%;
-    margin-bottom:  5px;
-    font-size:  14px;
-    color:  #000;
-    opacity:  .65;
-    font-weight:  400;
-    max-width:  200px;
-    margin-bottom:  40px;
-  }
-
-a.discrete {
-    color:  rgba(#000, .4);
-    font-size:  14px;
-    border-bottom:  solid 1px rgba(#000, .0);
-    padding-bottom:  4px;
-    margin-left:  auto;
-    font-weight:  300;
-    transition:  all .3s ease;
-    margin-top:  40px;
-
-  }
-a.discrete:hover {
-  border-bottom:  solid 1px rgba(#000, .2);
-}
-
-button {
-  width:  auto;
-  min-width:  100px;
-  border-radius:  24px;
-  text-align:  center;
-  padding:  15px 40px;
-  margin-top:  5px;
-  background-color: var(--primary-color) saturate(30%);
-  color:  #fff;
-  font-size:  14px;
-  margin-left:  auto;
-  font-weight:  500;
-  box-shadow:  0px 2px 6px -1px rgba(0,0,0,.13);
-  border:  none;
-  transition:  all .3s ease;
-  outline: 0;
-}
-button:hover {
-  transform:  translateY(-3px);
-  box-shadow:  0 2px 6px -1px rgba(var(--primary-color), .65);
-}
-button:hover:active {
-  transform:  scale(.99);
-}
-input {
-  font-size:  16px;
-  padding:  20px 0px;
-  height:  56px;
-  border:  none;
-  border-bottom:  solid 1px rgba(0,0,0,.1);
-  background:  #fff;
-  min-width:  280px;
-  box-sizing:  border-box;
-  transition:  all .3s linear;
-  color:  #000;
-  font-weight:  400;
-}
-
-input:focus {
-  border-bottom:  solid 1px var(--primary-color);
-  outline: 0;
-  box-shadow:  0 2px 6px -8px rgba(var(--primary-color), .45);
-}
-.floating-label {
-  position:  relative;
-  margin-bottom:  10px;
-
-}
-.floating-label > input:not(:placeholder-shown) {
-  padding:  28px 0px 12px 0px;
-}
-.floating-label > label {
-  position:  absolute;
-  top: calc(50% - 15px);
-  left:  0;
-  opacity:  0;
-  transition:  all .3s ease;
-}
-
-.floating-label > input:not(:placeholder-shown) + label {
-  transform:  translateY(-10px);
-  opacity:  .7;
-}
-
-.session {
-  display:  flex;
-  flex-direction:  row;
-  width:  820px;
-  height:  auto;
-  margin:  auto auto;
-  background:  #ffffff;
-  border-radius:  4px;
-  box-shadow:  0px 2px 6px -1px rgba(0,0,0,.12);
-}
-
-/* Behåll */
-.left {
-  width:  420px;
-  height:  auto;
-  min-height:  100%;
-  position:  relative;
-  background-image: url('vgreg.jpg');
-  background-repeat: no-repeat;
-  background-size:  cover;
-  border-top-left-radius:  4px;
-  border-bottom-left-radius:  4px;
-}
-.left > svg {
-  height:  40px;
-  width:  auto;
-  margin:  20px;
-}
-
-div.searchHistory {
-    background-color: lightgray;
-    height: 20em;
-    padding: 1em;
-}
-
-/* Behåll grid-related */
-.grid-item {
-  display: grid;
-  align-items: left;
-  background-color: #fff;
-  max-width: 60%;
-  padding-bottom: 50px;
-  font-size: x-large;
-  font-weight: bolder;
-}
-
-a.grid-items-a1 {
-  font-size: medium;
-  font-weight: bold;
-
-}
-
-a.grid-items-a2 {
-  font-size: small;
-  font-weight: lighter;
-
-}
-
-/* Behåll grid-related */
-.grid-container {
-  display: grid;
-  row-gap: 50px;
-}
-
-/* Used in patientview.html */
-.box {
-    padding-bottom: 20px;
-  width: 70%;
-  position: absolute;
-  top: 10%;
-  left: 15%;
-  background-color: white;
-}
-
-/* Used in patientview.html */
-.stack-top{
-  z-index: 9;
-}
-
-/* Used in patientview.html */
-.shadow{
-  opacity: 30%;
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  pointer-events: none;
-}
-
-/* Used in patientview.html for exit button */
-.exit{
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  right: 0px;
-  margin: 2%;
-}
-
-.patient-view{
-  justify-content: space-evenly;
-  width: 100%;
-  display: flex;
-  align-items: flex-start;
-  flex-direction: row;
-}
-.patient-info{
-  width: 40%;
-  display: flex;
-  align-items: flex-start;
-  flex-direction: column;
-}
-.patient-infobox{
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  align-items: center;
-  justify-content: space-evenly;
-}
-.patient-criteria{
-  width: 30%;
-  height: 100%;
-  justify-content: space-evenly;
-  padding: 0.5rem 0;
-  text-align: right;
-}
-.patient-value{
-  background-color: #f5f5f5;
-  width: 50%;
-  height: 100%;
-  justify-content: space-evenly;
-  padding: 0.5rem 0;
-  margin: 0.5rem 1rem;
-  padding-left: 0.5rem;
-  text-align: left;
-  border-radius: 10px;
-  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
-}
-
-.resbox {
-  display: flex;
-  background: #FAFAFA;
-  border-radius: 4px;
-  align-items: center;
-  justify-content: space-evenly;
-  margin: 0.5rem 0;
-}
-
-
-
-.resbox > div {
-  display: flex;
-  flex-direction: column;
-  margin: 1rem;
-}
-
-.formsearch {
-  display: flex;
-  flex-direction: row !important;
-  flex-wrap: wrap;
-  width: 90vw;
-  justify-content: flex-start;
-  align-items: center;
-}
-
-.prominentdonebtn {
-  background: #5c95ff;
-}
-
-.prominentdonebtn:hover {
-  background: #78a7ff;
-}
-.formsearch > div {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 2rem;
-}
-
-.formsearch > div > label {
-  font-size: 1.5rem;
-  font-weight: bold;
-}
-
-.formsearch > div > select {
-  margin: 1rem;
-}
+/* 
+Section: Log out functions and layout
+Used in: base.html
+*/
 button.logoutBtn {
-    margin-top: 0;
-    margin-left: 10px;
+    margin: 0 0 0 10px;
     padding: 0;
     background-color: #a4ccab;
 }
 
 button.logoutBtn:hover {
     cursor: pointer;
+}
 
+/* 
+Section: Base content for every view
+Used in: base.html
+*/
+.content { padding: 0 1rem 1rem; }
+
+/* May not be needed, used for flashing errors */
+.flash {
+    margin: 1em 0;
+    padding: 1em;
+    background: #cae6f6;
+    border: 1px solid #377ba8;
+}
+
+/*
+Section: Used for layouting the login system
+Used in: login.html
+*/
+.loginwrapper {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 20%;
+    width: 90%;
+    max-width: 600px;
+    border-radius: 5px;
+    background-color: #ffffff;
+}
+.session {
+    display: flex;
+    flex-direction: row;
+    width: 820px;
+    height: auto;
+    margin: auto auto;
+    background: #ffffff;
+    border-radius: 4px;
+    box-shadow: 0px 2px 6px -1px rgba(0, 0, 0, .12);
+}
+/* Picture to the left in the login view */
+.left {
+    width: 420px;
+    height: auto;
+    min-height: 100%;
+    position: relative;
+    background-image: url('vgreg.jpg');
+    background-size: cover;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+/*
+Section: Display the search history
+Used in: home.html
+*/
+div.searchHistory {
+    background-color: lightgray;
+    height: 20em;
+    padding: 1em;
+}
+
+/*
+Section: The form layout used for searching for patients
+Used in: search.html
+*/
+div.searchForm { width: 40%; }
+
+.formsearch {
+    display: flex;
+    flex-direction: row !important;
+    flex-wrap: wrap;
+    width: 90vw;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.formsearch>div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem;
+}   
+
+.formsearch>div>label {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.formsearch>div>select {
+    margin: 1rem;
+}
+/* Buttons used for submit search */
+.prominentdonebtn {
+    background: #5c95ff;
+}
+
+.prominentdonebtn:hover {
+    background: #78a7ff;
+}
+
+/*
+Section: Result when searching for patients
+Used in: search.html
+*/
+.resbox {
+    display: flex;
+    background: #FAFAFA;
+    border-radius: 4px;
+    align-items: center;
+    justify-content: space-evenly;
+    margin: 0.5rem 0;
+}
+
+.resbox>div {
+    display: flex;
+    flex-direction: column;
+    margin: 1rem;
+}
+
+/*
+Section: Layout in patient view
+Used in: patientview.html
+*/
+.box {
+    padding-bottom: 20px;
+    width: 70%;
+    position: absolute;
+    top: 10%;
+    left: 15%;
+    background-color: white;
+}
+
+.stack-top {
+    z-index: 9;
+}
+
+.shadow {
+    opacity: 30%;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    pointer-events: none;
+}
+
+.exit {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    right: 0px;
+    margin: 2%;
+}
+
+.exit:hover {
+    cursor: pointer;
+}
+
+.patient-view {
+    justify-content: space-evenly;
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: row;
+}
+
+.patient-info {
+    width: 40%;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+.patient-infobox {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.patient-criteria {
+    width: 30%;
+    height: 100%;
+    justify-content: space-evenly;
+    padding: 0.5rem 0;
+    text-align: right;
+}
+
+.patient-value {
+    background-color: #f5f5f5;
+    width: 50%;
+    height: 100%;
+    justify-content: space-evenly;
+    padding: 0.5rem 0;
+    margin: 0.5rem 1rem;
+    padding-left: 0.5rem;
+    text-align: left;
+    border-radius: 10px;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+/*
+Section: Create a grid layout for studies
+Used in: studies.html
+*/
+.grid-container {
+    display: grid;
+    row-gap: 50px;
+}
+
+.grid-item {
+    display: grid;
+    align-items: left;
+    background-color: #fff;
+    max-width: 60%;
+    padding-bottom: 50px;
+    font-size: x-large;
+    font-weight: bolder;
+}
+
+a.grid-items-a1 {
+    font-size: medium;
+    font-weight: bold;
+}
+
+a.grid-items-a2 {
+    font-size: small;
+    font-weight: lighter;
 }
 
 label.editPatientForm {

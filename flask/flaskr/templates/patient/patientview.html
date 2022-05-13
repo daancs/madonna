@@ -3,9 +3,6 @@
 {% block topnav %}
     <div class="shadow">{{ super() }}</div>
     <div class="box stack-top">
-        <a class="exit" href="{{ url_for('search.index') }}">
-            <img class="image" src="{{url_for('static', filename='close.png')}}">
-        </a>
         <div class="patient-view">
             <div class="patient-info">
                 <div class="patient-infobox">
@@ -33,6 +30,8 @@
                     <div class="patient-infobox">Patienten ingår ej i något case</div>
                 {% endif %}
             </div>
-        </div>
+            <button  onclick="history.back()">
+            <img width="30" height="30" src="{{url_for('static', filename='back-arrow.png')}}">
+            </button>
     </div>
 {% endblock %}

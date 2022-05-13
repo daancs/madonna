@@ -1,0 +1,14 @@
+{% extends 'bases/base.html' %}
+
+{% block topnav %}
+    <div class="shadow">{{ super() }}</div>
+    <div class="box stack-top">
+        <a class="exit" href="{{ url_for('studies.patients') }}">
+            <img class="image" src="{{url_for('static', filename='close.png')}}">
+        </a>
+    <div class="grid-studyView">
+        <a class="grid-item">Studie 1</a>
+        {%for res in result %}  <a class="grid-items-a2">  {{res.name}} : {{res.progress}} </a> 
+      {%endfor%} 
+        </div>
+{% endblock %}
