@@ -133,11 +133,7 @@ INSERT INTO Treatments (caseId,cytostatics,operationDate, doctor, assistent, med
 
 --Table of a specific users search history
 CREATE TABLE SearchHistory (
-    id SERIAL PRIMARY KEY,
-    time TIMESTAMP DEFAULT CURRENT_TIMESTAMP(1),
-    who TEXT NOT NULL,
-    query TEXT NOT NULL,
-    result JSON
+    search TEXT PRIMARY KEY
 );
 
 --Some inserts of example data to the studies table

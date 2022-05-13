@@ -32,7 +32,8 @@
                     <div class="patient-infobox">Patienten ingår ej i någon studie</div>
                 {% endif %}
             </div>
-        </div>
-
+            <button  onclick="history.back()">
+            <img width="30" height="30" src="{{url_for('static', filename='back-arrow.png')}}">
+            </button>
     </div>
 {% endblock %}
