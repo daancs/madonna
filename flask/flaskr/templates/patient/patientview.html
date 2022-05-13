@@ -7,12 +7,12 @@
             <div class="patient-info">
                 <div class="patient-infobox">
                     <h2>Patientinfo</h2>
-                    <a class="editBtn" href="https://ddg.gg">Redigera: ✏️</a>
+                    <a class="editBtn" href="{{url_for('patient.editPatient', key_id=result[0])}}">Redigera: ✏️</a>
                 </div>
-                {% for i in patient_inf %}
+                {% for i in patientColNames %}
                     <div class="patient-infobox">
-                        <span class="patient-criteria">{{patient_col_names[loop.index0]}}:</span>
-                        <span class="patient-value">{{patient_inf[loop.index0]}}</span>
+                        <span class="patient-criteria">{{patientColNames[loop.index0]}}:</span>
+                        <span class="patient-value"> {{result[loop.index0]}}</span>
                     </div>
                 {% endfor %}
             </div>
@@ -21,12 +21,13 @@
                 {% if cases_inf[0] != None %}
                     {% for i in cases_inf %}
                         <div class="patient-infobox">
-                            <span class="patient-criteria">{{cases_col_names[loop.index0]}}:</span>
-                            <span class="patient-value"> {{cases_inf[loop.index0]}}</span>
+                            <span class="patient-criteria">{{casesColNames[loop.index0]}}:</span>
+
+                            <span class="patient-value"> {{result[12 + loop.index0]}}</span>
                         </div>
                     {% endfor %}
                 {% else %}
-                    <div class="patient-infobox">Patienten ingår ej i någon studie</div>
+                    <div class="patient-infobox">Patienten ingår ej i något case</div>
                 {% endif %}
             </div>
             <button  onclick="history.back()">
