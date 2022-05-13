@@ -16,8 +16,23 @@ casesColNames = ['Case-ID', 'Patient', 'Komplikation', 'Granskad av', 'Gransknin
 def patient(key_id):
 
     result = getPatientData(key_id)
+    print(result)
 
-    return render_template('patient/patientview.html', result=result[0], patientColNames=patientColNames, casesColNames=casesColNames)
+    # return "foo"
+
+    # result = cur.fetchall()
+    result = result[0]
+    patient_inf = []
+    cases_inf = []
+
+    for i in range(len(result)):
+        if i < len(patientColNames):
+            patient_inf.append(result[i])
+        else:
+            cases_inf.append(result[i])
+
+    return render_template('patient/patientview.html', result=result, patientColNames=patientColNames, casesColNames=casesColNames, cases_inf=cases_inf)
+    # return render_template('patient/patientview.html', patient_inf=patient_inf, cases_inf=cases_inf, patient_col_names=patient_col_names, cases_col_names=cases_col_names)
 
 @bp.route('/patient/<key_id>/edit', methods=['GET', 'POST'])
 def editPatient(key_id):
@@ -49,7 +64,6 @@ def editPatient(key_id):
                     )
 
         conn.commit()
-        # return "dab"
         return redirect(url_for('patient.patient', key_id=key_id))
 
     result = getPatientData(key_id)
@@ -64,6 +78,7 @@ def getPatientData(key_id):
     query = "SELECT * FROM Patients LEFT JOIN Cases ON patients.key_id=cases.patient WHERE Patients.key_id =(%s)"
     cur.execute(query, (key_id,))
     conn.commit()
+
     global formColNames # Sets formColNames as a global variable for use in editPatient()
     formColNames = [desc[0] for desc in cur.description]
 
