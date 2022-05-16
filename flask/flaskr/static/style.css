@@ -314,7 +314,7 @@ div.searchForm { width: 40%; }
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 2rem;
+    margin: 1.5rem;
 }   
 
 .formsearch>div>label {

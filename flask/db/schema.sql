@@ -115,6 +115,11 @@ INSERT INTO Survays ( surveyName,study,patient,questions,answers) VALUES
 ('survay2', '2', '0005', ARRAY ['who are you?','do you like football','do you like ice cream?'], ARRAY[ 'Anna','Yes','Yes']),
 ('survay2', '2', '0009', ARRAY ['who are you?','do you like football','do you like ice cream?'], ARRAY[ 'Napoleone aka Nappe','No','No']),
 ('survay2', '2', '0012', ARRAY ['who are you?','do you like football','do you like ice cream?'], ARRAY[ 'SNOK','Yes','No'])
+('survay3', '2', '0004', ARRAY ['are you happy? 1-5','do you see well? 1-5','do you have a dog?'], ARRAY[ '3','4','Yes']),
+('survay3', '2', '0005', ARRAY ['are you happy? 1-5','do you see well? 1-5','do you have a dog?'], ARRAY[ '5','4','Yes']),
+('survay3', '2', '0008', ARRAY ['are you happy? 1-5','do you see well? 1-5','do you have a dog?'], ARRAY[ '1','1','No']),
+('survay3', '2', '0009', ARRAY ['are you happy? 1-5','do you see well? 1-5','do you have a dog?'], ARRAY[ '3','2','No'])
+
 --Some inserts of example data to the patient table
 INSERT INTO Patients (key_id,idnr,name,age,gender,weight,bmi,nicotine,adress,city,zipcode) VALUES
 ('0001','20000901-1234', 'Foo Bar', '69', 'Male' ,'420', '21.2', 'Nej', 'Hubbenvägen 1','Göteborg','41280'),
