@@ -63,7 +63,7 @@ def entryBuilder(user, id, gender, name, weight, age, nicotine, study):
     entry = now.strftime("%d/%m/%Y %H:%M:%S") + ": " + str(user) + " sökte på "
 
     if (len(id) == 0 and gender == "Alla" and len(name) == 0 and len(weight) == 0 and len(age) == 0 and len(study) == 0 and nicotine == "both"):
-        entry += "alla patienter"
+        entry += " alla patienter"
         return entry
 
     entry += " patienter som "

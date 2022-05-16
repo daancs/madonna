@@ -1,3 +1,4 @@
+from traceback import print_tb
 from flask import Blueprint, flash, g, redirect, render_template, request, url_for
 import psycopg2, psycopg2.extras
 
@@ -48,6 +49,32 @@ def index():
     return render_template('/search/search.html', result=result)
 
 def buildQuery(id, gender, name, weight, age, nicotine, study):
+    query = ""
+
+    id = "%" + id + "%"
+    name = "%" + name + "%"
+    weight = "%" + weight + "%"
+    age = "%" + age +"%"
+    study = "%" + study + "%"
+    if nicotine == "both":
+        nicotine = "%"
+    if gender == "Alla":
+        gender = "%"
+
+    query = """SELECT * FROM patients JOIN Studies ON key_id = patient WHERE """
+    query += " key_id ILIKE  '" + id + "'"
+    query += " AND gender ILIKE  '" + gender + "'"
+    query += " AND name ILIKE '" + name + "'"
+    query += " AND CAST(weight AS TEXT) ILIKE  '" + weight + "'"
+    query += " AND CAST(age AS TEXT) ILIKE  '" + age + "'"
+    query += " AND CAST(studyNumber AS TEXT) ILIKE  '" + study + "'"
+    query += " AND nicotine ILIKE '" + nicotine + "'"
+    
+
+    print(query)
+    return query + ";"
+
+'''def buildQuery(id, gender, name, weight, age, nicotine, study):
     query = ""
 
     if name:
@@ -111,7 +138,7 @@ def buildQuery(id, gender, name, weight, age, nicotine, study):
             query += " AND nicotine = 'Ja'"
 
     print(query)
-    return query + ";"
+    return query + ";"'''
 
 # Unused for now
 def runQuery(query):
