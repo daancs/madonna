@@ -93,6 +93,28 @@ CREATE TABLE Study2 (
     PRIMARY KEY (patient, studyID)
 );
 
+CREATE TABLE Surveys (
+    surveyName TEXT NOT NULL,
+    study INTEGER,
+    patient CHAR(4) REFERENCES Patients(key_id),
+    questions TEXT[] NOT NULL,
+    answers TEXT[] NOT NULL,
+    CHECK (array_length(questions)=array_length(answers)),
+
+    PRIMARY KEY (surveyName, study, patient),
+    FOREIGN KEY (study) REFERENCES Studies(studyID)
+);
+
+INSERT INTO Survays ( surveyName,study,patient,questions,answers) VALUES
+('survay1', '1', '0001', ARRAY ['who are you', 'how big is your nose?','do you like coffe?'], ARRAY[ 'Mr 0001','large','Yes']),
+('survay1', '1', '0002', ARRAY ['who are you', 'how big is your nose?','do you like coffe?'], ARRAY[ 'Miss Por','small','Yes']),
+('survay1', '1', '0004', ARRAY ['who are you', 'how big is your nose?','do you like coffe?'], ARRAY[ 'Mr 0004','medium','No']),
+('survay1', '1', '0008', ARRAY ['who are you', 'how big is your nose?','do you like coffe?'], ARRAY[ 'Svennis','Large','Yes']),
+('survay1', '1', '0015', ARRAY ['who are you', 'how big is your nose?','do you like coffe?'], ARRAY[ 'Anki','small','No']),
+('survay2', '2', '0003', ARRAY ['who are you?','do you like football','do you like ice cream?'], ARRAY[ 'Rop Slat','Yes','Yes']),
+('survay2', '2', '0005', ARRAY ['who are you?','do you like football','do you like ice cream?'], ARRAY[ 'Anna','Yes','Yes']),
+('survay2', '2', '0009', ARRAY ['who are you?','do you like football','do you like ice cream?'], ARRAY[ 'Napoleone aka Nappe','No','No']),
+('survay2', '2', '0012', ARRAY ['who are you?','do you like football','do you like ice cream?'], ARRAY[ 'SNOK','Yes','No'])
 --Some inserts of example data to the patient table
 INSERT INTO Patients (key_id,idnr,name,age,gender,weight,bmi,nicotine,adress,city,zipcode) VALUES
 ('0001','20000901-1234', 'Foo Bar', '69', 'Male' ,'420', '21.2', 'Nej', 'Hubbenvägen 1','Göteborg','41280'),
