@@ -36,7 +36,7 @@ def clear_db():
 def get_db():
     if 'db' not in g:
         g.db = psycopg2.connect( #conn = psycop...
-                host="localhost",
+                host=os.environ['DB_HOST'] or 'localhost',
                 database="madonna",
                 user="postgres",
                 password=os.environ['DB_PASSWORD']
