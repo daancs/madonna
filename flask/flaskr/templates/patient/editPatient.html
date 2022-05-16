@@ -13,8 +13,37 @@
                 </div>
                 <form method="POST">
                 {% for i in patientColNames %}
-                    <label class="editPatientForm">{{patientColNames[loop.index0]}}:</label>
-                    <input type="text" class="patient-value" name="{{formColNames[loop.index0]}}" value="{{result[loop.index0]}}">
+                    {% if patientColNames[loop.index0] == "Key-ID" %}
+                        <label class="editPatientForm">{{patientColNames[loop.index0]}}:</label>
+                        <input type="text" class="patient-value" name="{{formColNames[loop.index0]}}" value="{{result[loop.index0]}}" readonly>
+
+                    {% elif patientColNames[loop.index0] == "Kön" %}
+                        <label class="editPatientForm">{{patientColNames[loop.index0]}}:</label>
+                        <select name="gender" id="genderSelect">
+                            <option value="Male">Man</option>
+                            <option value="Female">Kvinna</option>
+                        </select>
+
+                    {% elif patientColNames[loop.index0] == "Avliden" %}
+                        <label class="editPatientForm">{{patientColNames[loop.index0]}}:</label>
+                        <select name="deceased" id="deceasedSelect">
+                            <option value="True">Ja</option>
+                            <option value="False">Nej</option>
+                        </select>
+
+                    {% elif patientColNames[loop.index0] == "Ålder"%}
+                        <label class="editPatientForm">{{patientColNames[loop.index0]}}:</label>
+                        <input type="number" class="patient-value" name="{{formColNames[loop.index0]}}" value="{{result[loop.index0]}}">
+
+                    {% elif patientColNames[loop.index0] == "Vikt" or patientColNames[loop.index0] == "BMI"%}
+                        <label class="editPatientForm">{{patientColNames[loop.index0]}}:</label>
+                        <input type="number" step="0.1" class="patient-value" name="{{formColNames[loop.index0]}}" value="{{result[loop.index0]}}">
+
+                    {% else %}
+                        <label class="editPatientForm">{{patientColNames[loop.index0]}}:</label>
+                        <input type="text" class="patient-value" name="{{formColNames[loop.index0]}}" value="{{result[loop.index0]}}">
+                    {% endif %}
+
                 {% endfor %}
                 <input type="submit" value="Spara">
                 </form>
