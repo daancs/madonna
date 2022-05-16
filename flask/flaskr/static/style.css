@@ -305,7 +305,7 @@ div.searchForm { width: 40%; }
     display: flex;
     flex-direction: row !important;
     flex-wrap: wrap;
-    width: 90vw;
+    width: 95vw;
     justify-content: flex-start;
     align-items: center;
 }
