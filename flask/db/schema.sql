@@ -136,6 +136,18 @@ CREATE TABLE SearchHistory (
     search TEXT PRIMARY KEY
 );
 
+-- Table for changeLog to the patient data
+CREATE TABLE changeLog (
+    id SERIAL PRIMARY KEY,
+    tstamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP(1),
+    operation TEXT NOT NULL,
+    new_val JSON NOT NULL,
+    old_val JSON
+);
+
+-- Maybe a function for setting the current user in Flask
+-- CREATE FUNCTION setFlaskUser(user TEXT)
+
 --Some inserts of example data to the studies table
 INSERT INTO Studies(studyID, patient, studyNumber) VALUES
 (1, '0001','1'),
