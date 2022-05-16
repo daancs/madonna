@@ -99,26 +99,11 @@ CREATE TABLE Surveys (
     patient CHAR(4) REFERENCES Patients(key_id),
     questions TEXT[] NOT NULL,
     answers TEXT[] NOT NULL,
-    CHECK (array_length(questions)=array_length(answers)),
+    --CHECK (array_length(questions)=array_length(answers)),
 
     PRIMARY KEY (surveyName, study, patient),
-    FOREIGN KEY (study) REFERENCES Studies(studyID)
+    FOREIGN KEY (study, patient) REFERENCES Studies(studyID, patient)
 );
-
-INSERT INTO Survays ( surveyName,study,patient,questions,answers) VALUES
-('survay1', '1', '0001', ARRAY ['who are you', 'how big is your nose?','do you like coffe?'], ARRAY[ 'Mr 0001','large','Yes']),
-('survay1', '1', '0002', ARRAY ['who are you', 'how big is your nose?','do you like coffe?'], ARRAY[ 'Miss Por','small','Yes']),
-('survay1', '1', '0004', ARRAY ['who are you', 'how big is your nose?','do you like coffe?'], ARRAY[ 'Mr 0004','medium','No']),
-('survay1', '1', '0008', ARRAY ['who are you', 'how big is your nose?','do you like coffe?'], ARRAY[ 'Svennis','Large','Yes']),
-('survay1', '1', '0015', ARRAY ['who are you', 'how big is your nose?','do you like coffe?'], ARRAY[ 'Anki','small','No']),
-('survay2', '2', '0003', ARRAY ['who are you?','do you like football','do you like ice cream?'], ARRAY[ 'Rop Slat','Yes','Yes']),
-('survay2', '2', '0005', ARRAY ['who are you?','do you like football','do you like ice cream?'], ARRAY[ 'Anna','Yes','Yes']),
-('survay2', '2', '0009', ARRAY ['who are you?','do you like football','do you like ice cream?'], ARRAY[ 'Napoleone aka Nappe','No','No']),
-('survay2', '2', '0012', ARRAY ['who are you?','do you like football','do you like ice cream?'], ARRAY[ 'SNOK','Yes','No'])
-('survay3', '2', '0004', ARRAY ['are you happy? 1-5','do you see well? 1-5','do you have a dog?'], ARRAY[ '3','4','Yes']),
-('survay3', '2', '0005', ARRAY ['are you happy? 1-5','do you see well? 1-5','do you have a dog?'], ARRAY[ '5','4','Yes']),
-('survay3', '2', '0008', ARRAY ['are you happy? 1-5','do you see well? 1-5','do you have a dog?'], ARRAY[ '1','1','No']),
-('survay3', '2', '0009', ARRAY ['are you happy? 1-5','do you see well? 1-5','do you have a dog?'], ARRAY[ '3','2','No'])
 
 --Some inserts of example data to the patient table
 INSERT INTO Patients (key_id,idnr,name,age,gender,weight,bmi,nicotine,adress,city,zipcode) VALUES
@@ -137,6 +122,37 @@ INSERT INTO Patients (key_id,idnr,name,age,gender,weight,bmi,nicotine,adress,cit
 ('0013','19240503-6767', 'Asterix Gallsson', '74', 'Female', '90', '35.00', 'Ja', 'Winden 3','Götebort','42436'),
 ('0014','19781212-6789', 'Super Mario', '45', 'Male', '78', '21', 'Nej', 'Japangatan 1','Tokyo','42136'),
 ('0015','19831111-1234', 'Kalle Anka', '12', 'Female', '120', '33', 'Nej', 'Kalle ankas allé 1','Ankebort','41211');
+
+--Some inserts of example data to the studies table
+INSERT INTO Studies(studyID, patient, studyNumber) VALUES
+(1, '0001','1'),
+(1, '0002','1'),
+(2, '0003','2'),
+(1, '0004','1'),
+(2, '0005','2'),
+(1, '0008','1'),
+(2, '0009','2'),
+(1, '0010','1'),
+(2, '0012','2'),
+(2, '0004','2'),
+(2, '0008','2'),
+(1, '0015','1');
+
+INSERT INTO Surveys ( surveyName,study,patient,questions,answers) VALUES
+('survay1', '1', '0001', ARRAY ['who are you', 'how big is your nose?','do you like coffe?'], ARRAY[ 'Mr 0001','large','Ja']),
+('survay1', '1', '0002', ARRAY ['who are you', 'how big is your nose?','do you like coffe?'], ARRAY[ 'Miss Por','small','Ja']),
+('survay1', '1', '0004', ARRAY ['who are you', 'how big is your nose?','do you like coffe?'], ARRAY[ 'Mr 0004','medium','Nej']),
+('survay1', '1', '0008', ARRAY ['who are you', 'how big is your nose?','do you like coffe?'], ARRAY[ 'Svennis','Large','Ja']),
+('survay1', '1', '0015', ARRAY ['who are you', 'how big is your nose?','do you like coffe?'], ARRAY[ 'Anki','small','Nej']),
+('survay2', '2', '0003', ARRAY ['who are you?','do you like football','do you like ice cream?'], ARRAY[ 'Rop Slat','J','N']),
+('survay2', '2', '0005', ARRAY ['who are you?','do you like football','do you like ice cream?'], ARRAY[ 'Anna','J','J']),
+('survay2', '2', '0009', ARRAY ['who are you?','do you like football','do you like ice cream?'], ARRAY[ 'Napoleone aka Nappe','N','N']),
+('survay2', '2', '0012', ARRAY ['who are you?','do you like football','do you like ice cream?'], ARRAY[ 'SNOK','J','N']),
+('survay3', '2', '0004', ARRAY ['are you happy? 1-5','do you see well? 1-5','do you have a dog?'], ARRAY[ '3','4','Yes']),
+('survay3', '2', '0005', ARRAY ['are you happy? 1-5','do you see well? 1-5','do you have a dog?'], ARRAY[ '5','4','Yes']),
+('survay3', '2', '0008', ARRAY ['are you happy? 1-5','do you see well? 1-5','do you have a dog?'], ARRAY[ '1','1','No']),
+('survay3', '2', '0009', ARRAY ['are you happy? 1-5','do you see well? 1-5','do you have a dog?'], ARRAY[ '3','2','No']);
+
 
 --Some inserts of example data to the medical history table
 INSERT INTO MedicalHistory (key_id,complication) VALUES
@@ -162,19 +178,6 @@ INSERT INTO Treatments (caseId,cytostatics,operationDate, doctor, assistent, med
 CREATE TABLE SearchHistory (
     search TEXT PRIMARY KEY
 );
-
---Some inserts of example data to the studies table
-INSERT INTO Studies(studyID, patient, studyNumber) VALUES
-(1, '0001','1'),
-(1, '0002','1'),
-(2, '0003','2'),
-(1, '0004','1'),
-(2, '0005','2'),
-(1, '0008','1'),
-(2, '0009','2'),
-(1, '0010','1'),
-(2, '0012','2'),
-(1, '0015','1');
 
 --Some inserts of example data to the study1 table
 INSERT INTO Study1(studyID, patient, progress, do_you_smoke, is_your_house_red, is_your_dog_gay) VALUES

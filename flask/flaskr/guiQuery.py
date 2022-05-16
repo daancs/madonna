@@ -27,13 +27,25 @@ def index():
         weight = request.form['weight']
         age = request.form['age']
         study = request.form['study']
+        ans1a = request.form['survey1a']
+        ans1b = request.form['survey1b']
+        ans1c = request.form['survey1c']
+        ans2a = request.form['survey2a']
+        ans2b = request.form['survey2b']
+        ans2c = request.form['survey2c']
+        ans3a = request.form['survey3a']
+        ans3b = request.form['survey3b']
+        ans3c = request.form['survey3c']
         try:
             nicotine = request.form['nicotine']
         except:
             nicotine = False
 
 
-        query = buildQuery(id, gender, name, weight, age, nicotine, study)
+        query = buildQuery(id, gender, name, weight, age, nicotine, study,
+                            ans1a, ans1b, ans1c,
+                            ans2a, ans2b, ans2c,
+                            ans3a, ans3b, ans3c)
 
         db.addToHistory(g.user[1], id, gender, name, weight, age, nicotine, study)
 
@@ -48,20 +60,36 @@ def index():
             # g.isResString = True
     return render_template('/search/search.html', result=result)
 
-def buildQuery(id, gender, name, weight, age, nicotine, study):
+def buildQuery(id, gender, name, weight, age, nicotine, study,
+                ans1a, ans1b, ans1c,
+                ans2a, ans2b, ans2c,
+                ans3a, ans3b, ans3c):
     query = ""
 
     id = "%" + id + "%"
     name = "%" + name + "%"
     weight = "%" + weight + "%"
     age = "%" + age +"%"
+
     study = "%" + study + "%"
+    ans1a = "%" + ans1a + "%"
+    ans1b = "%" + ans1b + "%"
+    ans1c = "%" + ans1c + "%"
+
+    ans2a = "%" + ans2a + "%"
+    ans2b = "%" + ans2b + "%"
+    ans2c = "%" + ans2c + "%"
+
+    ans3a = "%" + ans3a + "%"
+    ans3b = "%" + ans3b + "%"
+    ans3c = "%" + ans3c + "%"
+
     if nicotine == "both":
         nicotine = "%"
     if gender == "Alla":
         gender = "%"
 
-    query = """SELECT * FROM patients JOIN Studies ON key_id = patient WHERE """
+    query = """SELECT * FROM patients JOIN Studies ON key_id = Studies.patient JOIN Survays ON key_id = Survays.patient WHERE """
     query += " key_id ILIKE  '" + id + "'"
     query += " AND gender ILIKE  '" + gender + "'"
     query += " AND name ILIKE '" + name + "'"
@@ -69,6 +97,9 @@ def buildQuery(id, gender, name, weight, age, nicotine, study):
     query += " AND CAST(age AS TEXT) ILIKE  '" + age + "'"
     query += " AND CAST(studyNumber AS TEXT) ILIKE  '" + study + "'"
     query += " AND nicotine ILIKE '" + nicotine + "'"
+    query += " AND (anwsers[0] ILIKE '" + ans1a + "' OR anwsers[0] ILIKE '" + ans2a + "' OR anwsers[0] ILIKE '" + ans3a + "')"
+    query += " AND (anwsers[1] ILIKE '" + ans1b + "' OR anwsers[1] ILIKE '" + ans2b + "' OR anwsers[1] ILIKE '" + ans3b + "')"
+    query += " AND (anwsers[2] ILIKE '" + ans1c + "' OR anwsers[2] ILIKE '" + ans2c + "' OR anwsers[2] ILIKE '" + ans3c + "')"
     
 
     print(query)
