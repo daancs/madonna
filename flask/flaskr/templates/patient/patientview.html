@@ -30,6 +30,20 @@
                     <div class="patient-infobox">Patienten ingår ej i något case</div>
                 {% endif %}
             </div>
+            <div class="patient-info">
+                <div class="patient-infobox">
+                    <h2>Studier</h2>
+                </div>
+                {% for i in study %}
+                    <div class="patient-infobox">
+                        <span class="patient-criteria">{{study_col_names[loop.index0]}}:</span>
+                        {% if study[loop.index0] == True %}
+                            {{ study[loop.index0]|replace('True', 'Ja') }}
+                        {% endif %}
+                        <span class="patient-value"> {{study[loop.index0]}}</span>
+                    </div>
+                {% endfor %}
+            </div>
             <button  onclick="history.back()">
             <img width="30" height="30" src="{{url_for('static', filename='back-arrow.png')}}">
             </button>
