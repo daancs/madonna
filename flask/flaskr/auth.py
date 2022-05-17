@@ -33,6 +33,9 @@ def login():
 
         session.clear()
         session['user'] = user
+        cur.execute("UPDATE currentFlaskUser SET flaskUser =%s",(user[1],))
+        conn.commit()
+        print("lamoooooooooooooooo")
         return redirect(url_for('home.home'))
     return render_template('auth/login.html')
 

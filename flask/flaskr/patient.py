@@ -60,7 +60,7 @@ def editPatient(key_id):
                             request.form['weight'], request.form['bmi'],
                             request.form['nicotine'], request.form['deceased'],
                             request.form['adress'], request.form['city'],
-                            request.form['zipcode'], request.form['key_id'])
+                            request.form['zipcode'], key_id)
                     )
 
         conn.commit()

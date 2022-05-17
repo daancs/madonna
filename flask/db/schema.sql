@@ -145,6 +145,12 @@ CREATE TABLE changeLog (
     old_val JSON
 );
 
+CREATE TABLE currentFlaskUser (
+    flaskUser TEXT PRIMARY KEY
+);
+
+INSERT INTO currentFlaskUser (flaskUser) VALUES ('not-logged-in');
+
 -- Maybe a function for setting the current user in Flask
 -- CREATE FUNCTION setFlaskUser(user TEXT)
 
