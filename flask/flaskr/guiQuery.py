@@ -36,7 +36,6 @@ def index():
         ans3a = request.form['survey3a']
         ans3b = request.form['survey3b']
         ans3c = request.form['survey3c']
-        print("aaaaa: " + ans3c)
         try:
             nicotine = request.form['nicotine']
         except:
@@ -48,7 +47,10 @@ def index():
                             ans2a, ans2b, ans2c,
                             ans3a, ans3b, ans3c)
 
-        db.addToHistory(g.user[1], id, gender, name, weight, age, nicotine, study)
+        db.addToHistory(g.user[1], id, gender, name, weight, age, nicotine, study,
+                            ans1a, ans1b, ans1c,
+                            ans2a, ans2b, ans2c,
+                            ans3a, ans3b, ans3c)
 
         conn = db.get_db()
         cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
@@ -66,7 +68,7 @@ def buildQuery(id, gender, name, weight, age, nicotine, study,
                 ans2a, ans2b, ans2c,
                 ans3a, ans3b, ans3c):
     query = ""
-
+    
     id = "%" + id + "%"
     name = "%" + name + "%"
     weight = "%" + weight + "%"
