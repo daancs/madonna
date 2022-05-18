@@ -63,10 +63,10 @@ CREATE TABLE Treatments (
 
 --Table of patient and studies they are included in
 CREATE TABLE Studies(
-    studyID INTEGER, --studyID
-    patient CHAR(4) NOT NULL, --patien
+    studyID INTEGER,
+    patient CHAR(4) REFERENCES Patients(key_id), 
     studyNumber INT NOT NULL,
-    PRIMARY KEY(patient, studyID)
+    PRIMARY KEY (studyID, patient)
 );
 
 --Table of patients in study 1 and their answers
@@ -94,28 +94,15 @@ CREATE TABLE Study2 (
 );
 
 CREATE TABLE Surveys (
-    surveyName TEXT NOT NULL,
-    study INTEGER,
+    surveyName TEXT,
+    study INTEGER REFERENCES Studies(studyID),
     patient CHAR(4) REFERENCES Patients(key_id),
-    questions TEXT[] NOT NULL,
-    answers TEXT[] NOT NULL,
-    CHECK (array_length(questions)=array_length(answers)),
-
-    PRIMARY KEY (surveyName, study, patient),
-    FOREIGN KEY (study) REFERENCES Studies(studyID)
+    questions TEXT [] NOT NULL,
+    answers TEXT [] NOT NULL,
+    PRIMARY KEY (surveyName, study, patient)
 );
 
-INSERT INTO Survays ( surveyName,study,patient,questions,answers) VALUES
-('survay1', '1', '0001', ARRAY ['who are you', 'how big is your nose?','do you like coffe?'], ARRAY[ 'Mr 0001','large','Yes']),
-('survay1', '1', '0002', ARRAY ['who are you', 'how big is your nose?','do you like coffe?'], ARRAY[ 'Miss Por','small','Yes']),
-('survay1', '1', '0004', ARRAY ['who are you', 'how big is your nose?','do you like coffe?'], ARRAY[ 'Mr 0004','medium','No']),
-('survay1', '1', '0008', ARRAY ['who are you', 'how big is your nose?','do you like coffe?'], ARRAY[ 'Svennis','Large','Yes']),
-('survay1', '1', '0015', ARRAY ['who are you', 'how big is your nose?','do you like coffe?'], ARRAY[ 'Anki','small','No']),
-('survay2', '2', '0003', ARRAY ['who are you?','do you like football','do you like ice cream?'], ARRAY[ 'Rop Slat','Yes','Yes']),
-('survay2', '2', '0005', ARRAY ['who are you?','do you like football','do you like ice cream?'], ARRAY[ 'Anna','Yes','Yes']),
-('survay2', '2', '0009', ARRAY ['who are you?','do you like football','do you like ice cream?'], ARRAY[ 'Napoleone aka Nappe','No','No']),
-('survay2', '2', '0012', ARRAY ['who are you?','do you like football','do you like ice cream?'], ARRAY[ 'SNOK','Yes','No'])
---Some inserts of example data to the patient table
+
 INSERT INTO Patients (key_id,idnr,name,age,gender,weight,bmi,nicotine,adress,city,zipcode) VALUES
 ('0001','20000901-1234', 'Foo Bar', '69', 'Male' ,'420', '21.2', 'Nej', 'Hubbenvägen 1','Göteborg','41280'),
 ('0002','19940418-6234', 'Por Tals', '35','Female' ,'098', '21.59', 'Ja, lmao', 'Kemivägen 1','Göteborg','43331'),
@@ -188,3 +175,15 @@ INSERT INTO Study2(studyID, patient, progress, how_much_do_you_make, is_your_cat
 (2, '0005','enkät ifylld','89561','TRUE'),
 (2, '0009','enkät ej utskickad','3142','TRUE'),
 (2, '0012','enkät delvis ifylld','9998612','TRUE');
+
+INSERT INTO Surveys ( surveyName,study,patient,questions,answers) VALUES
+('survey1', 1, '0001', '{"who are you", "how big is your nose?","do you like coffe?"}', '{"Mr 0001","large" ,"Yes"}'),
+('survey1', 1, '0002', '{"who are you", "how big is your nose?","do you like coffe?"}', '{"Miss Por","small","Yes"}'),
+('survey1', 1, '0004', '{"who are you", "how big is your nose?","do you like coffe?"}', '{"Mr 0004","medium","No"}'),
+('survey1', 1, '0008', '{"who are you", "how big is your nose?","do you like coffe?"}', '{"Svennis","Large","Yes"}'),
+('survey1', 1, '0015', '{"who are you", "how big is your nose?","do you like coffe?"}', '{"Anki","small","No"}'),
+('survey2', 2, '0003', '{"who are you?","do you like football?","do you like ice cream?"}', '{"Rop Slat","Yes","Yes"}'),
+('survey2', 2, '0005', '{"who are you?","do you like football?","do you like ice cream?"}', '{"Anna","Yes","Yes"}'),
+('survey2', 2, '0009', '{"who are you?","do you like football?","do you like ice cream?"}', '{"Napoleone aka Nappe","No","No"}'),
+('survey2', 2, '0012', '{"who are you?","do you like football?","do you like ice cream?"}', '{"SNOK","Yes","No"}');
+--Some inserts of example data to the patient table
