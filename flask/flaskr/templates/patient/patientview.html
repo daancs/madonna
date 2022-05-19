@@ -13,7 +13,7 @@
                 {% for i in patientColNames %}
                     <div class="patient-infobox">
                         <span class="patient-criteria">{{patientColNames[loop.index0]}}:</span>
-                        <span class="patient-value"> {{result[loop.index0]}}</span>
+                        {{render_crit(result[loop.index0])}}
                     </div>
                 {% endfor %}
             </div>
@@ -24,8 +24,7 @@
                     {% for i in cases_inf %}
                         <div class="patient-infobox">
                             <span class="patient-criteria">{{casesColNames[loop.index0]}}:</span>
-
-                            <span class="patient-value"> {{result[12 + loop.index0]}}</span>
+                            {{render_crit(result[12 + loop.index0])}}
                         </div>
                     {% endfor %}
                 {% else %}
@@ -43,7 +42,7 @@
                 {% for i in study %}
                     <div class="patient-infobox">
                         <span class="patient-criteria">{{study_col_names[loop.index0]}}:</span>
-                        <span class="patient-value"> {{study[loop.index0]}}</span>
+                        {{render_crit(study[loop.index0])}}
                     </div>
                 {% endfor %}
             </div>
@@ -51,3 +50,13 @@
         </div>
     </div>
 {% endblock %}
+
+{% macro render_crit(criteria) %}
+    {% if criteria == true and criteria is not integer %}
+         <span class="patient-value"> Ja </span> 
+    {% elif criteria == false%}
+         <span class="patient-value"> Nej </span> 
+    {% else %}
+         <span class="patient-value"> {{ criteria }}</span> 
+    {% endif %}
+{% endmacro %}
