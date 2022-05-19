@@ -174,8 +174,8 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql' SECURITY DEFINER;
 
-CREATE TRIGGER changeLogTrigger INSERT OR UPDATE OR DELTE ON patients
-    FOR EACH ROW EXCECUTE PROCEDURE change_trigger();
+CREATE TRIGGER changeLogTrigger AFTER INSERT OR UPDATE OR DELETE ON patients
+    FOR EACH ROW EXECUTE PROCEDURE change_trigger();
 
 --Some inserts of example data to the studies table
 INSERT INTO Studies(studyID, patient, studyNumber) VALUES
