@@ -80,6 +80,10 @@ def load_logged_in_user():
 
 @bp.route('/logout')
 def logout():
+    conn = get_db()
+    cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+    cur.execute("UPDATE currentFlaskUser SET flaskUser =%s",('not-logged-in',))
+    conn.commit()
     session.clear()
     return redirect(url_for('index'))
 

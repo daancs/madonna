@@ -145,10 +145,10 @@ CREATE TABLE changeLog (
     old_val JSON
 );
 
+-- Simple table for keeping track of currently logged in user.
 CREATE TABLE currentFlaskUser (
     flaskUser TEXT PRIMARY KEY
 );
-
 INSERT INTO currentFlaskUser (flaskUser) VALUES ('not-logged-in');
 
 -- Maybe a function for setting the current user in Flask
