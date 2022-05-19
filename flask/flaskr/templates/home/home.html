@@ -15,8 +15,8 @@
     <div class=historyBlock>
         <h3>Redigeringshistorik</h3>
         {% for res in changeLog %}
-        <div class=historyEntry>
-            <p>{{res}}</p>
+        <div class=changelogEntry>
+            <p>{{res[0]}}</p>
         </div>
         {% endfor %}
     </div>
