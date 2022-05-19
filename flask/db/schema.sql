@@ -141,7 +141,8 @@ CREATE TABLE changeLog (
     id SERIAL PRIMARY KEY,
     tstamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP(1),
     operation TEXT NOT NULL,
-    new_val JSON NOT NULL,
+    who TEXT DEFAULT current_user,
+    new_val JSON,
     old_val JSON
 );
 
@@ -152,7 +153,29 @@ CREATE TABLE currentFlaskUser (
 INSERT INTO currentFlaskUser (flaskUser) VALUES ('not-logged-in');
 
 -- Maybe a function for setting the current user in Flask
--- CREATE FUNCTION setFlaskUser(user TEXT)
+CREATE FUNCTION change_trigger() RETURNS trigger AS $$
+BEGIN
+    IF  TG_OP = 'INSERT'
+        THEN
+        INSERT INTO changeLog (operation, who, new_val)
+        VALUES (TG_OP, (SELECT flaskUser FROM currentFlaskUser), row_to_json(NEW));
+        RETURN NEW;
+    ELSIF   TG_OP = 'UPDATE'
+        THEN
+        INSERT INTO changeLog (operation, who, new_val, old_val)
+        VALUES (TG_OP, (SELECT flaskUser FROM currentFlaskUser), row_to_json(NEW), row_to_json(OLD));
+        RETURN NEW;
+    ELSIF   TG_OP = 'DELETE'
+        THEN
+        INSERT INTO changeLog (operation, who, old_val)
+        VALUES (TG_OP, (SELECT flaskUser FROM currentFlaskUser), row_to_json(OLD));
+        RETURN OLD;
+    END IF;
+END;
+$$ LANGUAGE 'plpgsql' SECURITY DEFINER;
+
+CREATE TRIGGER changeLogTrigger INSERT OR UPDATE OR DELTE ON patients
+    FOR EACH ROW EXCECUTE PROCEDURE change_trigger();
 
 --Some inserts of example data to the studies table
 INSERT INTO Studies(studyID, patient, studyNumber) VALUES
