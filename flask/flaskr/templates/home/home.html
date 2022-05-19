@@ -1,14 +1,24 @@
 {% extends 'bases/base.html' %}
 
 {% block content %}
-    <h1>Nyheter</h1>
-    <p>Här är din personliga startsida</p>
-    <div class=searchHistory>
+<h1>Nyheter</h1>
+<p>Här är din personliga startsida</p>
+<div class=historyWrapper>
+    <div class=historyBlock>
         <h3>Sökhistorik</h3>
-        {% for res in history %}
-            <div class=historyEntry>
-                <p>{{res}}</p>
-            </div>
+        {% for res in searchHistory %}
+        <div class=historyEntry>
+            <p>{{res}}</p>
+        </div>
         {% endfor %}
     </div>
+    <div class=historyBlock>
+        <h3>Redigeringshistorik</h3>
+        {% for res in changeLog %}
+        <div class=historyEntry>
+            <p>{{res}}</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
 {% endblock %}

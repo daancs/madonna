@@ -15,9 +15,12 @@ def home():
     conn = get_db()
     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
     cur.execute("SELECT * FROM SearchHistory")
-    history = cur.fetchall()
-    print(history)
+    searchHistory = cur.fetchall()
+
+    cur.execute("SELECT * FROM changeLog")
+    changeLog = cur.fetchall()
     # if g.user is None:
         # return redirect(url_for('auth.login'))
     # else:
-    return render_template('home/home.html', history=history)
+    return render_template('home/home.html', searchHistory=searchHistory, changeLog=changeLog)
+

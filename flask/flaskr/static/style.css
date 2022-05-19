@@ -183,7 +183,7 @@ div.navitems>a {
     font-size: 1.2rem;
 }
 a.navbar-brand {
-    width: inherit; 
+    width: inherit;
 }
 .topnav {
     margin-bottom: 4rem;
@@ -210,7 +210,7 @@ img.image {
     width: inherit;
 }
 
-/* 
+/*
 Section: Log out functions and layout
 Used in: base.html
 */
@@ -224,7 +224,7 @@ button.logoutBtn:hover {
     cursor: pointer;
 }
 
-/* 
+/*
 Section: Base content for every view
 Used in: base.html
 */
@@ -279,7 +279,13 @@ Used in: login.html
 Section: Display the search history
 Used in: home.html
 */
-div.searchHistory {
+div.historyWrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+div.historyBlock {
     background-color: #ececec;
     border-radius: 4px;
     height: auto;
@@ -293,6 +299,7 @@ div.historyEntry{
     align-items: center;
     justify-content: space-evenly;
     margin: 0.5rem 0;
+    padding: 0 1em 0 1em;
   }
 
 /*
@@ -315,7 +322,7 @@ div.searchForm { width: 40%; }
     justify-content: center;
     align-items: center;
     margin: 2rem;
-}   
+}
 
 .formsearch>div>label {
     font-size: 1.5rem;
@@ -471,7 +478,7 @@ div.searchForm { width: 40%; }
         display: grid;
         row-gap: 10px;
       }
-      
+
     .rubric-study {
         display: flex;
         justify-content: space-between;
