@@ -393,16 +393,28 @@
     .patient-view {
         justify-content: space-evenly;
         width: 100%;
+    }
+
+    .patient-row {
         display: flex;
         align-items: flex-start;
         flex-direction: row;
+        border-bottom: #e0e0e0 2px solid;
+        padding-bottom: 2rem;
+    }
+
+    .patient-header {
+        width: 100%;
+        align-items: center;
+        justify-content: space-evenly;
+        display: flex;
     }
 
     .patient-info {
-        width: 40%;
         display: flex;
         align-items: flex-start;
         flex-direction: column;
+        flex: 50%;
     }
 
     .patient-infobox {
@@ -410,7 +422,6 @@
         flex-direction: row;
         width: 100%;
         align-items: center;
-        justify-content: space-evenly;
     }
 
     .patient-criteria {
