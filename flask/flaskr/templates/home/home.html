@@ -15,9 +15,15 @@
     <div class=historyBlock>
         <h3>Redigeringshistorik</h3>
         {% for res in changeLog %}
-        <div class=changelogEntry>
-            <p>{{res[0]}}</p>
-        </div>
+            <div class=changelogEntry>
+                <p>Den <strong>{{res[0]}}</strong> ändrade <strong>{{res[1]}}</strong> föjlande värden:</p>
+            {% for values_changed in res[2]['values_changed'].items() %}
+                <p>{{values_changed[0]}}</p>
+                {% for foobar in values_changed[1] %}
+                <p>{{foobar}}: {{values_changed[1][foobar]}}</p>
+                {% endfor %}
+            {% endfor %}
+            </div>
         {% endfor %}
     </div>
 </div>
