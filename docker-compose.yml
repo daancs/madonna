@@ -9,11 +9,23 @@ services:
       POSTGRES_DB: madonna
     ports:
       - "5432:5432"
+    container_name: madonna-db
+    networks:
+      madonna:
 
   flask:
     restart: always
-    build: ./flask
-    command: flask run --host=0.0.0.0 --port=5000
+    build: 
+      context: ./flask
+      dockerfile: Dockerfile
+    command: sh -c "flask init-db && flask register admin admin && flask run --host=0.0.0.0 --port=5000"
+    # command: flask run --host=0.0.0.0 --port=5000
+    links:
+      - db:madonna-db
+    depends_on:
+      - db
+    networks:
+      madonna:
     environment:
       FLASK_APP: flaskr
       FLASK_ENV: development
@@ -23,3 +35,8 @@ services:
       - "5000:5000"
     volumes:
       - ./flask/:/usr/src/app/
+    container_name: madonna-flask
+
+networks:
+  madonna:
+    driver: bridge

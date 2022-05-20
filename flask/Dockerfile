@@ -7,7 +7,7 @@ COPY ./requirements.txt usr/src/app/requirements.txt
 ENV FLASK_APP "flaskr"
 ENV FLASK_ENV "development"
 ENV DB_PASSWORD "postgres"
-ENV DB_HOST "host.docker.internal"
+ENV DB_HOST "madonna-db"
 
 # switch working directory
 WORKDIR /usr/src/app
@@ -25,6 +25,6 @@ COPY . /usr/src/app
 
 EXPOSE 5000
 
-RUN flask init-db
+# RUN flask init-db
 
-RUN flask register dadi 123
+# RUN flask register dadi 123
