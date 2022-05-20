@@ -93,28 +93,6 @@ CREATE TABLE Study2 (
     PRIMARY KEY (patient, studyID)
 );
 
-CREATE TABLE Surveys (
-    surveyName TEXT NOT NULL,
-    study INTEGER,
-    patient CHAR(4) REFERENCES Patients(key_id),
-    questions TEXT[] NOT NULL,
-    answers TEXT[] NOT NULL,
-    CHECK (array_length(questions)=array_length(answers)),
-
-    PRIMARY KEY (surveyName, study, patient),
-    FOREIGN KEY (study) REFERENCES Studies(studyID)
-);
-
-INSERT INTO Survays ( surveyName,study,patient,questions,answers) VALUES
-('survay1', '1', '0001', ARRAY ['who are you', 'how big is your nose?','do you like coffe?'], ARRAY[ 'Mr 0001','large','Yes']),
-('survay1', '1', '0002', ARRAY ['who are you', 'how big is your nose?','do you like coffe?'], ARRAY[ 'Miss Por','small','Yes']),
-('survay1', '1', '0004', ARRAY ['who are you', 'how big is your nose?','do you like coffe?'], ARRAY[ 'Mr 0004','medium','No']),
-('survay1', '1', '0008', ARRAY ['who are you', 'how big is your nose?','do you like coffe?'], ARRAY[ 'Svennis','Large','Yes']),
-('survay1', '1', '0015', ARRAY ['who are you', 'how big is your nose?','do you like coffe?'], ARRAY[ 'Anki','small','No']),
-('survay2', '2', '0003', ARRAY ['who are you?','do you like football','do you like ice cream?'], ARRAY[ 'Rop Slat','Yes','Yes']),
-('survay2', '2', '0005', ARRAY ['who are you?','do you like football','do you like ice cream?'], ARRAY[ 'Anna','Yes','Yes']),
-('survay2', '2', '0009', ARRAY ['who are you?','do you like football','do you like ice cream?'], ARRAY[ 'Napoleone aka Nappe','No','No']),
-('survay2', '2', '0012', ARRAY ['who are you?','do you like football','do you like ice cream?'], ARRAY[ 'SNOK','Yes','No'])
 --Some inserts of example data to the patient table
 INSERT INTO Patients (key_id,idnr,name,age,gender,weight,bmi,nicotine,adress,city,zipcode) VALUES
 ('0001','20000901-1234', 'Foo Bar', '69', 'Male' ,'420', '21.2', 'Nej', 'Hubbenvägen 1','Göteborg','41280'),
@@ -157,6 +135,47 @@ INSERT INTO Treatments (caseId,cytostatics,operationDate, doctor, assistent, med
 CREATE TABLE SearchHistory (
     search TEXT PRIMARY KEY
 );
+
+-- Table for changeLog to the patient data
+CREATE TABLE changeLog (
+    id SERIAL PRIMARY KEY,
+    tstamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP(1),
+    operation TEXT NOT NULL,
+    who TEXT DEFAULT current_user,
+    new_val JSON,
+    old_val JSON
+);
+
+-- Simple table for keeping track of currently logged in user.
+CREATE TABLE currentFlaskUser (
+    flaskUser TEXT PRIMARY KEY
+);
+INSERT INTO currentFlaskUser (flaskUser) VALUES ('not-logged-in');
+
+-- Maybe a function for setting the current user in Flask
+CREATE FUNCTION change_trigger() RETURNS trigger AS $$
+BEGIN
+    IF  TG_OP = 'INSERT'
+        THEN
+        INSERT INTO changeLog (operation, who, new_val)
+        VALUES (TG_OP, (SELECT flaskUser FROM currentFlaskUser), row_to_json(NEW));
+        RETURN NEW;
+    ELSIF   TG_OP = 'UPDATE'
+        THEN
+        INSERT INTO changeLog (operation, who, new_val, old_val)
+        VALUES (TG_OP, (SELECT flaskUser FROM currentFlaskUser), row_to_json(NEW), row_to_json(OLD));
+        RETURN NEW;
+    ELSIF   TG_OP = 'DELETE'
+        THEN
+        INSERT INTO changeLog (operation, who, old_val)
+        VALUES (TG_OP, (SELECT flaskUser FROM currentFlaskUser), row_to_json(OLD));
+        RETURN OLD;
+    END IF;
+END;
+$$ LANGUAGE 'plpgsql' SECURITY DEFINER;
+
+CREATE TRIGGER changeLogTrigger AFTER INSERT OR UPDATE OR DELETE ON patients
+    FOR EACH ROW EXECUTE PROCEDURE change_trigger();
 
 --Some inserts of example data to the studies table
 INSERT INTO Studies(studyID, patient, studyNumber) VALUES
