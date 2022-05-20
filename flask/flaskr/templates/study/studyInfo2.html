@@ -6,10 +6,29 @@
         <a class="exit" href="{{ url_for('studies.patients') }}">
             <img class="image" src="{{url_for('static', filename='close.png')}}">
         </a>
-        <div class="grid-studyView">
-        <a class="grid-item">Studie 2</a>
-        {%for res in result %}  <a class="grid-items-a2">  {{res.name}} : {{res.progress}} </a> 
-      {%endfor%} 
+    <div class="grid-studyView">
+        <a class="grid-item-top">Studie 2</a>
+
+        <div class="flex-study">
+        <div class="participants"> 
+            <a class="grid-item-rubric">Deltagare</a>
+            {%for res in result %} <p class="grid-items-a2"> {{res.name}} {%endfor%} </p> 
         </div>
+
+        <div class="surveys"> 
+            <a class="grid-item-rubric">Enkäter</a>
+            {%for res in result2 %} <p class="grid-items-a2"> {{res.surveyName}} {%endfor%} </p> 
+        </div>
+
+        <div class="questions"> 
+            <a class="grid-item-rubric">Frågor</a>
+            {%for res in result2 %} <p class="grid-items-a2"> {{res.questions}} {%endfor%} </p> 
+        </div>
+        
     </div>
+        </div>
+    
+
+    </div>
+
 {% endblock %}
