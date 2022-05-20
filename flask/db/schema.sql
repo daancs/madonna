@@ -63,10 +63,10 @@ CREATE TABLE Treatments (
 
 --Table of patient and studies they are included in
 CREATE TABLE Studies(
-    studyID INTEGER, --studyID
-    patient CHAR(4) NOT NULL, --patien
+    studyID INTEGER,
+    patient CHAR(4) REFERENCES Patients(key_id), 
     studyNumber INT NOT NULL,
-    PRIMARY KEY(patient, studyID)
+    PRIMARY KEY (studyID, patient)
 );
 
 --Table of patients in study 1 and their answers
@@ -92,6 +92,17 @@ CREATE TABLE Study2 (
     FOREIGN  KEY (patient, studyID) REFERENCES Studies(patient, studyID),
     PRIMARY KEY (patient, studyID)
 );
+
+CREATE TABLE Surveys (
+  surveyName TEXT,
+  study INTEGER,
+  patient CHAR(4),
+  questions TEXT [] NOT NULL,
+  answers TEXT [] NOT NULL,
+  FOREIGN  KEY (patient, study) REFERENCES Studies(patient, studyID),
+  PRIMARY KEY (surveyName, study, patient)
+);
+
 
 --Some inserts of example data to the patient table
 INSERT INTO Patients (key_id,idnr,name,age,gender,weight,bmi,nicotine,adress,city,zipcode) VALUES
@@ -203,7 +214,20 @@ INSERT INTO Study1(studyID, patient, progress, is_your_house_red, is_your_dog_ga
 --Some inserts of example data to the study2 table
 INSERT INTO Study2(studyID, patient, progress, how_tall_are_you, how_much_do_you_make, is_your_cat_gay) VALUES
 (2, '0003','enkät ifylld','165','100000','TRUE');
+
 INSERT INTO Study2(studyID, patient, progress, how_much_do_you_make, is_your_cat_gay) VALUES
 (2, '0005','enkät ifylld','89561','TRUE'),
 (2, '0009','enkät ej utskickad','3142','TRUE'),
 (2, '0012','enkät delvis ifylld','9998612','TRUE');
+
+INSERT INTO Surveys ( surveyName,study,patient,questions,answers) VALUES
+('survey1', 1, '0001', '{"who are you", "how big is your nose?","do you like coffe?"}', '{"Mr 0001","large" ,"Yes"}'),
+('survey1', 1, '0002', '{"who are you", "how big is your nose?","do you like coffee?"}', '{"Miss Por","small","Yes"}'),
+('survey1', 1, '0004', '{"who are you", "how big is your nose?","do you like coffe?"}', '{"Mr 0004","medium","No"}'),
+('survey1', 1, '0008', '{"who are you", "how big is your nose?","do you like coffe?"}', '{"Svennis","Large","Yes"}'),
+('survey1', 1, '0015', '{"who are you", "how big is your nose?","do you like coffee?"}', '{"Anki","small","No"}'),
+('survey2', 2, '0003', '{"who are you?","do you like football?","do you like ice cream?"}', '{"Rop Slat","Yes","Yes"}'),
+('survey2', 2, '0005', '{"who are you?","do you like football?","do you like ice cream?"}', '{"Anna","Yes","Yes"}'),
+('survey2', 2, '0009', '{"who are you?","do you like football?","do you like ice cream?"}', '{"Napoleone aka Nappe","No","No"}'),
+('survey2', 2, '0012', '{"who are you?","do you like football?","do you like ice cream?"}', '{"SNOK","Yes","No"}');
+--Some inserts of example data to the patient table
