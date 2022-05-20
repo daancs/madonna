@@ -94,19 +94,19 @@ CREATE TABLE Study2 (
 );
 
 CREATE TABLE Surveys (
-  surveyName TEXT,
-  study INTEGER,
-  patient CHAR(4),
-  questions TEXT [] NOT NULL,
-  answers TEXT [] NOT NULL,
-  FOREIGN  KEY (patient, study) REFERENCES Studies(patient, studyID),
-  PRIMARY KEY (surveyName, study, patient)
+    surveyName TEXT NOT NULL,
+    study INTEGER,
+    patient CHAR(4) REFERENCES Patients(key_id),
+    questions TEXT[] NOT NULL,
+    answers TEXT[] NOT NULL,
+	  PRIMARY KEY (surveyName, study, patient),
+    FOREIGN KEY (study, patient) REFERENCES Studies(studyID, patient)
 );
 
-
+--Some inserts of example data to the patient table
 INSERT INTO Patients (key_id,idnr,name,age,gender,weight,bmi,nicotine,adress,city,zipcode) VALUES
 ('0001','20000901-1234', 'Foo Bar', '69', 'Male' ,'420', '21.2', 'Nej', 'Hubbenvägen 1','Göteborg','41280'),
-('0002','19940418-6234', 'Por Tals', '35','Female' ,'098', '21.59', 'Ja, lmao', 'Kemivägen 1','Göteborg','43331'),
+('0002','19940418-6234', 'Por Tals', '35','Female' ,'098', '21.59', 'Ja', 'Kemivägen 1','Göteborg','43331'),
 ('0003','19760123-8932', 'Rop Slat', '21', 'Male' , '98', '23.12', 'Nej', 'Föreningsgatan 12','Sävedalen','43370'),
 ('0004','19120313-3891', 'Zlatan Zlatansson', '110', 'Male', '123', '35.00', 'Ja', 'Bondgatan 123','Götebort','41170'),
 ('0005','20120124-1876', 'Anna Annasson', '11', 'Female', '24', '20.22', 'Ja', 'Bondgatan 321','Göteborg','41123'),
@@ -120,6 +120,42 @@ INSERT INTO Patients (key_id,idnr,name,age,gender,weight,bmi,nicotine,adress,cit
 ('0013','19240503-6767', 'Asterix Gallsson', '74', 'Female', '90', '35.00', 'Ja', 'Winden 3','Götebort','42436'),
 ('0014','19781212-6789', 'Super Mario', '45', 'Male', '78', '21', 'Nej', 'Japangatan 1','Tokyo','42136'),
 ('0015','19831111-1234', 'Kalle Anka', '12', 'Female', '120', '33', 'Nej', 'Kalle ankas allé 1','Ankebort','41211');
+
+--Some inserts of example data to the studies table
+INSERT INTO Studies(studyID, patient, studyNumber) VALUES
+(1, '0001','1'),
+(1, '0002','1'),
+(2, '0003','2'),
+(1, '0004','1'),
+(2, '0005','2'),
+(2, '0006','1'),
+(2, '0007','2'),
+(1, '0008','1'),
+(2, '0009','2'),
+(1, '0010','1'),
+(2, '0011','1'),
+(2, '0012','2'),
+(2, '0013','2'),
+(2, '0014','2'),
+(2, '0004','2'),
+(2, '0008','2'),
+(1, '0015','1');
+
+INSERT INTO Surveys ( surveyName,study,patient,questions,answers) VALUES
+('survay1', '1', '0001', ARRAY ['who are you', 'how big is your nose?','do you like coffe?'], ARRAY[ 'Mr 0001','large','Ja']),
+('survay1', '1', '0002', ARRAY ['who are you', 'how big is your nose?','do you like coffe?'], ARRAY[ 'Miss Por','small','Ja']),
+('survay1', '1', '0004', ARRAY ['who are you', 'how big is your nose?','do you like coffe?'], ARRAY[ 'Mr 0004','medium','Nej']),
+('survay1', '1', '0008', ARRAY ['who are you', 'how big is your nose?','do you like coffe?'], ARRAY[ 'Svennis','Large','Ja']),
+('survay1', '1', '0015', ARRAY ['who are you', 'how big is your nose?','do you like coffe?'], ARRAY[ 'Anki','small','Nej']),
+('survay2', '2', '0003', ARRAY ['who are you?','do you like football','do you like ice cream?'], ARRAY[ 'Rop Slat','J','N']),
+('survay2', '2', '0005', ARRAY ['who are you?','do you like football','do you like ice cream?'], ARRAY[ 'Anna','J','J']),
+('survay2', '2', '0009', ARRAY ['who are you?','do you like football','do you like ice cream?'], ARRAY[ 'Napoleone aka Nappe','N','N']),
+('survay2', '2', '0012', ARRAY ['who are you?','do you like football','do you like ice cream?'], ARRAY[ 'SNOK','J','N']),
+('survay3', '2', '0004', ARRAY ['are you happy? 1-5','do you see well? 1-5','do you have a dog?'], ARRAY[ '3','4','Yes']),
+('survay3', '2', '0005', ARRAY ['are you happy? 1-5','do you see well? 1-5','do you have a dog?'], ARRAY[ '5','4','Yes']),
+('survay3', '2', '0008', ARRAY ['are you happy? 1-5','do you see well? 1-5','do you have a dog?'], ARRAY[ '1','1','No']),
+('survay3', '2', '0009', ARRAY ['are you happy? 1-5','do you see well? 1-5','do you have a dog?'], ARRAY[ '3','2','No']);
+
 
 --Some inserts of example data to the medical history table
 INSERT INTO MedicalHistory (key_id,complication) VALUES
@@ -146,18 +182,47 @@ CREATE TABLE SearchHistory (
     search TEXT PRIMARY KEY
 );
 
---Some inserts of example data to the studies table
-INSERT INTO Studies(studyID, patient, studyNumber) VALUES
-(1, '0001','1'),
-(1, '0002','1'),
-(2, '0003','2'),
-(1, '0004','1'),
-(2, '0005','2'),
-(1, '0008','1'),
-(2, '0009','2'),
-(1, '0010','1'),
-(2, '0012','2'),
-(1, '0015','1');
+-- Table for changeLog to the patient data
+CREATE TABLE changeLog (
+    id SERIAL PRIMARY KEY,
+    tstamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP(1),
+    operation TEXT NOT NULL,
+    who TEXT DEFAULT current_user,
+    new_val JSON,
+    old_val JSON
+);
+
+-- Simple table for keeping track of currently logged in user.
+CREATE TABLE currentFlaskUser (
+    flaskUser TEXT PRIMARY KEY
+);
+INSERT INTO currentFlaskUser (flaskUser) VALUES ('not-logged-in');
+
+-- Maybe a function for setting the current user in Flask
+CREATE FUNCTION change_trigger() RETURNS trigger AS $$
+BEGIN
+    IF  TG_OP = 'INSERT'
+        THEN
+        INSERT INTO changeLog (operation, who, new_val)
+        VALUES (TG_OP, (SELECT flaskUser FROM currentFlaskUser), row_to_json(NEW));
+        RETURN NEW;
+    ELSIF   TG_OP = 'UPDATE'
+        THEN
+        INSERT INTO changeLog (operation, who, new_val, old_val)
+        VALUES (TG_OP, (SELECT flaskUser FROM currentFlaskUser), row_to_json(NEW), row_to_json(OLD));
+        RETURN NEW;
+    ELSIF   TG_OP = 'DELETE'
+        THEN
+        INSERT INTO changeLog (operation, who, old_val)
+        VALUES (TG_OP, (SELECT flaskUser FROM currentFlaskUser), row_to_json(OLD));
+        RETURN OLD;
+    END IF;
+END;
+$$ LANGUAGE 'plpgsql' SECURITY DEFINER;
+
+CREATE TRIGGER changeLogTrigger AFTER INSERT OR UPDATE OR DELETE ON patients
+    FOR EACH ROW EXECUTE PROCEDURE change_trigger();
+
 
 --Some inserts of example data to the study1 table
 INSERT INTO Study1(studyID, patient, progress, do_you_smoke, is_your_house_red, is_your_dog_gay) VALUES
@@ -177,15 +242,3 @@ INSERT INTO Study2(studyID, patient, progress, how_much_do_you_make, is_your_cat
 (2, '0005','enkät ifylld','89561','TRUE'),
 (2, '0009','enkät ej utskickad','3142','TRUE'),
 (2, '0012','enkät delvis ifylld','9998612','TRUE');
-
-INSERT INTO Surveys ( surveyName,study,patient,questions,answers) VALUES
-('survey1', 1, '0001', '{"who are you", "how big is your nose?","do you like coffe?"}', '{"Mr 0001","large" ,"Yes"}'),
-('survey1', 1, '0002', '{"who are you", "how big is your nose?","do you like coffee?"}', '{"Miss Por","small","Yes"}'),
-('survey1', 1, '0004', '{"who are you", "how big is your nose?","do you like coffe?"}', '{"Mr 0004","medium","No"}'),
-('survey1', 1, '0008', '{"who are you", "how big is your nose?","do you like coffe?"}', '{"Svennis","Large","Yes"}'),
-('survey1', 1, '0015', '{"who are you", "how big is your nose?","do you like coffee?"}', '{"Anki","small","No"}'),
-('survey2', 2, '0003', '{"who are you?","do you like football?","do you like ice cream?"}', '{"Rop Slat","Yes","Yes"}'),
-('survey2', 2, '0005', '{"who are you?","do you like football?","do you like ice cream?"}', '{"Anna","Yes","Yes"}'),
-('survey2', 2, '0009', '{"who are you?","do you like football?","do you like ice cream?"}', '{"Napoleone aka Nappe","No","No"}'),
-('survey2', 2, '0012', '{"who are you?","do you like football?","do you like ice cream?"}', '{"SNOK","Yes","No"}');
---Some inserts of example data to the patient table
