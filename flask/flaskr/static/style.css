@@ -183,7 +183,7 @@
         font-size: 1.2rem;
     }
     a.navbar-brand {
-        width: inherit; 
+        width: inherit;
     }
     .topnav {
         margin-bottom: 4rem;
@@ -210,7 +210,7 @@
         width: inherit;
     }
 
-/* 
+/*
     Section: Log out functions and layout
     Used in: base.html
 */
@@ -224,7 +224,7 @@
         cursor: pointer;
     }
 
-/* 
+/*
     Section: Base content for every view
     Used in: base.html
 */
@@ -279,7 +279,13 @@
     Section: Display the search history
     Used in: home.html
 */
-    div.searchHistory {
+    div.historyWrapper {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+
+    div.historyBlock {
         background-color: #ececec;
         border-radius: 4px;
         height: auto;
@@ -293,7 +299,18 @@
         align-items: center;
         justify-content: space-evenly;
         margin: 0.5rem 0;
-    }
+        padding: 0 1em 0 1em;
+      }
+
+    div.changelogEntry{
+        /*display: grid;*/
+        /*grid-template-columns: 1fr 1fr;*/
+        /*grid-template-rows: 1fr 1fr;*/
+        background: #FAFAFA;
+        border-radius: 4px;
+        margin: 0.5rem 0;
+        padding: 1em;
+      }
 
 /*
     Section: The form layout used for searching for patients
@@ -315,7 +332,7 @@
         justify-content: center;
         align-items: center;
         margin: 2rem;
-    }   
+    }
 
     .formsearch>div>label {
         font-size: 1.5rem;
@@ -529,7 +546,7 @@
         display: grid;
         row-gap: 2px;
       }
-      
+
     .rubric-study {
         display: flex;
         justify-content: space-between;

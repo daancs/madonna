@@ -51,7 +51,7 @@ def close_db(e=None):
         db.close()
 
 
-def addToHistory(user, id, gender, name, weight, age, nicotine, study):
+def addToSearchHistory(user, id, gender, name, weight, age, nicotine, study):
     entry = entryBuilder(user, id, gender, name, weight, age, nicotine, study)
     conn = get_db()
     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)

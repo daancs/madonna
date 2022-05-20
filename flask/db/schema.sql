@@ -104,6 +104,7 @@ CREATE TABLE Surveys (
 );
 
 
+--Some inserts of example data to the patient table
 INSERT INTO Patients (key_id,idnr,name,age,gender,weight,bmi,nicotine,adress,city,zipcode) VALUES
 ('0001','20000901-1234', 'Foo Bar', '69', 'Male' ,'420', '21.2', 'Nej', 'Hubbenvägen 1','Göteborg','41280'),
 ('0002','19940418-6234', 'Por Tals', '35','Female' ,'098', '21.59', 'Ja, lmao', 'Kemivägen 1','Göteborg','43331'),
@@ -145,6 +146,47 @@ INSERT INTO Treatments (caseId,cytostatics,operationDate, doctor, assistent, med
 CREATE TABLE SearchHistory (
     search TEXT PRIMARY KEY
 );
+
+-- Table for changeLog to the patient data
+CREATE TABLE changeLog (
+    id SERIAL PRIMARY KEY,
+    tstamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP(1),
+    operation TEXT NOT NULL,
+    who TEXT DEFAULT current_user,
+    new_val JSON,
+    old_val JSON
+);
+
+-- Simple table for keeping track of currently logged in user.
+CREATE TABLE currentFlaskUser (
+    flaskUser TEXT PRIMARY KEY
+);
+INSERT INTO currentFlaskUser (flaskUser) VALUES ('not-logged-in');
+
+-- Maybe a function for setting the current user in Flask
+CREATE FUNCTION change_trigger() RETURNS trigger AS $$
+BEGIN
+    IF  TG_OP = 'INSERT'
+        THEN
+        INSERT INTO changeLog (operation, who, new_val)
+        VALUES (TG_OP, (SELECT flaskUser FROM currentFlaskUser), row_to_json(NEW));
+        RETURN NEW;
+    ELSIF   TG_OP = 'UPDATE'
+        THEN
+        INSERT INTO changeLog (operation, who, new_val, old_val)
+        VALUES (TG_OP, (SELECT flaskUser FROM currentFlaskUser), row_to_json(NEW), row_to_json(OLD));
+        RETURN NEW;
+    ELSIF   TG_OP = 'DELETE'
+        THEN
+        INSERT INTO changeLog (operation, who, old_val)
+        VALUES (TG_OP, (SELECT flaskUser FROM currentFlaskUser), row_to_json(OLD));
+        RETURN OLD;
+    END IF;
+END;
+$$ LANGUAGE 'plpgsql' SECURITY DEFINER;
+
+CREATE TRIGGER changeLogTrigger AFTER INSERT OR UPDATE OR DELETE ON patients
+    FOR EACH ROW EXECUTE PROCEDURE change_trigger();
 
 --Some inserts of example data to the studies table
 INSERT INTO Studies(studyID, patient, studyNumber) VALUES
