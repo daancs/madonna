@@ -501,19 +501,65 @@
         font-weight: bolder;
     }
 
+    a.grid-item-top {
+        font-size: 30px;
+        font-weight: bolder;
+        text-align: center;
+        padding-top: 2%;
+        padding-bottom: 3%;
+
+    }
+
+    .results {
+        padding-left: 13%;
+        flex: 1;
+    }
+
+    .results2 {
+        flex: 1;
+    }
+
+    .align-results {
+        display: flex;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 20px;
+    }
+
     a.grid-items-a1 {
         font-size: medium;
         font-weight: bold;
     }
 
-    a.grid-items-a2 {
+    p.grid-items-a2 {
+        display: block;
         font-size: small;
         font-weight: lighter;
+        margin-right: 1px;
+    
+    }
+
+    div.rubrics {
+        font-size: 20px;
+        font-weight: bold;
+        text-align: center;
+        display: flex;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+        
+
+    }
+
+    a.grid-item-rubric {
+        padding-left: 0%;
+        padding-right: 0%;
+        width: 33%;
+
     }
 
     .grid-studyView {
         display: grid;
-        row-gap: 10px;
+        row-gap: 2px;
       }
 
     .rubric-study {

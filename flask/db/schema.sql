@@ -63,10 +63,10 @@ CREATE TABLE Treatments (
 
 --Table of patient and studies they are included in
 CREATE TABLE Studies(
-    studyID INTEGER, --studyID
-    patient CHAR(4) NOT NULL, --patien
+    studyID INTEGER,
+    patient CHAR(4) REFERENCES Patients(key_id), 
     studyNumber INT NOT NULL,
-    PRIMARY KEY(patient, studyID)
+    PRIMARY KEY (studyID, patient)
 );
 
 --Table of patients in study 1 and their answers
@@ -237,6 +237,7 @@ INSERT INTO Study1(studyID, patient, progress, is_your_house_red, is_your_dog_ga
 --Some inserts of example data to the study2 table
 INSERT INTO Study2(studyID, patient, progress, how_tall_are_you, how_much_do_you_make, is_your_cat_gay) VALUES
 (2, '0003','enkät ifylld','165','100000','TRUE');
+
 INSERT INTO Study2(studyID, patient, progress, how_much_do_you_make, is_your_cat_gay) VALUES
 (2, '0005','enkät ifylld','89561','TRUE'),
 (2, '0009','enkät ej utskickad','3142','TRUE'),
