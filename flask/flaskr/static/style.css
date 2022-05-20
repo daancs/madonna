@@ -556,6 +556,8 @@
         padding-left: 0%;
         padding-right: 0%;
         width: 33%;
+        font-size: larger;
+        font-weight: bolder;
 
     }
 
@@ -571,3 +573,13 @@
         font-weight: lighter;
         font-size: smaller;
       }
+
+
+      .flex-study {
+        display:flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin: 2rem;
+      }
+
