@@ -15,9 +15,23 @@ casesColNames = ['Case-ID', 'Patient', 'Komplikation', 'Granskad av', 'Gransknin
 @bp.route('/patient/<key_id>', methods=['GET'])
 def patient(key_id):
     result = getPatientData(key_id)
-    print(result)
+
     study = find_study(key_id)
     study_info = study[0]
+    survey = study[2]
+    survey_nmbr = []
+    survey_q = []
+    survey_ans = []
+
+    if survey:
+        for i in survey:
+            survey_nmbr.append(i[0])
+            survey_q.append(i[3]) 
+            survey_ans.append(i[4])
+    else:
+        survey_nmbr = 0
+        survey_q = 0
+        survey_ans = 0
 
     # return "foo"
 
@@ -32,7 +46,7 @@ def patient(key_id):
         else:
             cases_inf.append(result[i])
 
-    return render_template('patient/patientview.html', result=result, patientColNames=patientColNames, casesColNames=casesColNames, cases_inf=cases_inf, study=study_info[0], study_col_names=study[1], survey_nmbr=study[2], survey_q=study[3], survey_ans=study[4])
+    return render_template('patient/patientview.html', result=result, patientColNames=patientColNames, casesColNames=casesColNames, cases_inf=cases_inf, study=study_info[0], study_col_names=study[1], survey_nmbr=survey_nmbr, survey_q=survey_q, survey_ans=survey_ans)
     # return render_template('patient/patientview.html', patient_inf=patient_inf, cases_inf=cases_inf, patient_col_names=patient_col_names, cases_col_names=cases_col_names)
 
 @bp.route('/patient/<key_id>/edit', methods=['GET', 'POST'])
@@ -107,10 +121,10 @@ def find_study(key_id):
     study_col_names = [desc[0] for desc in cur.description]
 
     survey = get_surveys(key_id, studynmbr)
-    print(survey)
-    survey = survey[0]
+    if not survey:
+        survey = []
 
-    return cur.fetchall(),study_col_names, survey[1], survey[3], survey[4]
+    return cur.fetchall(),study_col_names, survey
 
 def get_surveys(key_id, studynmbr):
     conn = db.get_db()
