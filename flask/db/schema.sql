@@ -94,12 +94,13 @@ CREATE TABLE Study2 (
 );
 
 CREATE TABLE Surveys (
-    surveyName TEXT,
-    study INTEGER REFERENCES Studies(studyID),
-    patient CHAR(4) REFERENCES Patients(key_id),
-    questions TEXT [] NOT NULL,
-    answers TEXT [] NOT NULL,
-    PRIMARY KEY (surveyName, study, patient)
+  surveyName TEXT,
+  study INTEGER,
+  patient CHAR(4),
+  questions TEXT [] NOT NULL,
+  answers TEXT [] NOT NULL,
+  FOREIGN  KEY (patient, study) REFERENCES Studies(patient, studyID),
+  PRIMARY KEY (surveyName, study, patient)
 );
 
 
@@ -171,6 +172,7 @@ INSERT INTO Study1(studyID, patient, progress, is_your_house_red, is_your_dog_ga
 --Some inserts of example data to the study2 table
 INSERT INTO Study2(studyID, patient, progress, how_tall_are_you, how_much_do_you_make, is_your_cat_gay) VALUES
 (2, '0003','enkät ifylld','165','100000','TRUE');
+
 INSERT INTO Study2(studyID, patient, progress, how_much_do_you_make, is_your_cat_gay) VALUES
 (2, '0005','enkät ifylld','89561','TRUE'),
 (2, '0009','enkät ej utskickad','3142','TRUE'),
@@ -178,10 +180,10 @@ INSERT INTO Study2(studyID, patient, progress, how_much_do_you_make, is_your_cat
 
 INSERT INTO Surveys ( surveyName,study,patient,questions,answers) VALUES
 ('survey1', 1, '0001', '{"who are you", "how big is your nose?","do you like coffe?"}', '{"Mr 0001","large" ,"Yes"}'),
-('survey1', 1, '0002', '{"who are you", "how big is your nose?","do you like coffe?"}', '{"Miss Por","small","Yes"}'),
+('survey1', 1, '0002', '{"who are you", "how big is your nose?","do you like coffee?"}', '{"Miss Por","small","Yes"}'),
 ('survey1', 1, '0004', '{"who are you", "how big is your nose?","do you like coffe?"}', '{"Mr 0004","medium","No"}'),
 ('survey1', 1, '0008', '{"who are you", "how big is your nose?","do you like coffe?"}', '{"Svennis","Large","Yes"}'),
-('survey1', 1, '0015', '{"who are you", "how big is your nose?","do you like coffe?"}', '{"Anki","small","No"}'),
+('survey1', 1, '0015', '{"who are you", "how big is your nose?","do you like coffee?"}', '{"Anki","small","No"}'),
 ('survey2', 2, '0003', '{"who are you?","do you like football?","do you like ice cream?"}', '{"Rop Slat","Yes","Yes"}'),
 ('survey2', 2, '0005', '{"who are you?","do you like football?","do you like ice cream?"}', '{"Anna","Yes","Yes"}'),
 ('survey2', 2, '0009', '{"who are you?","do you like football?","do you like ice cream?"}', '{"Napoleone aka Nappe","No","No"}'),

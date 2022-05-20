@@ -33,8 +33,8 @@ def studyInfo():
     query = "SELECT * FROM Patients RIGHT JOIN Study1 ON patients.key_id=study1.patient"
     cur.execute(query)
     result = cur.fetchall()
-    querySurvey = "SELECT questions FROM Surveys WHERE study=1"
-    cur.execute(querySurvey)
+    questions = "SELECT * FROM Surveys WHERE study=1"
+    cur.execute(questions)
     result2 = cur.fetchall()
     conn.commit()
 
