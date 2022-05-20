@@ -88,10 +88,10 @@ def entryBuilder(user, id, gender, name, weight, age, nicotine, study):
 
     #if nicotine == "both":
     #    entry += "och är antingen rökare och ickerökare"
-    if nicotine == " Nej":
-        entry += "och inte röker"
+    if nicotine == "Nej":
+        entry += "inte röker"
     if nicotine == "Ja":
-        entry += "och röker"
+        entry += "röker"
 
     if entry[-2] == ",":
         entry = entry[:-2]
