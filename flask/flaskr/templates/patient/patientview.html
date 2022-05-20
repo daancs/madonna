@@ -47,40 +47,29 @@
                     {% endfor %}
                 </div>
             </div>
-
-<!-- Something like this if a patient can participate in more than 1 survey -->
-            {#
-            {% for i in survey_nmbr %}
+            
                 <div class="patient-row">
-                    <div class="patient-info">
-                        <div class="patient-header"><h3>Enkät {{ survey_nmbr }}</h3></div>
-                    </div>  
-                </div>
-            {% endfor %}
-             #}
-<!-- This will never be true, but maybe do the for-loop above :( -->
-            {% if survey_nmbr == 1 and survey_nmbr == 2 %}
-                <div class="patient-row">
-                    <div class="patient-info">
-                        <div class="patient-header"><h3>Enkät 1</h3></div>
-                    </div>
-                    <div class="patient-info">
-                        <div class="patient-header"><h3>Enkät 2</h3></div>
-                    </div>
-                </div>
-            {% elif survey_nmbr == 1 or survey_nmbr == 2%}
-                <div class="patient-row">
-                    <div class="patient-info">
-                        <div class="patient-header"><h3>Enkät {{ survey_nmbr }}</h3></div>
-                        <div class="patient-infobox">
-                        {% for i in survey_q %}
-                            <span class="patient-criteria">{{survey_q[loop.index0]}}</span>
-                            <span class="patient-value">{{survey_ans[loop.index0]}}</span>
+                    {% if survey_nmbr != 0 %}
+                        {% for i in survey_nmbr %}
+                        {% set question = survey_q[loop.index0] %}
+                        {% set answer = survey_ans[loop.index0] %}
+                        <div class="patient-info">
+                            <div class="patient-header"><h3>{{ survey_nmbr[loop.index0] }}</h3></div>
+                            {% for i in question %}
+                            <div class="patient-infobox">
+                                <span class="patient-criteria">{{question[loop.index0]}}</span>
+                                <span class="patient-value">{{answer[loop.index0]}}</span> 
+                            </div>
+                            {% endfor %}
+                        </div>  
                         {% endfor %}
+                    {% else %}
+                        <div class="patient-infobox">
+                            <span class="patient-criteria">Patienten deltar ej i någon enkät</span>
+                        </div>
+                    {% endif %}
                 </div>
-                </div>  
-                </div>
-            {% endif %}
+        </div>
         </div>
     </div>
 {% endblock %}

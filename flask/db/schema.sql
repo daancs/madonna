@@ -142,19 +142,19 @@ INSERT INTO Studies(studyID, patient, studyNumber) VALUES
 (1, '0015','1');
 
 INSERT INTO Surveys ( surveyName,study,patient,questions,answers) VALUES
-('survay1', '1', '0001', ARRAY ['who are you', 'how big is your nose?','do you like coffe?'], ARRAY[ 'Mr 0001','large','Ja']),
-('survay1', '1', '0002', ARRAY ['who are you', 'how big is your nose?','do you like coffe?'], ARRAY[ 'Miss Por','small','Ja']),
-('survay1', '1', '0004', ARRAY ['who are you', 'how big is your nose?','do you like coffe?'], ARRAY[ 'Mr 0004','medium','Nej']),
-('survay1', '1', '0008', ARRAY ['who are you', 'how big is your nose?','do you like coffe?'], ARRAY[ 'Svennis','Large','Ja']),
-('survay1', '1', '0015', ARRAY ['who are you', 'how big is your nose?','do you like coffe?'], ARRAY[ 'Anki','small','Nej']),
-('survay2', '2', '0003', ARRAY ['who are you?','do you like football','do you like ice cream?'], ARRAY[ 'Rop Slat','J','N']),
-('survay2', '2', '0005', ARRAY ['who are you?','do you like football','do you like ice cream?'], ARRAY[ 'Anna','J','J']),
-('survay2', '2', '0009', ARRAY ['who are you?','do you like football','do you like ice cream?'], ARRAY[ 'Napoleone aka Nappe','N','N']),
-('survay2', '2', '0012', ARRAY ['who are you?','do you like football','do you like ice cream?'], ARRAY[ 'SNOK','J','N']),
-('survay3', '2', '0004', ARRAY ['are you happy? 1-5','do you see well? 1-5','do you have a dog?'], ARRAY[ '3','4','Yes']),
-('survay3', '2', '0005', ARRAY ['are you happy? 1-5','do you see well? 1-5','do you have a dog?'], ARRAY[ '5','4','Yes']),
-('survay3', '2', '0008', ARRAY ['are you happy? 1-5','do you see well? 1-5','do you have a dog?'], ARRAY[ '1','1','No']),
-('survay3', '2', '0009', ARRAY ['are you happy? 1-5','do you see well? 1-5','do you have a dog?'], ARRAY[ '3','2','No']);
+('Enkät 1', '1', '0001', ARRAY ['who are you', 'how big is your nose?','do you like coffe?'], ARRAY[ 'Mr 0001','large','Ja']),
+('Enkät 1', '1', '0002', ARRAY ['who are you', 'how big is your nose?','do you like coffe?'], ARRAY[ 'Miss Por','small','Ja']),
+('Enkät 1', '1', '0004', ARRAY ['who are you', 'how big is your nose?','do you like coffe?'], ARRAY[ 'Mr 0004','medium','Nej']),
+('Enkät 1', '1', '0008', ARRAY ['who are you', 'how big is your nose?','do you like coffe?'], ARRAY[ 'Svennis','Large','Ja']),
+('Enkät 1', '1', '0015', ARRAY ['who are you', 'how big is your nose?','do you like coffe?'], ARRAY[ 'Anki','small','Nej']),
+('Enkät 2', '2', '0003', ARRAY ['who are you?','do you like football','do you like ice cream?'], ARRAY[ 'Rop Slat','J','N']),
+('Enkät 2', '2', '0005', ARRAY ['who are you?','do you like football','do you like ice cream?'], ARRAY[ 'Anna','J','J']),
+('Enkät 2', '2', '0009', ARRAY ['who are you?','do you like football','do you like ice cream?'], ARRAY[ 'Napoleone aka Nappe','N','N']),
+('Enkät 2', '2', '0012', ARRAY ['who are you?','do you like football','do you like ice cream?'], ARRAY[ 'SNOK','J','N']),
+('Enkät 3', '2', '0004', ARRAY ['are you happy? 1-5','do you see well? 1-5','do you have a dog?'], ARRAY[ '3','4','Yes']),
+('Enkät 3', '2', '0005', ARRAY ['are you happy? 1-5','do you see well? 1-5','do you have a dog?'], ARRAY[ '5','4','Yes']),
+('Enkät 3', '2', '0008', ARRAY ['are you happy? 1-5','do you see well? 1-5','do you have a dog?'], ARRAY[ '1','1','No']),
+('Enkät 3', '2', '0009', ARRAY ['are you happy? 1-5','do you see well? 1-5','do you have a dog?'], ARRAY[ '3','2','No']);
 
 
 --Some inserts of example data to the medical history table
