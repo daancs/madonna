@@ -275,6 +275,22 @@
         border-bottom-left-radius: 4px;
     }
 
+.formsearch {
+    display: flex;
+    flex-direction: row !important;
+    flex-wrap: wrap;
+    width: 98vw;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.formsearch>div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1.5rem;
+}   
+
 /*
     Section: Display the search history
     Used in: home.html
@@ -508,6 +524,7 @@
 
     .align-results {
         display:flexbox;
+
     }
 
     a.grid-items-a1 {
