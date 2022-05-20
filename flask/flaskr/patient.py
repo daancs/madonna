@@ -78,7 +78,7 @@ def getPatientData(key_id):
     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
     query = """SELECT * FROM Patients 
                 LEFT JOIN Cases ON patients.key_id=cases.patient 
-                LEFT JOIN MedicalHistory ON patients.key_id=MedicalHistory.key_id 
+                LEFT JOIN MedicalHistory ON patients.key_id=MedicalHistory.key_id
                 WHERE Patients.key_id =(%s)"""
     cur.execute(query, (key_id,))
     conn.commit()
