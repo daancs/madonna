@@ -223,18 +223,6 @@ $$ LANGUAGE 'plpgsql' SECURITY DEFINER;
 CREATE TRIGGER changeLogTrigger AFTER INSERT OR UPDATE OR DELETE ON patients
     FOR EACH ROW EXECUTE PROCEDURE change_trigger();
 
---Some inserts of example data to the studies table
-INSERT INTO Studies(studyID, patient, studyNumber) VALUES
-(1, '0001','1'),
-(1, '0002','1'),
-(2, '0003','2'),
-(1, '0004','1'),
-(2, '0005','2'),
-(1, '0008','1'),
-(2, '0009','2'),
-(1, '0010','1'),
-(2, '0012','2'),
-(1, '0015','1');
 
 --Some inserts of example data to the study1 table
 INSERT INTO Study1(studyID, patient, progress, do_you_smoke, is_your_house_red, is_your_dog_gay) VALUES
