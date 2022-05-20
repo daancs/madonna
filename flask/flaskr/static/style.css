@@ -468,17 +468,17 @@ div.searchForm { width: 40%; }
 
     .results {
         padding-left: 13%;
-        display: flexbox;
-        margin: 1px;
+        flex: 1;
     }
 
     .results2 {
-        padding-left: 70%;
-        display: flexbox;
+        flex: 1;
     }
 
     .align-results {
-        display:flexbox;
+        display: flex;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 20px;
     }
 
     a.grid-items-a1 {
