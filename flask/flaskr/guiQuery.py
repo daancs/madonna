@@ -47,7 +47,7 @@ def index():
                             ans2a, ans2b, ans2c,
                             ans3a, ans3b, ans3c)
 
-        db.addToHistory(g.user[1], id, gender, name, weight, age, nicotine, study,
+        db.addToSearchHistory(g.user[1], id, gender, name, weight, age, nicotine, study,
                             ans1a, ans1b, ans1c,
                             ans2a, ans2b, ans2c,
                             ans3a, ans3b, ans3c)
@@ -126,7 +126,7 @@ def buildQuery(id, gender, name, weight, age, nicotine, study,
     if name:
         name = "%" + name + "%"
 
-    
+
     if len(study) == 0:
         query = """SELECT * FROM patients"""
     else:

@@ -51,7 +51,7 @@ def close_db(e=None):
         db.close()
 
 
-def addToHistory(user, id, gender, name, weight, age, nicotine, study,
+def addToSearchHistory(user, id, gender, name, weight, age, nicotine, study,
                             ans1a, ans1b, ans1c,
                             ans2a, ans2b, ans2c,
                             ans3a, ans3b, ans3c):
