@@ -479,7 +479,18 @@
     }
 
     .results {
-        padding-left: 10%;
+        padding-left: 13%;
+        display: flexbox;
+        margin: 1px;
+    }
+
+    .results2 {
+        padding-left: 70%;
+        display: flexbox;
+    }
+
+    .align-results {
+        display:flexbox;
     }
 
     a.grid-items-a1 {
@@ -487,10 +498,12 @@
         font-weight: bold;
     }
 
-    a.grid-items-a2 {
+    p.grid-items-a2 {
         display: block;
         font-size: small;
         font-weight: lighter;
+        margin-right: 1px;
+    
     }
 
     div.rubrics {

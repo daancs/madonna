@@ -15,11 +15,13 @@
             <a class="grid-item-rubric">Frågor</a> 
         </div>
         
-        <div class="results">
-        {%for res in result %}  <a class="grid-items-a2">  {{res.name}} : {{res.progress}} </a> 
-      {%endfor%} 
-       <a class="grid-items-a2"> {{result2}} </a>
+    <div class="align-result"> 
+       <div class="results"> {%for res in result %} <p class="grid-items-a2"> {{res.name}} {%endfor%} </p> </div>
+
+       <div class="results2">
+      {%for res in result2 %} <p class="grid-items-a2"> {{res.questions}} </p> {%endfor%} </div>
     </div>
+
     </div>
 
 {% endblock %}
