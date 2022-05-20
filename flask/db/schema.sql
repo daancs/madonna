@@ -99,7 +99,7 @@ CREATE TABLE Surveys (
     patient CHAR(4) REFERENCES Patients(key_id),
     questions TEXT[] NOT NULL,
     answers TEXT[] NOT NULL,
-	PRIMARY KEY (surveyName, study, patient),
+	  PRIMARY KEY (surveyName, study, patient),
     FOREIGN KEY (study, patient) REFERENCES Studies(studyID, patient)
 );
 

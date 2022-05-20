@@ -480,6 +480,7 @@
 
     label.editPatientForm {
         font-size: 16px;
+        align-items: center;
     }
 
 /*
@@ -512,17 +513,18 @@
 
     .results {
         padding-left: 13%;
-        flex: 1;
+        display: flexbox;
+        margin: 1px;
     }
 
     .results2 {
-        flex: 1;
+        padding-left: 70%;
+        display: flexbox;
     }
 
     .align-results {
-        display: flex;
-        grid-template-columns: 1fr 1fr;
-        grid-gap: 20px;
+        display:flexbox;
+
     }
 
     a.grid-items-a1 {
