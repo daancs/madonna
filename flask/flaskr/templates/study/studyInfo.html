@@ -7,8 +7,21 @@
             <img class="image" src="{{url_for('static', filename='close.png')}}">
         </a>
     <div class="grid-studyView">
-        <a class="grid-item">Studie 1</a>
-        {%for res in result %}  <a class="grid-items-a2">  {{res.name}} : {{res.progress}} </a> 
-      {%endfor%} 
+        <a class="grid-item-top">Studie 1</a>
+
+        <div class="rubrics"> 
+            <a class="grid-item-rubric">Deltagare</a>
+            <a class="grid-item-rubric">Enkäter</a>
+            <a class="grid-item-rubric">Frågor</a> 
         </div>
+        
+    <div class="align-result"> 
+       <div class="results"> {%for res in result %} <p class="grid-items-a2"> {{res.name}} {%endfor%} </p> </div>
+
+       <div class="results2">
+      {%for res in result2 %} <p class="grid-items-a2"> {{res.questions}} </p> {%endfor%} </div>
+    </div>
+
+    </div>
+
 {% endblock %}

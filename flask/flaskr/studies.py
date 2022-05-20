@@ -33,9 +33,12 @@ def studyInfo():
     query = "SELECT * FROM Patients RIGHT JOIN Study1 ON patients.key_id=study1.patient"
     cur.execute(query)
     result = cur.fetchall()
+    questions = "SELECT * FROM Surveys WHERE study=1"
+    cur.execute(questions)
+    result2 = cur.fetchall()
     conn.commit()
 
-    return render_template('study/studyInfo.html', result=result)
+    return render_template('study/studyInfo.html', result=result, result2=result2)
 
 @bp.route('/studies/studyTwo')
 def studyInfo2():

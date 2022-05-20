@@ -14,7 +14,6 @@ casesColNames = ['Case-ID', 'Patient', 'Komplikation', 'Granskad av', 'Gransknin
 
 @bp.route('/patient/<key_id>', methods=['GET'])
 def patient(key_id):
-
     result = getPatientData(key_id)
     print(result)
     study = find_study(key_id)
@@ -33,7 +32,7 @@ def patient(key_id):
         else:
             cases_inf.append(result[i])
 
-    return render_template('patient/patientview.html', result=result, patientColNames=patientColNames, casesColNames=casesColNames, cases_inf=cases_inf, study=study_info[0], study_col_names=study[1])
+    return render_template('patient/patientview.html', result=result, patientColNames=patientColNames, casesColNames=casesColNames, cases_inf=cases_inf, study=study_info[0], study_col_names=study[1], survey_nmbr=study[2], survey_q=study[3], survey_ans=study[4])
     # return render_template('patient/patientview.html', patient_inf=patient_inf, cases_inf=cases_inf, patient_col_names=patient_col_names, cases_col_names=cases_col_names)
 
 @bp.route('/patient/<key_id>/edit', methods=['GET', 'POST'])
@@ -79,7 +78,7 @@ def getPatientData(key_id):
     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
     query = """SELECT * FROM Patients 
                 LEFT JOIN Cases ON patients.key_id=cases.patient 
-                LEFT JOIN MedicalHistory ON patients.key_id=MedicalHistory.key_id 
+                LEFT JOIN MedicalHistory ON patients.key_id=MedicalHistory.key_id
                 WHERE Patients.key_id =(%s)"""
     cur.execute(query, (key_id,))
     conn.commit()
@@ -95,15 +94,28 @@ def find_study(key_id):
     query_study = """SELECT * FROM Studies WHERE Studies.patient=(%s)"""
     cur.execute(query_study, (key_id,))
     conn.commit()
-
     study_info = cur.fetchall()
     study_info = study_info[0]
-    if study_info[0] == 1:
+    studynmbr = study_info[0]
+
+    if studynmbr == 1:
         query = """ SELECT * FROM Study1 WHERE Study1.studyID=(%s) AND Study1.patient=(%s)"""
-    elif study_info[0] == 2:
+    elif studynmbr == 2:
         query = """SELECT * FROM Study2 WHERE Study2.studyID=(%s) AND Study2.patient=(%s)"""
-    cur.execute(query,(study_info[0],study_info[1],))
+    cur.execute(query,(studynmbr,study_info[1],))
     conn.commit()
     study_col_names = [desc[0] for desc in cur.description]
 
-    return cur.fetchall(),study_col_names
+    survey = get_surveys(key_id, studynmbr)
+    print(survey)
+    survey = survey[0]
+
+    return cur.fetchall(),study_col_names, survey[1], survey[3], survey[4]
+
+def get_surveys(key_id, studynmbr):
+    conn = db.get_db()
+    cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+    query = """ SELECT * FROM Surveys WHERE Surveys.study=(%s) AND Surveys.patient=(%s)"""
+    cur.execute(query,(studynmbr,key_id,))
+    conn.commit()
+    return cur.fetchall()

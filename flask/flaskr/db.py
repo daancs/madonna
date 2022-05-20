@@ -55,47 +55,77 @@ def close_db(e=None):
         db.close()
 
 
-def addToSearchHistory(user, id, gender, name, weight, age, nicotine, study):
-    entry = entryBuilder(user, id, gender, name, weight, age, nicotine, study)
+def addToSearchHistory(user, id, gender, name, weight, age, nicotine, study,
+                            ans1a, ans1b, ans1c,
+                            ans2a, ans2b, ans2c,
+                            ans3a, ans3b, ans3c):
+    entry = entryBuilder(user, id, gender, name, weight, age, nicotine, study, ans1a, ans1b, ans1c,
+                            ans2a, ans2b, ans2c,
+                            ans3a, ans3b, ans3c)
     conn = get_db()
     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
     cur.execute("INSERT INTO SearchHistory(search) VALUES ('" + entry + "')")
     conn.commit()
 
-def entryBuilder(user, id, gender, name, weight, age, nicotine, study):
+def entryBuilder(user, id, gender, name, weight, age, nicotine, study,
+                            ans1a, ans1b, ans1c,
+                            ans2a, ans2b, ans2c,
+                            ans3a, ans3b, ans3c):
     now = datetime.now()
-    entry = now.strftime("%d/%m/%Y %H:%M:%S") + ": " + str(user) + " sökte på "
+    entry = now.strftime("%d/%m/%Y %H:%M:%S") + ": " + str(user) + " sökte på alla patienter"
 
-    if (len(id) == 0 and gender == "Alla" and len(name) == 0 and len(weight) == 0 and len(age) == 0 and len(study) == 0 and nicotine == "both"):
-        entry += "alla patienter"
-        return entry
+    if (len(id) != 0 or gender != "Alla" or len(name) != 0 or len(weight) != 0 or len(age) != 0 or len(study) != 0 or nicotine != "both"):
+        entry += " som "
 
-    entry += " patienter som "
+        if len(id) != 0:
+            entry += " har id-nummer " + id + ", "
 
-    if len(id) != 0:
-        entry += " har id-nummer " + id + ", "
+        if gender != "Alla":
+            entry += " är av könet " + gender + ", "
 
-    if gender != "Alla":
-        entry += " är av könet " + gender + ", "
+        if len(name) != 0:
+            entry += " heter " + name + ", "
 
-    if len(name) != 0:
-        entry += " heter " + name + ", "
+        if len(weight) != 0:
+            entry += " väger " + weight + " kg, "
 
-    if len(weight) != 0:
-        entry += " väger " + weight + " kg, "
+        if len(age) != 0:
+            entry += " är " + age + " år gamla, "
 
-    if len(age) != 0:
-        entry += " är " + age + " år gamla, "
-
-    if len(study) != 0:
-        entry += " deltar i studie nummer " + study + ", "
+        if len(study) != 0:
+            entry += " deltar i studie nummer " + study + ", "
 
     #if nicotine == "both":
     #    entry += "och är antingen rökare och ickerökare"
-    if nicotine == "Nej":
-        entry += "inte röker"
-    if nicotine == "Ja":
-        entry += "röker"
+        if nicotine == "Nej":
+            entry += "inte röker"
+        if nicotine == "Ja":
+            entry += "röker"
+
+    if len(ans1a) > 0 or len(ans1b) > 0 or len(ans1c) > 0 or len(ans2a) > 0 or len(ans2b) > 0 or len(ans2c) > 0 or len(ans3a) > 0 or len(ans3b) > 0 or len(ans3c) > 0:
+        if "som" not in entry:
+            entry += " som har gett enkätsvaren: "
+        else :
+            entry += " och har gett enkätsvaren: "
+        if len(ans1a) != 0:
+            entry += ans1a + ", "
+        if len(ans1b) != 0:
+            entry += ans1b + ", "
+        if len(ans1c) != 0:
+            entry += ans1c + ", "
+        if len(ans2a) != 0:
+            entry += ans2a + ", "
+        if len(ans2b) != 0:
+            entry += ans2b + ", "
+        if len(ans2c) != 0:
+            entry += ans2c + ", "
+        if len(ans3a) != 0:
+            entry += ans3a + ", "
+        if len(ans3b) != 0:
+            entry += ans3b + ", "
+        if len(ans3c) != 0:
+            entry += ans3c
+    
 
     if entry[-2] == ",":
         entry = entry[:-2]

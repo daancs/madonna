@@ -275,6 +275,22 @@
         border-bottom-left-radius: 4px;
     }
 
+.formsearch {
+    display: flex;
+    flex-direction: row !important;
+    flex-wrap: wrap;
+    width: 98vw;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.formsearch>div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1.5rem;
+}   
+
 /*
     Section: Display the search history
     Used in: home.html
@@ -464,6 +480,7 @@
 
     label.editPatientForm {
         font-size: 16px;
+        align-items: center;
     }
 
 /*
@@ -485,19 +502,66 @@
         font-weight: bolder;
     }
 
+    a.grid-item-top {
+        font-size: 30px;
+        font-weight: bolder;
+        text-align: center;
+        padding-top: 2%;
+        padding-bottom: 3%;
+
+    }
+
+    .results {
+        padding-left: 13%;
+        display: flexbox;
+        margin: 1px;
+    }
+
+    .results2 {
+        padding-left: 70%;
+        display: flexbox;
+    }
+
+    .align-results {
+        display:flexbox;
+
+    }
+
     a.grid-items-a1 {
         font-size: medium;
         font-weight: bold;
     }
 
-    a.grid-items-a2 {
+    p.grid-items-a2 {
+        display: block;
         font-size: small;
         font-weight: lighter;
+        margin-right: 1px;
+    
+    }
+
+    div.rubrics {
+        font-size: 20px;
+        font-weight: bold;
+        text-align: center;
+        display: flex;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+        
+
+    }
+
+    a.grid-item-rubric {
+        padding-left: 0%;
+        padding-right: 0%;
+        width: 33%;
+
     }
 
     .grid-studyView {
         display: grid;
-        row-gap: 10px;
+        row-gap: 2px;
       }
 
     .rubric-study {
