@@ -304,14 +304,12 @@
 
     div.changelogEntry{
         /*display: grid;*/
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: 1fr 1fr;
+        /*grid-template-columns: 1fr 1fr;*/
+        /*grid-template-rows: 1fr 1fr;*/
         background: #FAFAFA;
         border-radius: 4px;
-        align-items: center;
-        justify-content: space-evenly;
         margin: 0.5rem 0;
-        padding: 0 1em 0 1em;
+        padding: 1em;
       }
 
 /*
