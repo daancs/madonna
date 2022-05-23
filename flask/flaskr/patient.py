@@ -13,6 +13,7 @@ patientColNames = ['Key-ID', 'Personnummer', 'Namn', 'Ålder', 'Kön', 'Vikt', '
 casesColNames = ['Case-ID', 'Patient', 'Komplikation', 'Granskad av', 'Granskningsdatum', 'Studie avslutad']
 
 @bp.route('/patient/<key_id>', methods=['GET'])
+@login_required
 def patient(key_id):
     result = getPatientData(key_id)
 
@@ -26,7 +27,7 @@ def patient(key_id):
     if survey:
         for i in survey:
             survey_nmbr.append(i[0])
-            survey_q.append(i[3]) 
+            survey_q.append(i[3])
             survey_ans.append(i[4])
     else:
         survey_nmbr = 0
@@ -50,6 +51,7 @@ def patient(key_id):
     # return render_template('patient/patientview.html', patient_inf=patient_inf, cases_inf=cases_inf, patient_col_names=patient_col_names, cases_col_names=cases_col_names)
 
 @bp.route('/patient/<key_id>/edit', methods=['GET', 'POST'])
+@login_required
 def editPatient(key_id):
     if request.method == 'POST':
         print(key_id)
@@ -90,8 +92,8 @@ def exit():
 def getPatientData(key_id):
     conn = db.get_db()
     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
-    query = """SELECT * FROM Patients 
-                LEFT JOIN Cases ON patients.key_id=cases.patient 
+    query = """SELECT * FROM Patients
+                LEFT JOIN Cases ON patients.key_id=cases.patient
                 LEFT JOIN MedicalHistory ON patients.key_id=MedicalHistory.key_id
                 WHERE Patients.key_id =(%s)"""
     cur.execute(query, (key_id,))

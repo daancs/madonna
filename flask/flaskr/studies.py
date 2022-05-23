@@ -11,6 +11,7 @@ bp = Blueprint('studies', __name__)
 
 
 @bp.route('/studies')
+@login_required
 def patients():
     conn = db.get_db()
     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
@@ -27,6 +28,7 @@ def patients():
 
 
 @bp.route('/studies/studyOne')
+@login_required
 def studyInfo():
     conn = db.get_db()
     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
@@ -41,6 +43,7 @@ def studyInfo():
     return render_template('study/studyInfo.html', result=result, result2=result2)
 
 @bp.route('/studies/studyTwo')
+@login_required
 def studyInfo2():
     conn = db.get_db()
     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
